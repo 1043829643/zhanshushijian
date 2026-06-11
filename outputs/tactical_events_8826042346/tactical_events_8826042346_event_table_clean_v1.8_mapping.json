@@ -1,0 +1,13 @@
+{
+  "roshan_kill_merges": [
+    {
+      "roshan_kill_time": "26:49-26:49",
+      "new_time_range": "26:49-26:49",
+      "new_result": "LGD(夜魇)击杀肉山；LGD(夜魇) 电炎绝手获得肉山盾",
+      "merged_drop_ids": [
+        97
+      ]
+    }
+  ],
+  "combat_duplicate_merges": []
+}

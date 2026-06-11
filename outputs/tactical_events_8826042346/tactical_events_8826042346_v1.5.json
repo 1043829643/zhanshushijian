@@ -1,0 +1,1991 @@
+[
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": -45,
+    "t_end": -19,
+    "t_anchor": -45,
+    "time_range": "-00:45--00:19",
+    "anchor_time": "-00:45",
+    "heroes": "使用: BB(天辉) 巨牙海民; 进入: 光之守卫, 狼人, 瘟疫法师, 巨牙海民, 风行者",
+    "region": "中路/河道 raw=(118,97) game=(-1254,-3947)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 1,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": -20,
+    "t_end": -17,
+    "t_anchor": -20,
+    "time_range": "-00:20--00:17",
+    "anchor_time": "-00:20",
+    "heroes": "使用: LGD(夜魇) 娜迦海妖; 进入: 祸乱之源, 森海飞霞, 昆卡, 娜迦海妖, 电炎绝手",
+    "region": "中路/河道 raw=(137,136) game=(1091,969)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 2,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "BB(天辉) 光之守卫 / steamid=76561198440678391 / player=lorenof mindset",
+    "region": "中路 (mid); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 3,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "BB(天辉) 巨牙海民 / steamid=76561198157143864 / player=Y",
+    "region": "优势路 (bot); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 4,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "BB(天辉) 狼人 / steamid=76561198125830326 / player=Badwater",
+    "region": "劣势路 (top); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 5,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "BB(天辉) 瘟疫法师 / steamid=76561198132365456 / player=Naruto~",
+    "region": "优势路 (bot); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 6,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "BB(天辉) 风行者 / steamid=76561198278146366 / player=`8V",
+    "region": "劣势路 (top); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 7,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "LGD(夜魇) 娜迦海妖 / steamid=76561198137469680 / player=Yuma",
+    "region": "优势路 (top); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 8,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "LGD(夜魇) 昆卡 / steamid=76561198986960197 / player=a",
+    "region": "中路 (mid); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 9,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "LGD(夜魇) 森海飞霞 / steamid=76561198065311019 / player=0U!Y",
+    "region": "劣势路 (bot); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 10,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "LGD(夜魇) 电炎绝手 / steamid=76561198253187000 / player=Wisper",
+    "region": "劣势路 (bot); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 11,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "LGD(夜魇) 祸乱之源 / steamid=76561198041572126 / player=марсианин",
+    "region": "优势路 (top); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 12,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 0,
+    "t_end": 0,
+    "t_anchor": 0,
+    "time_range": "00:00-00:00",
+    "anchor_time": "00:00",
+    "heroes": "夜魇赏金符点附近: BB(天辉): 光之守卫, 狼人, 风行者; LGD(夜魇): 无",
+    "region": "夜魇赏金符点 raw=(114.32,135.93) game=(-1751,1015)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=狼人拾取夜魇赏金神符; 执行=BB(天辉) 狼人",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 13,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 0,
+    "t_end": 2,
+    "t_anchor": 2,
+    "time_range": "00:00-00:02",
+    "anchor_time": "00:02",
+    "heroes": "夜魇赏金符点附近: BB(天辉): 无; LGD(夜魇): 娜迦海妖",
+    "region": "夜魇赏金符点 raw=(119.60,163.55) game=(-1076,4550)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=娜迦海妖拾取夜魇赏金神符; 执行=LGD(夜魇) 娜迦海妖",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 14,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 0,
+    "t_end": 0,
+    "t_anchor": 0,
+    "time_range": "00:00-00:00",
+    "anchor_time": "00:00",
+    "heroes": "天辉赏金符点附近: BB(天辉): 巨牙海民; LGD(夜魇): 无",
+    "region": "天辉赏金符点 raw=(132.44,92.13) game=(568,-4591)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=巨牙海民拾取天辉赏金神符; 执行=BB(天辉) 巨牙海民",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 15,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 0,
+    "t_end": 0,
+    "t_anchor": 0,
+    "time_range": "00:00-00:00",
+    "anchor_time": "00:00",
+    "heroes": "天辉赏金符点附近: BB(天辉): 无; LGD(夜魇): 昆卡, 森海飞霞",
+    "region": "天辉赏金符点 raw=(137.70,119.80) game=(1241,-1049)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=昆卡拾取天辉赏金神符; 执行=LGD(夜魇) 昆卡",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 16,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 35,
+    "t_end": 39,
+    "t_anchor": 35,
+    "time_range": "00:35-00:39",
+    "anchor_time": "00:35",
+    "heroes": "BB(天辉): 狼人, 风行者; LGD(夜魇): 祸乱之源, 娜迦海妖",
+    "region": "上路/上半区 raw=(78,162) game=(-6339,4395)",
+    "evidence": "BB(天辉) 风行者->娜迦海妖 unknown 136伤害; 参与 BB(天辉) 2人/LGD(夜魇) 2人; 伤害 BB(天辉) 1239 / LGD(夜魇) 164; 击杀 BB(天辉) 0 / LGD(夜魇) 0; 死亡: 无",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 17,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 121,
+    "t_end": 129,
+    "t_anchor": 121,
+    "time_range": "02:01-02:09",
+    "anchor_time": "02:01",
+    "heroes": "BB(天辉): 狼人, 风行者; LGD(夜魇): 祸乱之源, 娜迦海妖",
+    "region": "上路/上半区 raw=(84,158) game=(-5609,3808)",
+    "evidence": "BB(天辉) 风行者->娜迦海妖 unknown 150伤害; 参与 BB(天辉) 2人/LGD(夜魇) 2人; 伤害 BB(天辉) 1113 / LGD(夜魇) 246; 击杀 BB(天辉) 0 / LGD(夜魇) 0; 死亡: 无",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 18,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 126,
+    "t_end": 131,
+    "t_anchor": 131,
+    "time_range": "02:06-02:11",
+    "anchor_time": "02:11",
+    "heroes": "上符点附近: BB(天辉): 无; LGD(夜魇): 昆卡",
+    "region": "上符点 raw=(116.30,134.84) game=(-1498,876)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=7; 控符结果=昆卡拾取水符; 执行=LGD(夜魇) 昆卡",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 19,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 133,
+    "t_end": 138,
+    "t_anchor": 138,
+    "time_range": "02:13-02:18",
+    "anchor_time": "02:18",
+    "heroes": "下符点附近: BB(天辉): 光之守卫; LGD(夜魇): 无",
+    "region": "下符点 raw=(135.80,117.79) game=(999,-1307)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=7; 控符结果=光之守卫拾取水符; 执行=BB(天辉) 光之守卫",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 20,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 246,
+    "t_end": 251,
+    "t_anchor": 251,
+    "time_range": "04:06-04:11",
+    "anchor_time": "04:11",
+    "heroes": "下符点附近: BB(天辉): 无; LGD(夜魇): 昆卡",
+    "region": "下符点 raw=(134.64,121.25) game=(850,-863)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=7; 控符结果=昆卡拾取水符; 执行=LGD(夜魇) 昆卡",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 21,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 247,
+    "t_end": 252,
+    "t_anchor": 252,
+    "time_range": "04:07-04:12",
+    "anchor_time": "04:12",
+    "heroes": "上符点附近: BB(天辉): 光之守卫; LGD(夜魇): 无",
+    "region": "上符点 raw=(114.83,135.04) game=(-1686,901)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=7; 控符结果=光之守卫拾取水符; 执行=BB(天辉) 光之守卫",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 22,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 261,
+    "t_end": 269,
+    "t_anchor": 261,
+    "time_range": "04:21-04:29",
+    "anchor_time": "04:21",
+    "heroes": "BB(天辉): 狼人, 风行者; LGD(夜魇): 祸乱之源, 娜迦海妖",
+    "region": "上路/上半区 raw=(81,156) game=(-5998,3551)",
+    "evidence": "BB(天辉) 风行者->娜迦海妖 unknown 124伤害; 参与 BB(天辉) 2人/LGD(夜魇) 2人; 伤害 BB(天辉) 1319 / LGD(夜魇) 484; 击杀 BB(天辉) 0 / LGD(夜魇) 0; 死亡: 无",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 23,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 283,
+    "t_end": 289,
+    "t_anchor": 283,
+    "time_range": "04:43-04:49",
+    "anchor_time": "04:43",
+    "heroes": "BB(天辉): 瘟疫法师, 巨牙海民; LGD(夜魇): 森海飞霞, 电炎绝手",
+    "region": "下路/下半区 raw=(173,88) game=(5775,-5144)",
+    "evidence": "LGD(夜魇) 电炎绝手->巨牙海民 snapfire scatterblast 103伤害; 参与 BB(天辉) 2人/LGD(夜魇) 2人; 伤害 BB(天辉) 403 / LGD(夜魇) 813; 击杀 BB(天辉) 0 / LGD(夜魇) 0; 死亡: 无",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 24,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 296,
+    "t_end": 306,
+    "t_anchor": 301,
+    "time_range": "04:56-05:06",
+    "anchor_time": "05:01",
+    "heroes": "BB(天辉) 风行者",
+    "region": "上路/上半区 raw=(97,143) game=(-3980,1900)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +3; total camps=1, creeps=3",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 25,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 299,
+    "t_end": 304,
+    "t_anchor": 304,
+    "time_range": "04:59-05:04",
+    "anchor_time": "05:04",
+    "heroes": "夜魇赏金符点附近: BB(天辉): 无; LGD(夜魇): 祸乱之源",
+    "region": "夜魇赏金符点 raw=(117.96,162.50) game=(-1285,4416)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=祸乱之源拾取夜魇赏金神符; 执行=LGD(夜魇) 祸乱之源",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 26,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 308,
+    "t_end": 322,
+    "t_anchor": 308,
+    "time_range": "05:08-05:22",
+    "anchor_time": "05:08",
+    "heroes": "BB(天辉): 瘟疫法师, 巨牙海民, 风行者; LGD(夜魇): 森海飞霞, 电炎绝手",
+    "region": "下路/下半区 raw=(173,97) game=(5766,-4029)",
+    "evidence": "LGD(夜魇) 森海飞霞 hoodwink bushwhack 先手/开团技能; 参与 BB(天辉) 3人/LGD(夜魇) 2人; 伤害 BB(天辉) 1806 / LGD(夜魇) 2098; 击杀 BB(天辉) 2 / LGD(夜魇) 0; 死亡: 05:22 森海飞霞, 05:22 森海飞霞",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 27,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 358,
+    "t_end": 363,
+    "t_anchor": 363,
+    "time_range": "05:58-06:03",
+    "anchor_time": "06:03",
+    "heroes": "下符点附近: BB(天辉): 无; LGD(夜魇): 森海飞霞",
+    "region": "下符点 raw=(136.18,117.87) game=(1047,-1297)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=6; 控符结果=森海飞霞拾取奥术神符; 执行=LGD(夜魇) 森海飞霞",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 28,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 365,
+    "t_end": 370,
+    "t_anchor": 370,
+    "time_range": "06:05-06:10",
+    "anchor_time": "06:10",
+    "heroes": "天辉赏金符点附近: BB(天辉): 风行者; LGD(夜魇): 无",
+    "region": "天辉赏金符点 raw=(135.87,91.20) game=(1007,-4710)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=风行者拾取天辉赏金神符; 执行=BB(天辉) 风行者",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 29,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 395,
+    "t_end": 400,
+    "t_anchor": 395,
+    "time_range": "06:35-06:40",
+    "anchor_time": "06:35",
+    "heroes": "参与抓人: 光之守卫, 风行者; 被抓但逃脱: 祸乱之源; 逃脱动作: tpscroll; 受害方附近队友: 森海飞霞",
+    "region": "中路/河道 raw=(108,114) game=(-2535,-1776)",
+    "evidence": "目标被集火/控制后未死亡，并在 06:40 使用 item_tpscroll；敌方伤害 234，控制 2 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 30,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 416,
+    "t_end": 426,
+    "t_anchor": 421,
+    "time_range": "06:56-07:06",
+    "anchor_time": "07:01",
+    "heroes": "BB(天辉) 风行者",
+    "region": "上路/上半区 raw=(76,134) game=(-6634,708)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +7; total camps=2, creeps=10",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 31,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 417,
+    "t_end": 427,
+    "t_anchor": 427,
+    "time_range": "06:57-07:07",
+    "anchor_time": "07:07",
+    "heroes": "天辉侧智慧神符附近: BB(天辉): 风行者; LGD(夜魇): 无",
+    "region": "天辉侧智慧神符附近 (66,133)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=8; 控符结果=风行者拾取智慧神符; 执行=BB(天辉) 风行者; 约7分钟智慧神符；结束时间=激活神龛时间",
+    "notes": "",
+    "id": 32,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 418,
+    "t_end": 428,
+    "t_anchor": 428,
+    "time_range": "06:58-07:08",
+    "anchor_time": "07:08",
+    "heroes": "夜魇侧智慧神符附近: BB(天辉): 无; LGD(夜魇): 电炎绝手",
+    "region": "夜魇侧智慧神符附近 (191,118)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=8; 控符结果=电炎绝手拾取智慧神符; 执行=LGD(夜魇) 电炎绝手; 约7分钟智慧神符；结束时间=激活神龛时间",
+    "notes": "",
+    "id": 33,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": 447,
+    "t_end": 460,
+    "t_anchor": 447,
+    "time_range": "07:27-07:40",
+    "anchor_time": "07:27",
+    "heroes": "使用: LGD(夜魇) 祸乱之源; 进入: 祸乱之源, 昆卡",
+    "region": "中路/河道 raw=(132,115) game=(525,-1615)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 34,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 464,
+    "t_end": 467,
+    "t_anchor": 464,
+    "time_range": "07:44-07:47",
+    "anchor_time": "07:44",
+    "heroes": "BB(天辉): 瘟疫法师; LGD(夜魇): 祸乱之源, 森海飞霞, 昆卡, 电炎绝手",
+    "region": "下路/下半区 raw=(158,85) game=(3837,-5470)",
+    "evidence": "LGD(夜魇) 昆卡->瘟疫法师 kunkka torrent; 参与 BB(天辉) 1人/LGD(夜魇) 4人; 伤害 BB(天辉) 103 / LGD(夜魇) 1113; 击杀 BB(天辉) 0 / LGD(夜魇) 1; 死亡: 07:47 瘟疫法师",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 35,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "断线"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.55,
+    "t_start": 466,
+    "t_end": 478,
+    "t_anchor": 469,
+    "time_range": "07:46-07:58",
+    "anchor_time": "07:49",
+    "heroes": "LGD(夜魇) 昆卡",
+    "region": "劣势路/bot 下路/下半区 raw=(153,79) game=(3156,-6249)",
+    "evidence": "10分钟前同一12秒窗口击杀小兵 4 个，且位置偏离本人主对线路线",
+    "notes": "仅作为断线弱候选；Excel 要求人工核查小兵交汇前是否清线。",
+    "id": 36,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.82,
+    "t_start": 475,
+    "t_end": 480,
+    "t_anchor": 480,
+    "time_range": "07:55-08:00",
+    "anchor_time": "08:00",
+    "heroes": "上符点附近: BB(天辉): 光之守卫, 风行者; LGD(夜魇): 无",
+    "region": "上符点 raw=(115.19,136.67) game=(-1640,1110)",
+    "evidence": "power_rune_spawn minute=8; 控符结果=神符刷新在另一侧; 实际刷新=下符点; 实际结果=巨牙海民拾取隐身神符",
+    "notes": "河道能量符未刷新侧控符；附近英雄按1000码计算。",
+    "id": 37,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 475,
+    "t_end": 480,
+    "t_anchor": 480,
+    "time_range": "07:55-08:00",
+    "anchor_time": "08:00",
+    "heroes": "下符点附近: BB(天辉): 巨牙海民; LGD(夜魇): 森海飞霞",
+    "region": "下符点 raw=(135.40,118.10) game=(948,-1267)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=3; 控符结果=巨牙海民拾取隐身神符; 执行=BB(天辉) 巨牙海民",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 38,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 475,
+    "t_end": 480,
+    "t_anchor": 480,
+    "time_range": "07:55-08:00",
+    "anchor_time": "08:00",
+    "heroes": "天辉赏金符点附近: BB(天辉): 无; LGD(夜魇): 祸乱之源",
+    "region": "天辉赏金符点 raw=(131.96,93.36) game=(507,-4434)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=祸乱之源拾取天辉赏金神符; 执行=LGD(夜魇) 祸乱之源",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 39,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 481,
+    "t_end": 486,
+    "t_anchor": 486,
+    "time_range": "08:01-08:06",
+    "anchor_time": "08:06",
+    "heroes": "夜魇赏金符点附近: BB(天辉): 无; LGD(夜魇): 娜迦海妖",
+    "region": "夜魇赏金符点 raw=(118.62,162.42) game=(-1201,4406)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=娜迦海妖拾取夜魇赏金神符; 执行=LGD(夜魇) 娜迦海妖",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 40,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 501,
+    "t_end": 508,
+    "t_anchor": 501,
+    "time_range": "08:21-08:28",
+    "anchor_time": "08:21",
+    "heroes": "BB(天辉): 光之守卫; LGD(夜魇): 祸乱之源, 森海飞霞, 昆卡",
+    "region": "中路/河道 raw=(124,125) game=(-542,-396)",
+    "evidence": "LGD(夜魇) 祸乱之源->光之守卫 bane nightmare; 参与 BB(天辉) 1人/LGD(夜魇) 3人; 伤害 BB(天辉) 0 / LGD(夜魇) 885; 击杀 BB(天辉) 0 / LGD(夜魇) 1; 死亡: 08:28 光之守卫",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 41,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 536,
+    "t_end": 546,
+    "t_anchor": 541,
+    "time_range": "08:56-09:06",
+    "anchor_time": "09:01",
+    "heroes": "BB(天辉) 瘟疫法师",
+    "region": "下路/下半区 raw=(163,71) game=(4420,-7271)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +3; total camps=1, creeps=3",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 42,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 536,
+    "t_end": 546,
+    "t_anchor": 541,
+    "time_range": "08:56-09:06",
+    "anchor_time": "09:01",
+    "heroes": "LGD(夜魇) 电炎绝手",
+    "region": "下路/下半区 raw=(173,85) game=(5803,-5475)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +2; total camps=1, creeps=2",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 43,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.76,
+    "t_start": 595,
+    "t_end": 615,
+    "t_anchor": 610,
+    "time_range": "09:55-10:15",
+    "anchor_time": "10:10",
+    "heroes": "参与抓人: 森海飞霞, 电炎绝手; 被抓: 瘟疫法师; 受害方附近队友: 无",
+    "region": "下路/下半区 raw=(142,65) game=(1831,-8115)",
+    "evidence": "死亡窗口敌方伤害占比 91%; 受害者1000码队友数 0; death source=combat_logs",
+    "notes": "根据伤害占比+队友距离生成，符合 Excel 抓人候选口径；需确认是否有实质反抗。",
+    "id": 44,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.82,
+    "t_start": 595,
+    "t_end": 600,
+    "t_anchor": 600,
+    "time_range": "09:55-10:00",
+    "anchor_time": "10:00",
+    "heroes": "上符点附近: BB(天辉): 风行者; LGD(夜魇): 无",
+    "region": "上符点 raw=(115.19,136.67) game=(-1640,1110)",
+    "evidence": "power_rune_spawn minute=10; 控符结果=神符刷新在另一侧; 实际刷新=下符点; 实际结果=巨牙海民拾取幻象神符",
+    "notes": "河道能量符未刷新侧控符；附近英雄按1000码计算。",
+    "id": 45,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 596,
+    "t_end": 606,
+    "t_anchor": 601,
+    "time_range": "09:56-10:06",
+    "anchor_time": "10:01",
+    "heroes": "BB(天辉) 光之守卫",
+    "region": "中路/河道 raw=(108,98) game=(-2542,-3856)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +2; total camps=1, creeps=2",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 46,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 596,
+    "t_end": 606,
+    "t_anchor": 601,
+    "time_range": "09:56-10:06",
+    "anchor_time": "10:01",
+    "heroes": "BB(天辉) 瘟疫法师",
+    "region": "下路/下半区 raw=(144,64) game=(2040,-8163)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +6; total camps=2, creeps=9",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 47,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 596,
+    "t_end": 601,
+    "t_anchor": 601,
+    "time_range": "09:56-10:01",
+    "anchor_time": "10:01",
+    "heroes": "下符点附近: BB(天辉): 巨牙海民; LGD(夜魇): 祸乱之源",
+    "region": "下符点 raw=(135.33,117.07) game=(938,-1399)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=2; 控符结果=巨牙海民拾取幻象神符; 执行=BB(天辉) 巨牙海民",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 48,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "拉野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.66,
+    "t_start": 628,
+    "t_end": 641,
+    "t_anchor": 636,
+    "time_range": "10:28-10:41",
+    "anchor_time": "10:36",
+    "heroes": "BB(天辉) 狼人, LGD(夜魇) 娜迦海妖",
+    "region": "劣势路/top 上路/上半区 raw=(80,163) game=(-6145,4535)",
+    "evidence": "线上小兵与中立单位交战/死亡 2 条，死亡 2 条；样例: 10:36 npc_dota_neutral_warpine_raider->npc_dota_creep_badguys_flagbearer; 10:41 npc_dota_neutral_warpine_raider->npc_dota_creep_badguys_melee",
+    "notes": "按 combat_logs 中线上兵与中立单位互动生成；英雄拉仇恨起点仍建议人工核查。",
+    "id": 49,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.76,
+    "t_start": 652,
+    "t_end": 672,
+    "t_anchor": 667,
+    "time_range": "10:52-11:12",
+    "anchor_time": "11:07",
+    "heroes": "参与抓人: 祸乱之源, 昆卡; 被抓: 风行者; 受害方附近队友: 无",
+    "region": "中路/河道 raw=(126,124) game=(-243,-460)",
+    "evidence": "死亡窗口敌方伤害占比 100%; 受害者1000码队友数 0; death source=combat_logs",
+    "notes": "根据伤害占比+队友距离生成，符合 Excel 抓人候选口径；需确认是否有实质反抗。",
+    "id": 50,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.76,
+    "t_start": 655,
+    "t_end": 675,
+    "t_anchor": 670,
+    "time_range": "10:55-11:15",
+    "anchor_time": "11:10",
+    "heroes": "参与抓人: 森海飞霞, 电炎绝手; 被抓: 巨牙海民; 受害方附近队友: 无",
+    "region": "中路/河道 raw=(129,99) game=(175,-3707)",
+    "evidence": "死亡窗口敌方伤害占比 100%; 受害者1000码队友数 0; death source=combat_logs",
+    "notes": "根据伤害占比+队友距离生成，符合 Excel 抓人候选口径；需确认是否有实质反抗。",
+    "id": 51,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": 697,
+    "t_end": 731,
+    "t_anchor": 697,
+    "time_range": "11:37-12:11",
+    "anchor_time": "11:37",
+    "heroes": "使用: BB(天辉) 风行者; 进入: 光之守卫, 风行者",
+    "region": "天辉高地/基地 raw=(76,76) game=(-6700,-6700)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 52,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 716,
+    "t_end": 726,
+    "t_anchor": 721,
+    "time_range": "11:56-12:06",
+    "anchor_time": "12:01",
+    "heroes": "LGD(夜魇) 森海飞霞",
+    "region": "下路/下半区 raw=(178,89) game=(6360,-4980)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +3; total camps=1, creeps=3",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 53,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 716,
+    "t_end": 721,
+    "t_anchor": 721,
+    "time_range": "11:56-12:01",
+    "anchor_time": "12:01",
+    "heroes": "天辉赏金符点附近: BB(天辉): 无; LGD(夜魇): 祸乱之源",
+    "region": "天辉赏金符点 raw=(132.28,93.04) game=(548,-4475)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=祸乱之源拾取天辉赏金神符; 执行=LGD(夜魇) 祸乱之源",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 54,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 720,
+    "t_end": 725,
+    "t_anchor": 725,
+    "time_range": "12:00-12:05",
+    "anchor_time": "12:05",
+    "heroes": "上符点附近: BB(天辉): 无; LGD(夜魇): 昆卡",
+    "region": "上符点 raw=(117.35,137.52) game=(-1363,1219)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=4; 控符结果=昆卡拾取恢复神符; 执行=LGD(夜魇) 昆卡",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 55,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "小规模冲突",
+      "守塔团"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 726,
+    "t_end": 739,
+    "t_anchor": 726,
+    "time_range": "12:06-12:19",
+    "anchor_time": "12:06",
+    "heroes": "BB(天辉): 光之守卫, 狼人, 风行者; LGD(夜魇): 森海飞霞, 娜迦海妖",
+    "region": "上路/上半区 raw=(89,171) game=(-5032,5452)",
+    "evidence": "LGD(夜魇) 娜迦海妖->狼人 naga siren ensnare; 参与 BB(天辉) 3人/LGD(夜魇) 2人; 伤害 BB(天辉) 2786 / LGD(夜魇) 314; 击杀 BB(天辉) 0 / LGD(夜魇) 0; 死亡: 无; 防御塔上下文: tower_status_update team_num=3 hp=1800 (87,175)",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 56,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "拉野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.66,
+    "t_start": 726,
+    "t_end": 744,
+    "t_anchor": 734,
+    "time_range": "12:06-12:24",
+    "anchor_time": "12:14",
+    "heroes": "LGD(夜魇) 电炎绝手",
+    "region": "优势路/bot 下路/下半区 raw=(166,97) game=(4922,-3926)",
+    "evidence": "线上小兵与中立单位交战/死亡 3 条，死亡 3 条；样例: 12:14 npc_dota_neutral_centaur_khan->npc_dota_creep_badguys_melee; 12:19 npc_dota_neutral_centaur_khan->npc_dota_creep_badguys_melee; 12:24 npc_dota_neutral_centaur_khan->npc_dota_creep_badguys_ranged",
+    "notes": "按 combat_logs 中线上兵与中立单位互动生成；英雄拉仇恨起点仍建议人工核查。",
+    "id": 57,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 733,
+    "t_end": 739,
+    "t_anchor": 733,
+    "time_range": "12:13-12:19",
+    "anchor_time": "12:13",
+    "heroes": "参与抓人: 光之守卫, 狼人; 被抓但逃脱: 娜迦海妖; 逃脱动作: tpscroll; 受害方附近队友: 森海飞霞",
+    "region": "上路/上半区 raw=(94,173) game=(-4344,5792)",
+    "evidence": "目标被集火/控制后未死亡，并在 12:19 使用 item_tpscroll；敌方伤害 2210，控制 0 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 58,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 741,
+    "t_end": 749,
+    "t_anchor": 741,
+    "time_range": "12:21-12:29",
+    "anchor_time": "12:21",
+    "heroes": "参与抓人: 瘟疫法师, 巨牙海民; 被抓但逃脱: 祸乱之源; 逃脱动作: tpscroll; 受害方附近队友: 无",
+    "region": "中路/河道 raw=(127,99) game=(-162,-3728)",
+    "evidence": "目标被集火/控制后未死亡，并在 12:29 使用 item_tpscroll；敌方伤害 885，控制 4 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 59,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "小规模冲突",
+      "守塔团"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 768,
+    "t_end": 778,
+    "t_anchor": 768,
+    "time_range": "12:48-12:58",
+    "anchor_time": "12:48",
+    "heroes": "BB(天辉): 光之守卫, 风行者; LGD(夜魇): 森海飞霞, 昆卡, 电炎绝手",
+    "region": "上路/上半区 raw=(87,173) game=(-5280,5737)",
+    "evidence": "BB(天辉) 风行者 windrunner shackleshot 先手/开团技能; 参与 BB(天辉) 2人/LGD(夜魇) 3人; 伤害 BB(天辉) 933 / LGD(夜魇) 1300; 击杀 BB(天辉) 0 / LGD(夜魇) 1; 死亡: 12:58 风行者; 防御塔上下文: tower_status_update team_num=3 hp=450 (87,175)",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 60,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 769,
+    "t_end": 778,
+    "t_anchor": 769,
+    "time_range": "12:49-12:58",
+    "anchor_time": "12:49",
+    "heroes": "参与抓人: 昆卡; 被抓但逃脱: 光之守卫; 逃脱动作: tpscroll; 受害方附近队友: 狼人",
+    "region": "上路/上半区 raw=(85,161) game=(-5530,4275)",
+    "evidence": "目标被集火/控制后未死亡，并在 12:58 使用 item_tpscroll；敌方伤害 416，控制 2 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 61,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 773,
+    "t_end": 778,
+    "t_anchor": 778,
+    "time_range": "12:53-12:58",
+    "anchor_time": "12:58",
+    "heroes": "夜魇赏金符点附近: BB(天辉): 无; LGD(夜魇): 祸乱之源",
+    "region": "夜魇赏金符点 raw=(123.76,163.40) game=(-542,4532)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=祸乱之源拾取夜魇赏金神符; 执行=LGD(夜魇) 祸乱之源",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 62,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 827,
+    "t_end": 830,
+    "t_anchor": 827,
+    "time_range": "13:47-13:50",
+    "anchor_time": "13:47",
+    "heroes": "BB(天辉): 巨牙海民; LGD(夜魇): 祸乱之源, 昆卡, 电炎绝手",
+    "region": "下路/下半区 raw=(171,82) game=(5501,-5901)",
+    "evidence": "LGD(夜魇) 昆卡->巨牙海民 kunkka torrent; 参与 BB(天辉) 1人/LGD(夜魇) 3人; 伤害 BB(天辉) 0 / LGD(夜魇) 1175; 击杀 BB(天辉) 0 / LGD(夜魇) 1; 死亡: 13:50 巨牙海民",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 63,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 833,
+    "t_end": 843,
+    "t_anchor": 843,
+    "time_range": "13:53-14:03",
+    "anchor_time": "14:03",
+    "heroes": "天辉侧智慧神符附近: BB(天辉): 风行者; LGD(夜魇): 无",
+    "region": "天辉侧智慧神符附近 (66,134)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=8; 控符结果=风行者拾取智慧神符; 执行=BB(天辉) 风行者; 约14分钟智慧神符；结束时间=激活神龛时间",
+    "notes": "",
+    "id": 64,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.76,
+    "t_start": 853,
+    "t_end": 873,
+    "t_anchor": 868,
+    "time_range": "14:13-14:33",
+    "anchor_time": "14:28",
+    "heroes": "参与抓人: 森海飞霞, 娜迦海妖; 被抓: 风行者; 受害方附近队友: 无",
+    "region": "上路/上半区 raw=(91,168) game=(-4741,5091)",
+    "evidence": "死亡窗口敌方伤害占比 82%; 受害者1000码队友数 0; death source=combat_logs",
+    "notes": "根据伤害占比+队友距离生成，符合 Excel 抓人候选口径；需确认是否有实质反抗。",
+    "id": 65,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 885,
+    "t_end": 890,
+    "t_anchor": 890,
+    "time_range": "14:45-14:50",
+    "anchor_time": "14:50",
+    "heroes": "上符点附近: BB(天辉): 无; LGD(夜魇): 森海飞霞",
+    "region": "上符点 raw=(117.24,137.44) game=(-1377,1209)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=1; 控符结果=森海飞霞拾取急速神符; 执行=LGD(夜魇) 森海飞霞",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 66,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "团战"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.78,
+    "t_start": 890,
+    "t_end": 918,
+    "t_anchor": 890,
+    "time_range": "14:50-15:18",
+    "anchor_time": "14:50",
+    "heroes": "BB(天辉): 光之守卫, 狼人, 瘟疫法师, 巨牙海民, 风行者; LGD(夜魇): 祸乱之源, 森海飞霞, 昆卡, 电炎绝手",
+    "region": "下路/下半区 raw=(137,89) game=(1139,-5018)",
+    "evidence": "LGD(夜魇) 电炎绝手->瘟疫法师 snapfire mortimer kisses 177伤害; 参与 BB(天辉) 5人/LGD(夜魇) 4人; 伤害 BB(天辉) 1266 / LGD(夜魇) 1696; 击杀 BB(天辉) 0 / LGD(夜魇) 1; 死亡: 14:56 瘟疫法师",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 67,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 956,
+    "t_end": 966,
+    "t_anchor": 961,
+    "time_range": "15:56-16:06",
+    "anchor_time": "16:01",
+    "heroes": "BB(天辉) 光之守卫",
+    "region": "中路/河道 raw=(95,113) game=(-4169,-1972)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +3; total camps=2, creeps=5",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 68,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 956,
+    "t_end": 961,
+    "t_anchor": 961,
+    "time_range": "15:56-16:01",
+    "anchor_time": "16:01",
+    "heroes": "上符点附近: BB(天辉): 无; LGD(夜魇): 昆卡",
+    "region": "上符点 raw=(114.24,135.90) game=(-1762,1012)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=9; 控符结果=昆卡拾取护盾神符; 执行=LGD(夜魇) 昆卡",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 69,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 959,
+    "t_end": 964,
+    "t_anchor": 964,
+    "time_range": "15:59-16:04",
+    "anchor_time": "16:04",
+    "heroes": "夜魇赏金符点附近: BB(天辉): 无; LGD(夜魇): 娜迦海妖",
+    "region": "夜魇赏金符点 raw=(120.71,161.29) game=(-933,4261)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=娜迦海妖拾取夜魇赏金神符; 执行=LGD(夜魇) 娜迦海妖",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 70,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 967,
+    "t_end": 977,
+    "t_anchor": 967,
+    "time_range": "16:07-16:17",
+    "anchor_time": "16:07",
+    "heroes": "BB(天辉): 光之守卫; LGD(夜魇): 森海飞霞, 昆卡, 娜迦海妖",
+    "region": "中路/河道 raw=(100,122) game=(-3603,-779)",
+    "evidence": "LGD(夜魇) 森海飞霞 hoodwink bushwhack 先手/开团技能; 参与 BB(天辉) 1人/LGD(夜魇) 3人; 伤害 BB(天辉) 91 / LGD(夜魇) 1582; 击杀 BB(天辉) 0 / LGD(夜魇) 1; 死亡: 16:17 光之守卫",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 71,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "小规模冲突",
+      "守塔团"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 1004,
+    "t_end": 1014,
+    "t_anchor": 1004,
+    "time_range": "16:44-16:54",
+    "anchor_time": "16:44",
+    "heroes": "BB(天辉): 巨牙海民; LGD(夜魇): 森海飞霞, 昆卡, 电炎绝手",
+    "region": "上路/上半区 raw=(80,148) game=(-6190,2580)",
+    "evidence": "LGD(夜魇) 森海飞霞 hoodwink bushwhack 先手/开团技能; 参与 BB(天辉) 1人/LGD(夜魇) 3人; 伤害 BB(天辉) 112 / LGD(夜魇) 1560; 击杀 BB(天辉) 0 / LGD(夜魇) 1; 死亡: 16:53 巨牙海民; 防御塔上下文: tower_status_update team_num=2 hp=1066 (78,142)",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 72,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1011,
+    "t_end": 1016,
+    "t_anchor": 1016,
+    "time_range": "16:51-16:56",
+    "anchor_time": "16:56",
+    "heroes": "天辉赏金符点附近: BB(天辉): 风行者; LGD(夜魇): 无",
+    "region": "天辉赏金符点 raw=(134.66,91.70) game=(853,-4646)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=风行者拾取天辉赏金神符; 执行=BB(天辉) 风行者",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 73,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 1013,
+    "t_end": 1023,
+    "t_anchor": 1023,
+    "time_range": "16:53-17:03",
+    "anchor_time": "17:03",
+    "heroes": "夜魇侧智慧神符附近: BB(天辉): 无; LGD(夜魇): 祸乱之源",
+    "region": "夜魇侧智慧神符附近 (192,117)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=8; 控符结果=祸乱之源拾取智慧神符; 执行=LGD(夜魇) 祸乱之源; 约17分钟智慧神符；结束时间=激活神龛时间",
+    "notes": "",
+    "id": 74,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 1016,
+    "t_end": 1026,
+    "t_anchor": 1021,
+    "time_range": "16:56-17:06",
+    "anchor_time": "17:01",
+    "heroes": "BB(天辉) 风行者",
+    "region": "中路/河道 raw=(128,99) game=(-53,-3685)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +3; total camps=3, creeps=13",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 75,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": 1065,
+    "t_end": 1085,
+    "t_anchor": 1065,
+    "time_range": "17:45-18:05",
+    "anchor_time": "17:45",
+    "heroes": "使用: BB(天辉) 风行者; 进入: 狼人, 巨牙海民, 风行者",
+    "region": "下路/下半区 raw=(142,90) game=(1828,-4841)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 76,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1081,
+    "t_end": 1086,
+    "t_anchor": 1086,
+    "time_range": "18:01-18:06",
+    "anchor_time": "18:06",
+    "heroes": "上符点附近: BB(天辉): 狼人, 风行者, 巨牙海民; LGD(夜魇): 祸乱之源",
+    "region": "上符点 raw=(114.09,134.84) game=(-1780,876)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=0; 控符结果=风行者拾取双倍神符; 执行=BB(天辉) 风行者",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 77,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 1104,
+    "t_end": 1105,
+    "t_anchor": 1104,
+    "time_range": "18:24-18:25",
+    "anchor_time": "18:24",
+    "heroes": "参与抓人: 巨牙海民, 风行者; 被抓但逃脱: 昆卡; 逃脱动作: black king bar; 受害方附近队友: 无",
+    "region": "上路/上半区 raw=(86,151) game=(-5329,2943)",
+    "evidence": "目标被集火/控制后未死亡，并在 18:25 使用 item_black_king_bar；敌方伤害 240，控制 2 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 78,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.76,
+    "t_start": 1130,
+    "t_end": 1150,
+    "t_anchor": 1145,
+    "time_range": "18:50-19:10",
+    "anchor_time": "19:05",
+    "heroes": "参与抓人: 森海飞霞, 电炎绝手; 被抓: 风行者; 受害方附近队友: 无",
+    "region": "上路/上半区 raw=(72,116) game=(-7219,-1508)",
+    "evidence": "死亡窗口敌方伤害占比 83%; 受害者1000码队友数 0; death source=combat_logs",
+    "notes": "根据伤害占比+队友距离生成，符合 Excel 抓人候选口径；需确认是否有实质反抗。",
+    "id": 79,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.76,
+    "t_start": 1131,
+    "t_end": 1151,
+    "t_anchor": 1146,
+    "time_range": "18:51-19:11",
+    "anchor_time": "19:06",
+    "heroes": "参与抓人: 祸乱之源, 森海飞霞, 娜迦海妖; 被抓: 狼人; 受害方附近队友: 无",
+    "region": "中路/河道 raw=(79,111) game=(-6262,-2237)",
+    "evidence": "死亡窗口敌方伤害占比 91%; 受害者1000码队友数 0; death source=combat_logs",
+    "notes": "根据伤害占比+队友距离生成，符合 Excel 抓人候选口径；需确认是否有实质反抗。",
+    "id": 80,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "小规模冲突",
+      "守塔团"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 1166,
+    "t_end": 1179,
+    "t_anchor": 1166,
+    "time_range": "19:26-19:39",
+    "anchor_time": "19:26",
+    "heroes": "BB(天辉): 光之守卫, 瘟疫法师; LGD(夜魇): 祸乱之源, 娜迦海妖",
+    "region": "中路/河道 raw=(109,105) game=(-2437,-2992)",
+    "evidence": "LGD(夜魇) 电炎绝手 blink 先手/开团技能; 参与 BB(天辉) 2人/LGD(夜魇) 2人; 伤害 BB(天辉) 7713 / LGD(夜魇) 840; 击杀 BB(天辉) 0 / LGD(夜魇) 0; 死亡: 无; 防御塔上下文: tower_status_update team_num=2 hp=1831 (103,105)",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 81,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.82,
+    "t_start": 1195,
+    "t_end": 1200,
+    "t_anchor": 1200,
+    "time_range": "19:55-20:00",
+    "anchor_time": "20:00",
+    "heroes": "下符点附近: BB(天辉): 无; LGD(夜魇): 电炎绝手",
+    "region": "下符点 raw=(137.22,118.55) game=(1180,-1210)",
+    "evidence": "power_rune_spawn minute=20; 控符结果=神符刷新在另一侧; 实际刷新=上符点; 实际结果=娜迦海妖拾取恢复神符",
+    "notes": "河道能量符未刷新侧控符；附近英雄按1000码计算。",
+    "id": 82,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 1196,
+    "t_end": 1206,
+    "t_anchor": 1201,
+    "time_range": "19:56-20:06",
+    "anchor_time": "20:01",
+    "heroes": "BB(天辉) 瘟疫法师",
+    "region": "下路/下半区 raw=(138,81) game=(1277,-6052)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +3; total camps=3, creeps=12",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 83,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "肉山团",
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 1196,
+    "t_end": 1205,
+    "t_anchor": 1196,
+    "time_range": "19:56-20:05",
+    "anchor_time": "19:56",
+    "heroes": "BB(天辉): 光之守卫, 巨牙海民, 风行者; LGD(夜魇): 森海飞霞, 娜迦海妖",
+    "region": "中路/河道 raw=(114,137) game=(-1829,1159)",
+    "evidence": "BB(天辉) 巨牙海民->娜迦海妖 tusk ice shards 179伤害; 参与 BB(天辉) 3人/LGD(夜魇) 2人; 伤害 BB(天辉) 4755 / LGD(夜魇) 685; 击杀 BB(天辉) 0 / LGD(夜魇) 0; 死亡: 无",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 84,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1199,
+    "t_end": 1204,
+    "t_anchor": 1204,
+    "time_range": "19:59-20:04",
+    "anchor_time": "20:04",
+    "heroes": "上符点附近: BB(天辉): 巨牙海民; LGD(夜魇): 娜迦海妖, 森海飞霞, 祸乱之源",
+    "region": "上符点 raw=(115.12,137.71) game=(-1648,1243)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=4; 控符结果=娜迦海妖拾取恢复神符; 执行=LGD(夜魇) 娜迦海妖",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 85,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1221,
+    "t_end": 1226,
+    "t_anchor": 1226,
+    "time_range": "20:21-20:26",
+    "anchor_time": "20:26",
+    "heroes": "天辉赏金符点附近: BB(天辉): 瘟疫法师, 风行者, 巨牙海民; LGD(夜魇): 无",
+    "region": "天辉赏金符点 raw=(135.01,91.77) game=(897,-4638)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=瘟疫法师拾取天辉赏金神符; 执行=BB(天辉) 瘟疫法师",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 86,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": 1226,
+    "t_end": 1236,
+    "t_anchor": 1226,
+    "time_range": "20:26-20:36",
+    "anchor_time": "20:26",
+    "heroes": "使用: LGD(夜魇) 森海飞霞; 进入: 祸乱之源, 森海飞霞, 电炎绝手",
+    "region": "中路/河道 raw=(138,133) game=(1296,666)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 87,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 1244,
+    "t_end": 1251,
+    "t_anchor": 1244,
+    "time_range": "20:44-20:51",
+    "anchor_time": "20:44",
+    "heroes": "BB(天辉): 狼人; LGD(夜魇): 森海飞霞, 昆卡, 电炎绝手",
+    "region": "上路/上半区 raw=(90,163) game=(-4881,4540)",
+    "evidence": "LGD(夜魇) 森海飞霞 hoodwink bushwhack 先手/开团技能; 参与 BB(天辉) 1人/LGD(夜魇) 3人; 伤害 BB(天辉) 0 / LGD(夜魇) 5748; 击杀 BB(天辉) 0 / LGD(夜魇) 2; 死亡: 20:51 狼人, 20:51 狼人",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 88,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1261,
+    "t_end": 1266,
+    "t_anchor": 1266,
+    "time_range": "21:01-21:06",
+    "anchor_time": "21:06",
+    "heroes": "夜魇赏金符点附近: BB(天辉): 狼人; LGD(夜魇): 无",
+    "region": "夜魇赏金符点 raw=(85.59,167.19) game=(-5428,5016)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_DENY value=5; 控符结果=狼人反补夜魇赏金神符; 执行=BB(天辉) 狼人",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 89,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 1280,
+    "t_end": 1290,
+    "t_anchor": 1290,
+    "time_range": "21:20-21:30",
+    "anchor_time": "21:30",
+    "heroes": "天辉侧智慧神符附近: BB(天辉): 无; LGD(夜魇): 森海飞霞",
+    "region": "天辉侧智慧神符附近 (65,133)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=8; 控符结果=森海飞霞拾取智慧神符; 执行=LGD(夜魇) 森海飞霞; 约22分钟智慧神符；结束时间=激活神龛时间",
+    "notes": "",
+    "id": 90,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1336,
+    "t_end": 1341,
+    "t_anchor": 1341,
+    "time_range": "22:16-22:21",
+    "anchor_time": "22:21",
+    "heroes": "下符点附近: BB(天辉): 无; LGD(夜魇): 昆卡",
+    "region": "下符点 raw=(137.09,118.98) game=(1163,-1154)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=1; 控符结果=昆卡拾取急速神符; 执行=LGD(夜魇) 昆卡",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 91,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "小规模冲突",
+      "守塔团"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 1360,
+    "t_end": 1410,
+    "t_anchor": 1360,
+    "time_range": "22:40-23:30",
+    "anchor_time": "22:40",
+    "heroes": "BB(天辉): 瘟疫法师, 巨牙海民, 风行者; LGD(夜魇): 森海飞霞, 昆卡, 娜迦海妖, 电炎绝手",
+    "region": "中路/河道 raw=(103,110) game=(-3148,-2262)",
+    "evidence": "LGD(夜魇) 昆卡->巨牙海民 kunkka tidal wave 129伤害; 参与 BB(天辉) 3人/LGD(夜魇) 4人; 伤害 BB(天辉) 41 / LGD(夜魇) 1817; 击杀 BB(天辉) 0 / LGD(夜魇) 1; 死亡: 22:46 巨牙海民; 防御塔上下文: tower_status_update team_num=2 hp=1706 (103,105)",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 92,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 1429,
+    "t_end": 1439,
+    "t_anchor": 1439,
+    "time_range": "23:49-23:59",
+    "anchor_time": "23:59",
+    "heroes": "夜魇侧智慧神符附近: BB(天辉): 无; LGD(夜魇): 祸乱之源",
+    "region": "夜魇侧智慧神符附近 (191,118)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=8; 控符结果=祸乱之源拾取智慧神符; 执行=LGD(夜魇) 祸乱之源; 约24分钟智慧神符；结束时间=激活神龛时间",
+    "notes": "",
+    "id": 93,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1462,
+    "t_end": 1467,
+    "t_anchor": 1467,
+    "time_range": "24:22-24:27",
+    "anchor_time": "24:27",
+    "heroes": "天辉赏金符点附近: BB(天辉): 无; LGD(夜魇): 祸乱之源",
+    "region": "天辉赏金符点 raw=(134.50,91.47) game=(832,-4675)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=祸乱之源拾取天辉赏金神符; 执行=LGD(夜魇) 祸乱之源",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 94,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "团战"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.78,
+    "t_start": 1492,
+    "t_end": 1533,
+    "t_anchor": 1492,
+    "time_range": "24:52-25:33",
+    "anchor_time": "24:52",
+    "heroes": "BB(天辉): 光之守卫, 狼人, 瘟疫法师, 风行者; LGD(夜魇): 森海飞霞, 昆卡, 娜迦海妖, 电炎绝手",
+    "region": "中路/河道 raw=(99,123) game=(-3775,-666)",
+    "evidence": "BB(天辉) 巨牙海民 blink 先手/开团技能; 参与 BB(天辉) 4人/LGD(夜魇) 4人; 伤害 BB(天辉) 3384 / LGD(夜魇) 2887; 击杀 BB(天辉) 1 / LGD(夜魇) 1; 死亡: 25:11 森海飞霞, 25:16 风行者",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 95,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 1556,
+    "t_end": 1566,
+    "t_anchor": 1561,
+    "time_range": "25:56-26:06",
+    "anchor_time": "26:01",
+    "heroes": "BB(天辉) 瘟疫法师",
+    "region": "下路/下半区 raw=(119,63) game=(-1206,-8275)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +3; total camps=4, creeps=15",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 96,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1585,
+    "t_end": 1590,
+    "t_anchor": 1590,
+    "time_range": "26:25-26:30",
+    "anchor_time": "26:30",
+    "heroes": "上符点附近: BB(天辉): 无; LGD(夜魇): 昆卡",
+    "region": "上符点 raw=(111.02,135.62) game=(-2173,976)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=3; 控符结果=昆卡拾取隐身神符; 执行=LGD(夜魇) 昆卡",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 97,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "资源获得"
+    ],
+    "status": "auto",
+    "confidence": 0.95,
+    "t_start": 1609,
+    "t_end": 1609,
+    "t_anchor": 1609,
+    "time_range": "26:49-26:49",
+    "anchor_time": "26:49",
+    "heroes": "LGD(夜魇)",
+    "region": "下路/下半区 raw=(149,107) game=(2630,-2673)",
+    "evidence": "26:49 击杀肉山: LGD(夜魇); chat type=CHAT_MESSAGE_ROSHAN_KILL; value=135; actor_source=combat_logs roshan_death",
+    "notes": "",
+    "id": 98,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "资源获得"
+    ],
+    "status": "auto",
+    "confidence": 0.95,
+    "t_start": 1609,
+    "t_end": 1609,
+    "t_anchor": 1609,
+    "time_range": "26:49-26:49",
+    "anchor_time": "26:49",
+    "heroes": "LGD(夜魇) 电炎绝手",
+    "region": "下路/下半区 raw=(151,106) game=(2952,-2818)",
+    "evidence": "26:49 获得肉山盾: LGD(夜魇) 电炎绝手; chat type=CHAT_MESSAGE_AEGIS; value=0",
+    "notes": "",
+    "id": 99,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": 1617,
+    "t_end": 1628,
+    "t_anchor": 1617,
+    "time_range": "26:57-27:08",
+    "anchor_time": "26:57",
+    "heroes": "使用: LGD(夜魇) 森海飞霞; 进入: 森海飞霞, 昆卡, 电炎绝手",
+    "region": "中路/河道 raw=(129,109) game=(111,-2459)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 100,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "团战"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.78,
+    "t_start": 1635,
+    "t_end": 1674,
+    "t_anchor": 1635,
+    "time_range": "27:15-27:54",
+    "anchor_time": "27:15",
+    "heroes": "BB(天辉): 光之守卫, 狼人, 瘟疫法师, 巨牙海民, 风行者; LGD(夜魇): 森海飞霞, 昆卡, 娜迦海妖, 电炎绝手",
+    "region": "上路/上半区 raw=(99,136) game=(-3718,994)",
+    "evidence": "LGD(夜魇) 昆卡->光之守卫 kunkka torrent; 参与 BB(天辉) 5人/LGD(夜魇) 4人; 伤害 BB(天辉) 4992 / LGD(夜魇) 3417; 击杀 BB(天辉) 1 / LGD(夜魇) 1; 死亡: 27:20 森海飞霞, 27:50 巨牙海民",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 101,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1650,
+    "t_end": 1655,
+    "t_anchor": 1655,
+    "time_range": "27:30-27:35",
+    "anchor_time": "27:35",
+    "heroes": "夜魇赏金符点附近: BB(天辉): 无; LGD(夜魇): 昆卡, 电炎绝手",
+    "region": "夜魇赏金符点 raw=(119.20,164.08) game=(-1127,4618)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=电炎绝手拾取夜魇赏金神符; 执行=LGD(夜魇) 电炎绝手",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 102,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 1676,
+    "t_end": 1686,
+    "t_anchor": 1681,
+    "time_range": "27:56-28:06",
+    "anchor_time": "28:01",
+    "heroes": "BB(天辉) 瘟疫法师",
+    "region": "中路/河道 raw=(115,94) game=(-1711,-4390)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +2; total camps=5, creeps=17",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 103,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 1676,
+    "t_end": 1686,
+    "t_anchor": 1686,
+    "time_range": "27:56-28:06",
+    "anchor_time": "28:06",
+    "heroes": "天辉侧智慧神符附近: BB(天辉): 无; LGD(夜魇): 娜迦海妖",
+    "region": "天辉侧智慧神符附近 (66,135)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=8; 控符结果=娜迦海妖拾取智慧神符; 执行=LGD(夜魇) 娜迦海妖; 约28分钟智慧神符；结束时间=激活神龛时间",
+    "notes": "",
+    "id": 104,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1687,
+    "t_end": 1692,
+    "t_anchor": 1692,
+    "time_range": "28:07-28:12",
+    "anchor_time": "28:12",
+    "heroes": "天辉赏金符点附近: BB(天辉): 瘟疫法师, 狼人; LGD(夜魇): 祸乱之源",
+    "region": "天辉赏金符点 raw=(131.54,91.90) game=(453,-4621)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=瘟疫法师拾取天辉赏金神符; 执行=BB(天辉) 瘟疫法师",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 105,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1704,
+    "t_end": 1709,
+    "t_anchor": 1709,
+    "time_range": "28:24-28:29",
+    "anchor_time": "28:29",
+    "heroes": "下符点附近: BB(天辉): 无; LGD(夜魇): 祸乱之源",
+    "region": "下符点 raw=(136.97,119.99) game=(1148,-1025)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=6; 控符结果=祸乱之源拾取奥术神符; 执行=LGD(夜魇) 祸乱之源",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 106,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 1759,
+    "t_end": 1764,
+    "t_anchor": 1759,
+    "time_range": "29:19-29:24",
+    "anchor_time": "29:19",
+    "heroes": "BB(天辉): 狼人; LGD(夜魇): 祸乱之源, 森海飞霞, 昆卡, 电炎绝手",
+    "region": "上路/上半区 raw=(62,164) game=(-8432,4581)",
+    "evidence": "LGD(夜魇) 森海飞霞 hoodwink bushwhack 先手/开团技能; 参与 BB(天辉) 1人/LGD(夜魇) 4人; 伤害 BB(天辉) 140 / LGD(夜魇) 2387; 击杀 BB(天辉) 0 / LGD(夜魇) 1; 死亡: 29:24 狼人",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 107,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "高地团",
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 1804,
+    "t_end": 1818,
+    "t_anchor": 1804,
+    "time_range": "30:04-30:18",
+    "anchor_time": "30:04",
+    "heroes": "BB(天辉): 瘟疫法师, 巨牙海民; LGD(夜魇): 祸乱之源, 森海飞霞, 昆卡, 电炎绝手",
+    "region": "中路/河道 raw=(151,124) game=(2926,-548)",
+    "evidence": "LGD(夜魇) 电炎绝手 blink 先手/开团技能; 参与 BB(天辉) 2人/LGD(夜魇) 4人; 伤害 BB(天辉) 2056 / LGD(夜魇) 4049; 击杀 BB(天辉) 0 / LGD(夜魇) 2; 死亡: 30:14 瘟疫法师, 30:18 巨牙海民",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 108,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 1805,
+    "t_end": 1807,
+    "t_anchor": 1805,
+    "time_range": "30:05-30:07",
+    "anchor_time": "30:05",
+    "heroes": "参与抓人: 瘟疫法师, 巨牙海民; 被抓但逃脱: 电炎绝手; 逃脱动作: black king bar; 受害方附近队友: 无",
+    "region": "中路/河道 raw=(151,123) game=(2990,-685)",
+    "evidence": "目标被集火/控制后未死亡，并在 30:07 使用 item_black_king_bar；敌方伤害 1183，控制 3 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 109,
+    "match_id": "8826042346"
+  },
+  {
+    "labels": [
+      "高地团",
+      "团战",
+      "守塔团"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.78,
+    "t_start": 1829,
+    "t_end": 1900,
+    "t_anchor": 1829,
+    "time_range": "30:29-31:40",
+    "anchor_time": "30:29",
+    "heroes": "BB(天辉): 光之守卫, 狼人, 瘟疫法师, 巨牙海民, 风行者; LGD(夜魇): 祸乱之源, 森海飞霞, 昆卡, 娜迦海妖, 电炎绝手",
+    "region": "中路/河道 raw=(88,96) game=(-5146,-4077)",
+    "evidence": "BB(天辉) 风行者->娜迦海妖 windrunner powershot 886伤害; 参与 BB(天辉) 5人/LGD(夜魇) 5人; 伤害 BB(天辉) 19180 / LGD(夜魇) 11850; 击杀 BB(天辉) 0 / LGD(夜魇) 4; 死亡: 31:01 光之守卫, 31:14 狼人, 31:30 巨牙海民, 31:30 瘟疫法师; 防御塔上下文: tower_status_update team_num=2 hp=696 (92,96)",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 110,
+    "match_id": "8826042346"
+  }
+]

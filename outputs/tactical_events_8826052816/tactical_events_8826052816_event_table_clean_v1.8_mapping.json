@@ -1,0 +1,21 @@
+{
+  "roshan_kill_merges": [
+    {
+      "roshan_kill_time": "24:37-24:37",
+      "new_time_range": "24:37-24:37",
+      "new_result": "XG(天辉)击杀肉山；XG(天辉) 虚空假面获得肉山盾",
+      "merged_drop_ids": [
+        101
+      ]
+    },
+    {
+      "roshan_kill_time": "36:28-36:28",
+      "new_time_range": "36:28-36:28",
+      "new_result": "Liquid(夜魇)击杀肉山；Liquid(夜魇) 小小获得肉山盾",
+      "merged_drop_ids": [
+        131
+      ]
+    }
+  ],
+  "combat_duplicate_merges": []
+}

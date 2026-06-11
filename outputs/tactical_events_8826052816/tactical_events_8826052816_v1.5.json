@@ -1,0 +1,2799 @@
+[
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": -44,
+    "t_end": -40,
+    "t_anchor": -44,
+    "time_range": "-00:44--00:40",
+    "anchor_time": "-00:44",
+    "heroes": "使用: XG(天辉) 魅惑魔女; 进入: 孽主, 魅惑魔女, 虚空假面, 莱恩, 电炎绝手",
+    "region": "中路/河道 raw=(118,116) game=(-1238,-1580)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 1,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": -35,
+    "t_end": -12,
+    "t_anchor": -35,
+    "time_range": "-00:35--00:12",
+    "anchor_time": "-00:35",
+    "heroes": "使用: Liquid(夜魇) 巫医; 进入: 光之守卫, 暗夜魔王, 风暴之灵, 小小, 巫医",
+    "region": "中路/河道 raw=(130,130) game=(288,236)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 2,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "Liquid(夜魇) 光之守卫 / steamid=76561198037756242 / player=Boxi",
+    "region": "劣势路 (bot); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 3,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "Liquid(夜魇) 小小 / steamid=76561198113227791 / player=yondaime",
+    "region": "优势路 (top); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 4,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "Liquid(夜魇) 巫医 / steamid=76561197976763535 / player=Y",
+    "region": "优势路 (top); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 5,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "Liquid(夜魇) 暗夜魔王 / steamid=76561198057856286 / player=50centaur",
+    "region": "劣势路 (bot); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 6,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "Liquid(夜魇) 风暴之灵 / steamid=76561198161624340 / player=мусор",
+    "region": "中路 (mid); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 7,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "XG(天辉) 孽主 / steamid=76561198090224486 / player=¿",
+    "region": "劣势路 (top); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 8,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "XG(天辉) 电炎绝手 / steamid=76561198134243802 / player=NothingToSay",
+    "region": "中路 (mid); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 9,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "XG(天辉) 莱恩 / steamid=76561198061960890 / player=其疾如风",
+    "region": "劣势路 (top); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 10,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "XG(天辉) 虚空假面 / steamid=76561198859019881 / player=区",
+    "region": "优势路 (bot); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 11,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "对线分路"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 0,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "00:00-05:00",
+    "anchor_time": "05:00",
+    "heroes": "XG(天辉) 魅惑魔女 / steamid=76561198054561825 / player=lavie",
+    "region": "优势路 (bot); 无>1min次要路",
+    "evidence": "0-5分钟位置快照主停留路线判定",
+    "notes": "",
+    "id": 12,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 0,
+    "t_end": 0,
+    "t_anchor": 0,
+    "time_range": "00:00-00:00",
+    "anchor_time": "00:00",
+    "heroes": "夜魇赏金符点附近: XG(天辉): 孽主, 莱恩; Liquid(夜魇): 巫医",
+    "region": "夜魇赏金符点 raw=(112.67,136.15) game=(-1963,1043)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=孽主拾取夜魇赏金神符; 执行=XG(天辉) 孽主",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 13,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 0,
+    "t_end": 0,
+    "t_anchor": 0,
+    "time_range": "00:00-00:00",
+    "anchor_time": "00:00",
+    "heroes": "夜魇赏金符点附近: XG(天辉): 无; Liquid(夜魇): 小小",
+    "region": "夜魇赏金符点 raw=(120.02,162.91) game=(-1021,4469)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=小小拾取夜魇赏金神符; 执行=Liquid(夜魇) 小小",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 14,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 0,
+    "t_end": 2,
+    "t_anchor": 2,
+    "time_range": "00:00-00:02",
+    "anchor_time": "00:02",
+    "heroes": "天辉赏金符点附近: XG(天辉): 无; Liquid(夜魇): 暗夜魔王, 风暴之灵",
+    "region": "天辉赏金符点 raw=(135.70,118.03) game=(985,-1276)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=风暴之灵拾取天辉赏金神符; 执行=Liquid(夜魇) 风暴之灵",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 15,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 0,
+    "t_end": 0,
+    "t_anchor": 0,
+    "time_range": "00:00-00:00",
+    "anchor_time": "00:00",
+    "heroes": "天辉赏金符点附近: XG(天辉): 虚空假面, 魅惑魔女; Liquid(夜魇): 无",
+    "region": "天辉赏金符点 raw=(132.60,91.84) game=(588,-4628)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=虚空假面拾取天辉赏金神符; 执行=XG(天辉) 虚空假面",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 16,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 50,
+    "t_end": 57,
+    "t_anchor": 50,
+    "time_range": "00:50-00:57",
+    "anchor_time": "00:50",
+    "heroes": "XG(天辉): 孽主, 莱恩; Liquid(夜魇): 小小, 巫医",
+    "region": "上路/上半区 raw=(87,160) game=(-5272,4090)",
+    "evidence": "XG(天辉) 孽主->巫医 abyssal underlord pit of malice ensare; 参与 XG(天辉) 2人/Liquid(夜魇) 2人; 伤害 XG(天辉) 737 / Liquid(夜魇) 262; 击杀 XG(天辉) 1 / Liquid(夜魇) 0; 死亡: 00:57 巫医",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 17,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 125,
+    "t_end": 130,
+    "t_anchor": 130,
+    "time_range": "02:05-02:10",
+    "anchor_time": "02:10",
+    "heroes": "下符点附近: XG(天辉): 无; Liquid(夜魇): 风暴之灵",
+    "region": "下符点 raw=(134.58,120.10) game=(842,-1011)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=7; 控符结果=风暴之灵罐装水符; 执行=Liquid(夜魇) 风暴之灵",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 18,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 134,
+    "t_end": 139,
+    "t_anchor": 139,
+    "time_range": "02:14-02:19",
+    "anchor_time": "02:19",
+    "heroes": "上符点附近: XG(天辉): 电炎绝手; Liquid(夜魇): 无",
+    "region": "上符点 raw=(116.83,133.89) game=(-1430,754)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=7; 控符结果=电炎绝手罐装水符; 执行=XG(天辉) 电炎绝手",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 19,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.76,
+    "t_start": 147,
+    "t_end": 167,
+    "t_anchor": 162,
+    "time_range": "02:27-02:47",
+    "anchor_time": "02:42",
+    "heroes": "参与抓人: 光之守卫, 暗夜魔王; 被抓: 魅惑魔女; 受害方附近队友: 无",
+    "region": "下路/下半区 raw=(165,112) game=(4686,-2020)",
+    "evidence": "死亡窗口敌方伤害占比 95%; 受害者1000码队友数 0; death source=combat_logs",
+    "notes": "根据伤害占比+队友距离生成，符合 Excel 抓人候选口径；需确认是否有实质反抗。",
+    "id": 20,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 218,
+    "t_end": 256,
+    "t_anchor": 218,
+    "time_range": "03:38-04:16",
+    "anchor_time": "03:38",
+    "heroes": "XG(天辉): 孽主, 莱恩; Liquid(夜魇): 小小, 巫医",
+    "region": "上路/上半区 raw=(82,150) game=(-5893,2871)",
+    "evidence": "Liquid(夜魇) 小小 tiny avalanche 先手/开团技能; 参与 XG(天辉) 2人/Liquid(夜魇) 2人; 伤害 XG(天辉) 928 / Liquid(夜魇) 1411; 击杀 XG(天辉) 0 / Liquid(夜魇) 0; 死亡: 无",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 21,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 236,
+    "t_end": 246,
+    "t_anchor": 241,
+    "time_range": "03:56-04:06",
+    "anchor_time": "04:01",
+    "heroes": "Liquid(夜魇) 光之守卫",
+    "region": "中路/河道 raw=(142,116) game=(1733,-1582)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +3; total camps=1, creeps=3",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 22,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 245,
+    "t_end": 250,
+    "t_anchor": 250,
+    "time_range": "04:05-04:10",
+    "anchor_time": "04:10",
+    "heroes": "上符点附近: XG(天辉): 电炎绝手; Liquid(夜魇): 风暴之灵",
+    "region": "上符点 raw=(115.42,135.53) game=(-1611,963)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=7; 控符结果=电炎绝手罐装水符; 执行=XG(天辉) 电炎绝手",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 23,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 256,
+    "t_end": 261,
+    "t_anchor": 261,
+    "time_range": "04:16-04:21",
+    "anchor_time": "04:21",
+    "heroes": "下符点附近: XG(天辉): 无; Liquid(夜魇): 风暴之灵",
+    "region": "下符点 raw=(135.91,119.22) game=(1013,-1124)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=7; 控符结果=风暴之灵罐装水符; 执行=Liquid(夜魇) 风暴之灵",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 24,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 288,
+    "t_end": 298,
+    "t_anchor": 288,
+    "time_range": "04:48-04:58",
+    "anchor_time": "04:48",
+    "heroes": "XG(天辉): 孽主, 莱恩; Liquid(夜魇): 小小, 巫医",
+    "region": "上路/上半区 raw=(92,166) game=(-4577,4845)",
+    "evidence": "XG(天辉) 孽主->巫医 abyssal underlord pit of malice ensare; 参与 XG(天辉) 2人/Liquid(夜魇) 2人; 伤害 XG(天辉) 426 / Liquid(夜魇) 182; 击杀 XG(天辉) 1 / Liquid(夜魇) 0; 死亡: 04:50 巫医",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 25,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 295,
+    "t_end": 300,
+    "t_anchor": 300,
+    "time_range": "04:55-05:00",
+    "anchor_time": "05:00",
+    "heroes": "夜魇赏金符点附近: XG(天辉): 莱恩; Liquid(夜魇): 无",
+    "region": "夜魇赏金符点 raw=(119.11,162.52) game=(-1139,4418)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=莱恩拾取夜魇赏金神符; 执行=XG(天辉) 莱恩",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 26,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 296,
+    "t_end": 306,
+    "t_anchor": 301,
+    "time_range": "04:56-05:06",
+    "anchor_time": "05:01",
+    "heroes": "XG(天辉) 魅惑魔女",
+    "region": "中路/河道 raw=(149,124) game=(2729,-456)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +5; total camps=1, creeps=5",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 27,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.76,
+    "t_start": 339,
+    "t_end": 359,
+    "t_anchor": 354,
+    "time_range": "05:39-05:59",
+    "anchor_time": "05:54",
+    "heroes": "参与抓人: 莱恩, 电炎绝手; 被抓: 风暴之灵; 受害方附近队友: 无",
+    "region": "中路/河道 raw=(141,156) game=(1663,3616)",
+    "evidence": "死亡窗口敌方伤害占比 100%; 受害者1000码队友数 0; death source=combat_logs",
+    "notes": "根据伤害占比+队友距离生成，符合 Excel 抓人候选口径；需确认是否有实质反抗。",
+    "id": 28,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 356,
+    "t_end": 366,
+    "t_anchor": 361,
+    "time_range": "05:56-06:06",
+    "anchor_time": "06:01",
+    "heroes": "XG(天辉) 孽主",
+    "region": "上路/上半区 raw=(68,134) game=(-7742,704)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +2; total camps=1, creeps=2",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 29,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 360,
+    "t_end": 365,
+    "t_anchor": 365,
+    "time_range": "06:00-06:05",
+    "anchor_time": "06:05",
+    "heroes": "下符点附近: XG(天辉): 电炎绝手; Liquid(夜魇): 无",
+    "region": "下符点 raw=(137.30,120.50) game=(1191,-959)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=3; 控符结果=电炎绝手罐装隐身神符; 执行=XG(天辉) 电炎绝手",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 30,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.76,
+    "t_start": 388,
+    "t_end": 408,
+    "t_anchor": 403,
+    "time_range": "06:28-06:48",
+    "anchor_time": "06:43",
+    "heroes": "参与抓人: 光之守卫, 暗夜魔王; 被抓: 魅惑魔女; 受害方附近队友: 无",
+    "region": "中路/河道 raw=(150,123) game=(2755,-687)",
+    "evidence": "死亡窗口敌方伤害占比 94%; 受害者1000码队友数 0; death source=combat_logs",
+    "notes": "根据伤害占比+队友距离生成，符合 Excel 抓人候选口径；需确认是否有实质反抗。",
+    "id": 31,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 416,
+    "t_end": 426,
+    "t_anchor": 421,
+    "time_range": "06:56-07:06",
+    "anchor_time": "07:01",
+    "heroes": "Liquid(夜魇) 光之守卫",
+    "region": "下路/下半区 raw=(166,125) game=(4829,-425)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +6; total camps=2, creeps=9",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 32,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 416,
+    "t_end": 426,
+    "t_anchor": 421,
+    "time_range": "06:56-07:06",
+    "anchor_time": "07:01",
+    "heroes": "XG(天辉) 莱恩",
+    "region": "上路/上半区 raw=(73,133) game=(-7059,685)",
+    "evidence": "player_intervals2 camps_stacked +2, creeps_stacked +5; total camps=2, creeps=5",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 33,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 416,
+    "t_end": 426,
+    "t_anchor": 426,
+    "time_range": "06:56-07:06",
+    "anchor_time": "07:06",
+    "heroes": "天辉侧智慧神符附近: XG(天辉): 莱恩; Liquid(夜魇): 无",
+    "region": "天辉侧智慧神符附近 (66,134)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=8; 控符结果=莱恩拾取智慧神符; 执行=XG(天辉) 莱恩; 约7分钟智慧神符；结束时间=激活神龛时间",
+    "notes": "",
+    "id": 34,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.76,
+    "t_start": 446,
+    "t_end": 466,
+    "t_anchor": 461,
+    "time_range": "07:26-07:46",
+    "anchor_time": "07:41",
+    "heroes": "参与抓人: 暗夜魔王, 风暴之灵; 被抓: 电炎绝手; 受害方附近队友: 无",
+    "region": "下路/下半区 raw=(131,79) game=(429,-6324)",
+    "evidence": "死亡窗口敌方伤害占比 92%; 受害者1000码队友数 0; death source=combat_logs",
+    "notes": "根据伤害占比+队友距离生成，符合 Excel 抓人候选口径；需确认是否有实质反抗。",
+    "id": 35,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 448,
+    "t_end": 453,
+    "t_anchor": 453,
+    "time_range": "07:28-07:33",
+    "anchor_time": "07:33",
+    "heroes": "天辉赏金符点附近: XG(天辉): 电炎绝手; Liquid(夜魇): 暗夜魔王, 风暴之灵",
+    "region": "天辉赏金符点 raw=(132.48,92.69) game=(573,-4519)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=5; 控符结果=电炎绝手罐装天辉赏金神符; 执行=XG(天辉) 电炎绝手",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 36,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.82,
+    "t_start": 475,
+    "t_end": 480,
+    "t_anchor": 480,
+    "time_range": "07:55-08:00",
+    "anchor_time": "08:00",
+    "heroes": "上符点附近: XG(天辉): 莱恩; Liquid(夜魇): 巫医",
+    "region": "上符点 raw=(115.19,136.67) game=(-1640,1110)",
+    "evidence": "power_rune_spawn minute=8; 控符结果=神符刷新在另一侧; 实际刷新=下符点; 实际结果=风暴之灵罐装急速神符",
+    "notes": "河道能量符未刷新侧控符；附近英雄按1000码计算。",
+    "id": 37,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 475,
+    "t_end": 480,
+    "t_anchor": 480,
+    "time_range": "07:55-08:00",
+    "anchor_time": "08:00",
+    "heroes": "下符点附近: XG(天辉): 无; Liquid(夜魇): 风暴之灵",
+    "region": "下符点 raw=(136.52,118.99) game=(1090,-1154)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=1; 控符结果=风暴之灵罐装急速神符; 执行=Liquid(夜魇) 风暴之灵",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 38,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 476,
+    "t_end": 486,
+    "t_anchor": 481,
+    "time_range": "07:56-08:06",
+    "anchor_time": "08:01",
+    "heroes": "Liquid(夜魇) 光之守卫",
+    "region": "中路/河道 raw=(152,128) game=(3098,-2)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +3; total camps=3, creeps=12",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 39,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 476,
+    "t_end": 486,
+    "t_anchor": 481,
+    "time_range": "07:56-08:06",
+    "anchor_time": "08:01",
+    "heroes": "XG(天辉) 莱恩",
+    "region": "中路/河道 raw=(114,135) game=(-1830,928)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +6; total camps=3, creeps=11",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 40,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 476,
+    "t_end": 481,
+    "t_anchor": 481,
+    "time_range": "07:56-08:01",
+    "anchor_time": "08:01",
+    "heroes": "天辉赏金符点附近: XG(天辉): 无; Liquid(夜魇): 暗夜魔王",
+    "region": "天辉赏金符点 raw=(134.22,88.57) game=(796,-5047)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=暗夜魔王拾取天辉赏金神符; 执行=Liquid(夜魇) 暗夜魔王",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 41,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "小规模冲突",
+      "守塔团"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 492,
+    "t_end": 501,
+    "t_anchor": 492,
+    "time_range": "08:12-08:21",
+    "anchor_time": "08:12",
+    "heroes": "XG(天辉): 孽主, 魅惑魔女, 虚空假面, 莱恩, 电炎绝手; Liquid(夜魇): 暗夜魔王, 风暴之灵",
+    "region": "中路/河道 raw=(118,124) game=(-1342,-541)",
+    "evidence": "Liquid(夜魇) 暗夜魔王->魅惑魔女 night stalker crippling fear; 参与 XG(天辉) 5人/Liquid(夜魇) 2人; 伤害 XG(天辉) 1320 / Liquid(夜魇) 954; 击杀 XG(天辉) 1 / Liquid(夜魇) 1; 死亡: 08:18 莱恩, 08:20 暗夜魔王; 防御塔上下文: tower_status_update team_num=2 hp=1779 (116,117)",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 42,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 536,
+    "t_end": 546,
+    "t_anchor": 541,
+    "time_range": "08:56-09:06",
+    "anchor_time": "09:01",
+    "heroes": "XG(天辉) 魅惑魔女",
+    "region": "中路/河道 raw=(114,127) game=(-1751,-162)",
+    "evidence": "player_intervals2 camps_stacked +2, creeps_stacked +13; total camps=3, creeps=18",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 43,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 540,
+    "t_end": 550,
+    "t_anchor": 550,
+    "time_range": "09:00-09:10",
+    "anchor_time": "09:10",
+    "heroes": "夜魇侧智慧神符附近: XG(天辉): 无; Liquid(夜魇): 暗夜魔王",
+    "region": "夜魇侧智慧神符附近 (191,117)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=8; 控符结果=暗夜魔王拾取智慧神符; 执行=Liquid(夜魇) 暗夜魔王; 约9分钟智慧神符；结束时间=激活神龛时间",
+    "notes": "",
+    "id": 44,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 562,
+    "t_end": 567,
+    "t_anchor": 567,
+    "time_range": "09:22-09:27",
+    "anchor_time": "09:27",
+    "heroes": "夜魇赏金符点附近: XG(天辉): 无; Liquid(夜魇): 风暴之灵, 光之守卫",
+    "region": "夜魇赏金符点 raw=(121.62,162.13) game=(-817,4369)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=5; 控符结果=风暴之灵罐装夜魇赏金神符; 执行=Liquid(夜魇) 风暴之灵",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 45,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.76,
+    "t_start": 568,
+    "t_end": 588,
+    "t_anchor": 583,
+    "time_range": "09:28-09:48",
+    "anchor_time": "09:43",
+    "heroes": "参与抓人: 风暴之灵, 小小, 巫医; 被抓: 孽主; 受害方附近队友: 无",
+    "region": "上路/上半区 raw=(80,167) game=(-6099,4995)",
+    "evidence": "死亡窗口敌方伤害占比 87%; 受害者1000码队友数 0; death source=combat_logs",
+    "notes": "根据伤害占比+队友距离生成，符合 Excel 抓人候选口径；需确认是否有实质反抗。",
+    "id": 46,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": 591,
+    "t_end": 598,
+    "t_anchor": 591,
+    "time_range": "09:51-09:58",
+    "anchor_time": "09:51",
+    "heroes": "使用: Liquid(夜魇) 巫医; 进入: 光之守卫, 风暴之灵, 巫医",
+    "region": "上路/上半区 raw=(97,158) game=(-3993,3813)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 47,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.82,
+    "t_start": 595,
+    "t_end": 600,
+    "t_anchor": 600,
+    "time_range": "09:55-10:00",
+    "anchor_time": "10:00",
+    "heroes": "上符点附近: XG(天辉): 电炎绝手, 魅惑魔女; Liquid(夜魇): 巫医, 风暴之灵",
+    "region": "上符点 raw=(115.19,136.67) game=(-1640,1110)",
+    "evidence": "power_rune_spawn minute=10; 控符结果=神符刷新在另一侧; 实际刷新=下符点; 实际结果=风暴之灵罐装幻象神符",
+    "notes": "河道能量符未刷新侧控符；附近英雄按1000码计算。",
+    "id": 48,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 596,
+    "t_end": 606,
+    "t_anchor": 601,
+    "time_range": "09:56-10:06",
+    "anchor_time": "10:01",
+    "heroes": "XG(天辉) 莱恩",
+    "region": "上路/上半区 raw=(82,138) game=(-5865,1342)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +9; total camps=4, creeps=20",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 49,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 620,
+    "t_end": 625,
+    "t_anchor": 625,
+    "time_range": "10:20-10:25",
+    "anchor_time": "10:25",
+    "heroes": "下符点附近: XG(天辉): 莱恩; Liquid(夜魇): 风暴之灵",
+    "region": "下符点 raw=(138.20,120.92) game=(1306,-906)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=2; 控符结果=风暴之灵罐装幻象神符; 执行=Liquid(夜魇) 风暴之灵",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 50,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 656,
+    "t_end": 666,
+    "t_anchor": 661,
+    "time_range": "10:56-11:06",
+    "anchor_time": "11:01",
+    "heroes": "Liquid(夜魇) 风暴之灵",
+    "region": "中路/河道 raw=(129,138) game=(91,1268)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +3; total camps=1, creeps=3",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 51,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": 674,
+    "t_end": 686,
+    "t_anchor": 674,
+    "time_range": "11:14-11:26",
+    "anchor_time": "11:14",
+    "heroes": "使用: Liquid(夜魇) 光之守卫; 进入: 光之守卫, 风暴之灵, 巫医",
+    "region": "中路/河道 raw=(131,147) game=(351,2383)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 52,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "团战"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.78,
+    "t_start": 693,
+    "t_end": 709,
+    "t_anchor": 693,
+    "time_range": "11:33-11:49",
+    "anchor_time": "11:33",
+    "heroes": "XG(天辉): 孽主, 魅惑魔女, 虚空假面, 莱恩, 电炎绝手; Liquid(夜魇): 光之守卫, 暗夜魔王, 风暴之灵, 小小, 巫医",
+    "region": "上路/上半区 raw=(80,158) game=(-6208,3854)",
+    "evidence": "XG(天辉) 莱恩->巫医 lion impale; 参与 XG(天辉) 5人/Liquid(夜魇) 5人; 伤害 XG(天辉) 4380 / Liquid(夜魇) 3083; 击杀 XG(天辉) 2 / Liquid(夜魇) 2; 死亡: 11:36 巫医, 11:39 虚空假面, 11:44 暗夜魔王, 11:46 莱恩",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 53,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 719,
+    "t_end": 724,
+    "t_anchor": 724,
+    "time_range": "11:59-12:04",
+    "anchor_time": "12:04",
+    "heroes": "上符点附近: XG(天辉): 无; Liquid(夜魇): 风暴之灵, 光之守卫",
+    "region": "上符点 raw=(114.87,139.68) game=(-1681,1495)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=6; 控符结果=风暴之灵罐装奥术神符; 执行=Liquid(夜魇) 风暴之灵",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 54,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 733,
+    "t_end": 738,
+    "t_anchor": 738,
+    "time_range": "12:13-12:18",
+    "anchor_time": "12:18",
+    "heroes": "天辉赏金符点附近: XG(天辉): 电炎绝手; Liquid(夜魇): 无",
+    "region": "天辉赏金符点 raw=(130.63,92.58) game=(337,-4534)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=5; 控符结果=电炎绝手罐装天辉赏金神符; 执行=XG(天辉) 电炎绝手",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 55,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": 741,
+    "t_end": 763,
+    "t_anchor": 741,
+    "time_range": "12:21-12:43",
+    "anchor_time": "12:21",
+    "heroes": "使用: XG(天辉) 莱恩; 进入: 莱恩, 电炎绝手",
+    "region": "天辉高地/基地 raw=(78,79) game=(-6431,-6278)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 56,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "小规模冲突",
+      "守塔团"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 761,
+    "t_end": 767,
+    "t_anchor": 761,
+    "time_range": "12:41-12:47",
+    "anchor_time": "12:41",
+    "heroes": "XG(天辉): 孽主, 虚空假面, 莱恩, 电炎绝手; Liquid(夜魇): 暗夜魔王",
+    "region": "下路/下半区 raw=(178,107) game=(6411,-2701)",
+    "evidence": "XG(天辉) 虚空假面->暗夜魔王 faceless void chronosphere freeze; 参与 XG(天辉) 4人/Liquid(夜魇) 1人; 伤害 XG(天辉) 1666 / Liquid(夜魇) 229; 击杀 XG(天辉) 1 / Liquid(夜魇) 0; 死亡: 12:47 暗夜魔王; 防御塔上下文: tower_status_update team_num=3 hp=1785 (177,110)",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 57,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 767,
+    "t_end": 772,
+    "t_anchor": 772,
+    "time_range": "12:47-12:52",
+    "anchor_time": "12:52",
+    "heroes": "夜魇赏金符点附近: XG(天辉): 无; Liquid(夜魇): 风暴之灵",
+    "region": "夜魇赏金符点 raw=(123.95,161.20) game=(-518,4250)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=风暴之灵拾取夜魇赏金神符; 执行=Liquid(夜魇) 风暴之灵",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 58,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 776,
+    "t_end": 786,
+    "t_anchor": 781,
+    "time_range": "12:56-13:06",
+    "anchor_time": "13:01",
+    "heroes": "Liquid(夜魇) 光之守卫",
+    "region": "中路/河道 raw=(139,133) game=(1426,663)",
+    "evidence": "player_intervals2 camps_stacked +2, creeps_stacked +5; total camps=5, creeps=17",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 59,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 776,
+    "t_end": 786,
+    "t_anchor": 781,
+    "time_range": "12:56-13:06",
+    "anchor_time": "13:01",
+    "heroes": "Liquid(夜魇) 风暴之灵",
+    "region": "上路/上半区 raw=(103,159) game=(-3217,4026)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +3; total camps=2, creeps=6",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 60,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 776,
+    "t_end": 786,
+    "t_anchor": 781,
+    "time_range": "12:56-13:06",
+    "anchor_time": "13:01",
+    "heroes": "XG(天辉) 莱恩",
+    "region": "下路/下半区 raw=(178,99) game=(6357,-3751)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +2; total camps=5, creeps=22",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 61,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 833,
+    "t_end": 843,
+    "t_anchor": 843,
+    "time_range": "13:53-14:03",
+    "anchor_time": "14:03",
+    "heroes": "夜魇侧智慧神符附近: XG(天辉): 无; Liquid(夜魇): 暗夜魔王",
+    "region": "夜魇侧智慧神符附近 (191,118)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=8; 控符结果=暗夜魔王拾取智慧神符; 执行=Liquid(夜魇) 暗夜魔王; 约14分钟智慧神符；结束时间=激活神龛时间",
+    "notes": "",
+    "id": 62,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 835,
+    "t_end": 840,
+    "t_anchor": 840,
+    "time_range": "13:55-14:00",
+    "anchor_time": "14:00",
+    "heroes": "上符点附近: XG(天辉): 电炎绝手, 魅惑魔女; Liquid(夜魇): 无",
+    "region": "上符点 raw=(114.06,134.69) game=(-1784,856)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=0; 控符结果=电炎绝手罐装双倍神符; 执行=XG(天辉) 电炎绝手",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 63,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.82,
+    "t_start": 835,
+    "t_end": 840,
+    "t_anchor": 840,
+    "time_range": "13:55-14:00",
+    "anchor_time": "14:00",
+    "heroes": "下符点附近: XG(天辉): 莱恩; Liquid(夜魇): 风暴之灵, 光之守卫",
+    "region": "下符点 raw=(137.22,118.55) game=(1180,-1210)",
+    "evidence": "power_rune_spawn minute=14; 控符结果=神符刷新在另一侧; 实际刷新=上符点; 实际结果=电炎绝手罐装双倍神符",
+    "notes": "河道能量符未刷新侧控符；附近英雄按1000码计算。",
+    "id": 64,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 836,
+    "t_end": 846,
+    "t_anchor": 841,
+    "time_range": "13:56-14:06",
+    "anchor_time": "14:01",
+    "heroes": "Liquid(夜魇) 光之守卫",
+    "region": "中路/河道 raw=(142,119) game=(1766,-1197)",
+    "evidence": "player_intervals2 camps_stacked +2, creeps_stacked +12; total camps=7, creeps=29",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 65,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 836,
+    "t_end": 846,
+    "t_anchor": 841,
+    "time_range": "13:56-14:06",
+    "anchor_time": "14:01",
+    "heroes": "XG(天辉) 魅惑魔女",
+    "region": "中路/河道 raw=(113,135) game=(-1931,917)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +3; total camps=4, creeps=21",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 66,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": 860,
+    "t_end": 872,
+    "t_anchor": 860,
+    "time_range": "14:20-14:32",
+    "anchor_time": "14:20",
+    "heroes": "使用: XG(天辉) 魅惑魔女; 进入: 孽主, 魅惑魔女, 虚空假面, 莱恩, 电炎绝手",
+    "region": "中路/河道 raw=(115,115) game=(-1664,-1677)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 67,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 874,
+    "t_end": 879,
+    "t_anchor": 874,
+    "time_range": "14:34-14:39",
+    "anchor_time": "14:34",
+    "heroes": "XG(天辉): 孽主, 魅惑魔女, 莱恩, 电炎绝手; Liquid(夜魇): 巫医",
+    "region": "下路/下半区 raw=(153,89) game=(3232,-4972)",
+    "evidence": "XG(天辉) 孽主->巫医 abyssal underlord atrophy aura effect; 参与 XG(天辉) 4人/Liquid(夜魇) 1人; 伤害 XG(天辉) 952 / Liquid(夜魇) 0; 击杀 XG(天辉) 1 / Liquid(夜魇) 0; 死亡: 14:38 巫医",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 68,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 896,
+    "t_end": 906,
+    "t_anchor": 901,
+    "time_range": "14:56-15:06",
+    "anchor_time": "15:01",
+    "heroes": "Liquid(夜魇) 光之守卫",
+    "region": "中路/河道 raw=(144,131) game=(2081,399)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +3; total camps=8, creeps=32",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 69,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 896,
+    "t_end": 906,
+    "t_anchor": 901,
+    "time_range": "14:56-15:06",
+    "anchor_time": "15:01",
+    "heroes": "XG(天辉) 电炎绝手",
+    "region": "下路/下半区 raw=(133,93) game=(681,-4517)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +3; total camps=1, creeps=3",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 70,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 920,
+    "t_end": 930,
+    "t_anchor": 930,
+    "time_range": "15:20-15:30",
+    "anchor_time": "15:30",
+    "heroes": "天辉侧智慧神符附近: XG(天辉): 虚空假面; Liquid(夜魇): 无",
+    "region": "天辉侧智慧神符附近 (65,133)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=8; 控符结果=虚空假面拾取智慧神符; 执行=XG(天辉) 虚空假面; 约16分钟智慧神符；结束时间=激活神龛时间",
+    "notes": "",
+    "id": 71,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "团战"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.78,
+    "t_start": 953,
+    "t_end": 990,
+    "t_anchor": 953,
+    "time_range": "15:53-16:30",
+    "anchor_time": "15:53",
+    "heroes": "XG(天辉): 孽主, 虚空假面, 莱恩, 电炎绝手; Liquid(夜魇): 光之守卫, 暗夜魔王, 风暴之灵, 小小, 巫医",
+    "region": "中路/河道 raw=(101,114) game=(-3468,-1737)",
+    "evidence": "Liquid(夜魇) 风暴之灵 storm spirit electric vortex 先手/开团技能; 参与 XG(天辉) 4人/Liquid(夜魇) 5人; 伤害 XG(天辉) 4815 / Liquid(夜魇) 4137; 击杀 XG(天辉) 1 / Liquid(夜魇) 2; 死亡: 16:17 风暴之灵, 16:20 电炎绝手, 16:23 孽主",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 72,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 956,
+    "t_end": 961,
+    "t_anchor": 961,
+    "time_range": "15:56-16:01",
+    "anchor_time": "16:01",
+    "heroes": "天辉赏金符点附近: XG(天辉): 无; Liquid(夜魇): 暗夜魔王, 风暴之灵",
+    "region": "天辉赏金符点 raw=(129.07,88.71) game=(136,-5030)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=暗夜魔王拾取天辉赏金神符; 执行=Liquid(夜魇) 暗夜魔王",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 73,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 960,
+    "t_end": 965,
+    "t_anchor": 965,
+    "time_range": "16:00-16:05",
+    "anchor_time": "16:05",
+    "heroes": "上符点附近: XG(天辉): 莱恩; Liquid(夜魇): 小小",
+    "region": "上符点 raw=(112.86,132.15) game=(-1938,531)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_DENY value=4; 控符结果=莱恩反补恢复神符; 执行=XG(天辉) 莱恩",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 74,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 1028,
+    "t_end": 1039,
+    "t_anchor": 1028,
+    "time_range": "17:08-17:19",
+    "anchor_time": "17:08",
+    "heroes": "XG(天辉): 孽主, 魅惑魔女, 莱恩, 电炎绝手; Liquid(夜魇): 光之守卫, 小小, 巫医",
+    "region": "中路/河道 raw=(136,123) game=(1074,-631)",
+    "evidence": "XG(天辉) 莱恩 blink 先手/开团技能; 参与 XG(天辉) 4人/Liquid(夜魇) 3人; 伤害 XG(天辉) 2157 / Liquid(夜魇) 1617; 击杀 XG(天辉) 1 / Liquid(夜魇) 0; 死亡: 17:11 光之守卫",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 75,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1047,
+    "t_end": 1052,
+    "t_anchor": 1052,
+    "time_range": "17:27-17:32",
+    "anchor_time": "17:32",
+    "heroes": "夜魇赏金符点附近: XG(天辉): 无; Liquid(夜魇): 风暴之灵",
+    "region": "夜魇赏金符点 raw=(120.03,162.83) game=(-1021,4458)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=5; 控符结果=风暴之灵罐装夜魇赏金神符; 执行=Liquid(夜魇) 风暴之灵",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 76,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.82,
+    "t_start": 1075,
+    "t_end": 1080,
+    "t_anchor": 1080,
+    "time_range": "17:55-18:00",
+    "anchor_time": "18:00",
+    "heroes": "下符点附近: XG(天辉): 无; Liquid(夜魇): 巫医, 光之守卫",
+    "region": "下符点 raw=(137.22,118.55) game=(1180,-1210)",
+    "evidence": "power_rune_spawn minute=18; 控符结果=神符刷新在另一侧; 实际刷新=上符点; 实际结果=风暴之灵罐装护盾神符",
+    "notes": "河道能量符未刷新侧控符；附近英雄按1000码计算。",
+    "id": 77,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 1076,
+    "t_end": 1086,
+    "t_anchor": 1081,
+    "time_range": "17:56-18:06",
+    "anchor_time": "18:01",
+    "heroes": "XG(天辉) 莱恩",
+    "region": "上路/上半区 raw=(84,141) game=(-5680,1719)",
+    "evidence": "player_intervals2 camps_stacked +2, creeps_stacked +7; total camps=7, creeps=29",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 78,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1081,
+    "t_end": 1086,
+    "t_anchor": 1086,
+    "time_range": "18:01-18:06",
+    "anchor_time": "18:06",
+    "heroes": "上符点附近: XG(天辉): 无; Liquid(夜魇): 暗夜魔王, 风暴之灵",
+    "region": "上符点 raw=(115.92,135.47) game=(-1546,956)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=9; 控符结果=风暴之灵罐装护盾神符; 执行=Liquid(夜魇) 风暴之灵",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 79,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 1099,
+    "t_end": 1106,
+    "t_anchor": 1099,
+    "time_range": "18:19-18:26",
+    "anchor_time": "18:19",
+    "heroes": "参与抓人: 孽主; 被抓但逃脱: 风暴之灵; 逃脱动作: tpscroll; 受害方附近队友: 暗夜魔王, 光之守卫",
+    "region": "上路/上半区 raw=(94,159) game=(-4335,3986)",
+    "evidence": "目标被集火/控制后未死亡，并在 18:26 使用 item_tpscroll；敌方伤害 0，控制 8 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 80,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.76,
+    "t_start": 1100,
+    "t_end": 1120,
+    "t_anchor": 1115,
+    "time_range": "18:20-18:40",
+    "anchor_time": "18:35",
+    "heroes": "参与抓人: 风暴之灵, 小小; 被抓: 魅惑魔女; 受害方附近队友: 无",
+    "region": "下路/下半区 raw=(182,95) game=(6945,-4202)",
+    "evidence": "死亡窗口敌方伤害占比 100%; 受害者1000码队友数 0; death source=combat_logs",
+    "notes": "根据伤害占比+队友距离生成，符合 Excel 抓人候选口径；需确认是否有实质反抗。",
+    "id": 81,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 1136,
+    "t_end": 1146,
+    "t_anchor": 1141,
+    "time_range": "18:56-19:06",
+    "anchor_time": "19:01",
+    "heroes": "Liquid(夜魇) 光之守卫",
+    "region": "下路/下半区 raw=(162,117) game=(4356,-1461)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +3; total camps=9, creeps=35",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 82,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": 1183,
+    "t_end": 1190,
+    "t_anchor": 1183,
+    "time_range": "19:43-19:50",
+    "anchor_time": "19:43",
+    "heroes": "使用: XG(天辉) 魅惑魔女; 进入: 孽主, 魅惑魔女, 虚空假面, 莱恩, 电炎绝手",
+    "region": "中路/河道 raw=(90,105) game=(-4826,-2960)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 83,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 1186,
+    "t_end": 1249,
+    "t_anchor": 1186,
+    "time_range": "19:46-20:49",
+    "anchor_time": "19:46",
+    "heroes": "XG(天辉): 孽主, 魅惑魔女, 莱恩, 电炎绝手; Liquid(夜魇): 光之守卫, 小小",
+    "region": "下路/下半区 raw=(138,98) game=(1340,-3828)",
+    "evidence": "Liquid(夜魇) 小小 blink 先手/开团技能; 参与 XG(天辉) 4人/Liquid(夜魇) 2人; 伤害 XG(天辉) 2933 / Liquid(夜魇) 1623; 击杀 XG(天辉) 1 / Liquid(夜魇) 0; 死亡: 20:38 小小",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 84,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1196,
+    "t_end": 1201,
+    "t_anchor": 1201,
+    "time_range": "19:56-20:01",
+    "anchor_time": "20:01",
+    "heroes": "下符点附近: XG(天辉): 无; Liquid(夜魇): 巫医",
+    "region": "下符点 raw=(137.58,120.27) game=(1226,-989)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=3; 控符结果=巫医拾取隐身神符; 执行=Liquid(夜魇) 巫医",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 85,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1203,
+    "t_end": 1208,
+    "t_anchor": 1208,
+    "time_range": "20:03-20:08",
+    "anchor_time": "20:08",
+    "heroes": "天辉赏金符点附近: XG(天辉): 魅惑魔女; Liquid(夜魇): 无",
+    "region": "天辉赏金符点 raw=(132.49,92.64) game=(575,-4527)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=魅惑魔女拾取天辉赏金神符; 执行=XG(天辉) 魅惑魔女",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 86,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 1258,
+    "t_end": 1268,
+    "t_anchor": 1268,
+    "time_range": "20:58-21:08",
+    "anchor_time": "21:08",
+    "heroes": "夜魇侧智慧神符附近: XG(天辉): 虚空假面, 莱恩; Liquid(夜魇): 巫医",
+    "region": "夜魇侧智慧神符附近 (191,118)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=8; 控符结果=虚空假面拾取智慧神符; 执行=XG(天辉) 虚空假面; 约21分钟智慧神符；结束时间=激活神龛时间",
+    "notes": "",
+    "id": 87,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "魔晶团",
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 1262,
+    "t_end": 1265,
+    "t_anchor": 1262,
+    "time_range": "21:02-21:05",
+    "anchor_time": "21:02",
+    "heroes": "XG(天辉): 虚空假面, 莱恩, 电炎绝手; Liquid(夜魇): 巫医",
+    "region": "下路/下半区 raw=(192,119) game=(8207,-1210)",
+    "evidence": "XG(天辉) 莱恩 blink 先手/开团技能; 参与 XG(天辉) 3人/Liquid(夜魇) 1人; 伤害 XG(天辉) 988 / Liquid(夜魇) 0; 击杀 XG(天辉) 1 / Liquid(夜魇) 0; 死亡: 21:05 巫医",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 88,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1276,
+    "t_end": 1281,
+    "t_anchor": 1281,
+    "time_range": "21:16-21:21",
+    "anchor_time": "21:21",
+    "heroes": "夜魇赏金符点附近: XG(天辉): 无; Liquid(夜魇): 风暴之灵",
+    "region": "夜魇赏金符点 raw=(121.23,162.92) game=(-867,4470)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=5; 控符结果=风暴之灵罐装夜魇赏金神符; 执行=Liquid(夜魇) 风暴之灵",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 89,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "资源获得"
+    ],
+    "status": "auto",
+    "confidence": 0.95,
+    "t_start": 1286,
+    "t_end": 1286,
+    "t_anchor": 1286,
+    "time_range": "21:26-21:26",
+    "anchor_time": "21:26",
+    "heroes": "XG(天辉) 莱恩",
+    "region": "下路/下半区 raw=(191,79) game=(8071,-6327)",
+    "evidence": "21:26 击杀魔晶/获得魔晶: XG(天辉) 莱恩; chat type=CHAT_MESSAGE_MINIBOSS_KILL; value=2",
+    "notes": "",
+    "id": 90,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 1310,
+    "t_end": 1320,
+    "t_anchor": 1320,
+    "time_range": "21:50-22:00",
+    "anchor_time": "22:00",
+    "heroes": "天辉侧智慧神符附近: XG(天辉): 莱恩; Liquid(夜魇): 无",
+    "region": "天辉侧智慧神符附近 (66,135)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=8; 控符结果=莱恩拾取智慧神符; 执行=XG(天辉) 莱恩; 约22分钟智慧神符；结束时间=激活神龛时间",
+    "notes": "",
+    "id": 91,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 1316,
+    "t_end": 1326,
+    "t_anchor": 1321,
+    "time_range": "21:56-22:06",
+    "anchor_time": "22:01",
+    "heroes": "Liquid(夜魇) 光之守卫",
+    "region": "下路/下半区 raw=(171,110) game=(5470,-2339)",
+    "evidence": "player_intervals2 camps_stacked +2, creeps_stacked +7; total camps=11, creeps=42",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 92,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 1316,
+    "t_end": 1326,
+    "t_anchor": 1321,
+    "time_range": "21:56-22:06",
+    "anchor_time": "22:01",
+    "heroes": "XG(天辉) 电炎绝手",
+    "region": "下路/下半区 raw=(129,93) game=(114,-4441)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +3; total camps=2, creeps=6",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 93,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 1316,
+    "t_end": 1326,
+    "t_anchor": 1321,
+    "time_range": "21:56-22:06",
+    "anchor_time": "22:01",
+    "heroes": "XG(天辉) 莱恩",
+    "region": "上路/上半区 raw=(66,135) game=(-7963,936)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +2; total camps=8, creeps=31",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 94,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1321,
+    "t_end": 1326,
+    "t_anchor": 1326,
+    "time_range": "22:01-22:06",
+    "anchor_time": "22:06",
+    "heroes": "上符点附近: XG(天辉): 无; Liquid(夜魇): 风暴之灵",
+    "region": "上符点 raw=(115.50,137.80) game=(-1601,1254)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=4; 控符结果=风暴之灵罐装恢复神符; 执行=Liquid(夜魇) 风暴之灵",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 95,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 1376,
+    "t_end": 1386,
+    "t_anchor": 1381,
+    "time_range": "22:56-23:06",
+    "anchor_time": "23:01",
+    "heroes": "Liquid(夜魇) 暗夜魔王",
+    "region": "上路/上半区 raw=(99,191) game=(-3725,8100)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +2; total camps=1, creeps=2",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 96,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1435,
+    "t_end": 1440,
+    "t_anchor": 1440,
+    "time_range": "23:55-24:00",
+    "anchor_time": "24:00",
+    "heroes": "上符点附近: XG(天辉): 虚空假面, 魅惑魔女; Liquid(夜魇): 无",
+    "region": "上符点 raw=(113.13,136.77) game=(-1904,1123)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=0; 控符结果=虚空假面拾取双倍神符; 执行=XG(天辉) 虚空假面",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 97,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 1436,
+    "t_end": 1446,
+    "t_anchor": 1441,
+    "time_range": "23:56-24:06",
+    "anchor_time": "24:01",
+    "heroes": "XG(天辉) 孽主",
+    "region": "下路/下半区 raw=(121,64) game=(-935,-8255)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +3; total camps=2, creeps=5",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 98,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1442,
+    "t_end": 1447,
+    "t_anchor": 1447,
+    "time_range": "24:02-24:07",
+    "anchor_time": "24:07",
+    "heroes": "夜魇赏金符点附近: XG(天辉): 无; Liquid(夜魇): 巫医",
+    "region": "夜魇赏金符点 raw=(121.24,160.09) game=(-866,4108)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=巫医拾取夜魇赏金神符; 执行=Liquid(夜魇) 巫医",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 99,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": 1472,
+    "t_end": 1482,
+    "t_anchor": 1472,
+    "time_range": "24:32-24:42",
+    "anchor_time": "24:32",
+    "heroes": "使用: Liquid(夜魇) 光之守卫; 进入: 光之守卫, 风暴之灵, 小小",
+    "region": "中路/河道 raw=(137,144) game=(1121,2015)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 100,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "资源获得"
+    ],
+    "status": "auto",
+    "confidence": 0.95,
+    "t_start": 1477,
+    "t_end": 1477,
+    "t_anchor": 1477,
+    "time_range": "24:37-24:37",
+    "anchor_time": "24:37",
+    "heroes": "XG(天辉)",
+    "region": "上路/上半区 raw=(102,146) game=(-3282,2318)",
+    "evidence": "24:37 击杀肉山: XG(天辉); chat type=CHAT_MESSAGE_ROSHAN_KILL; value=135; actor_source=combat_logs roshan_death",
+    "notes": "",
+    "id": 101,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "资源获得"
+    ],
+    "status": "auto",
+    "confidence": 0.95,
+    "t_start": 1477,
+    "t_end": 1477,
+    "t_anchor": 1477,
+    "time_range": "24:37-24:37",
+    "anchor_time": "24:37",
+    "heroes": "XG(天辉) 虚空假面",
+    "region": "上路/上半区 raw=(102,146) game=(-3282,2318)",
+    "evidence": "24:37 获得肉山盾: XG(天辉) 虚空假面; chat type=CHAT_MESSAGE_AEGIS; value=0",
+    "notes": "",
+    "id": 102,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 1482,
+    "t_end": 1485,
+    "t_anchor": 1482,
+    "time_range": "24:42-24:45",
+    "anchor_time": "24:42",
+    "heroes": "参与抓人: 孽主, 电炎绝手; 被抓但逃脱: 小小; 逃脱动作: black king bar; 受害方附近队友: 无",
+    "region": "中路/河道 raw=(100,134) game=(-3532,712)",
+    "evidence": "目标被集火/控制后未死亡，并在 24:45 使用 item_black_king_bar；敌方伤害 37，控制 2 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 103,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "团战"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.78,
+    "t_start": 1484,
+    "t_end": 1519,
+    "t_anchor": 1484,
+    "time_range": "24:44-25:19",
+    "anchor_time": "24:44",
+    "heroes": "XG(天辉): 孽主, 魅惑魔女, 虚空假面, 莱恩, 电炎绝手; Liquid(夜魇): 光之守卫, 暗夜魔王, 风暴之灵, 小小",
+    "region": "上路/上半区 raw=(91,129) game=(-4730,144)",
+    "evidence": "Liquid(夜魇) 小小 blink 先手/开团技能; 参与 XG(天辉) 5人/Liquid(夜魇) 4人; 伤害 XG(天辉) 4073 / Liquid(夜魇) 8145; 击杀 XG(天辉) 0 / Liquid(夜魇) 3; 死亡: 24:54 莱恩, 25:01 电炎绝手, 25:05 孽主",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 104,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 1487,
+    "t_end": 1491,
+    "t_anchor": 1487,
+    "time_range": "24:47-24:51",
+    "anchor_time": "24:47",
+    "heroes": "参与抓人: 孽主, 虚空假面; 被抓但逃脱: 风暴之灵; 逃脱动作: black king bar; 受害方附近队友: 暗夜魔王, 光之守卫, 小小",
+    "region": "上路/上半区 raw=(95,135) game=(-4205,958)",
+    "evidence": "目标被集火/控制后未死亡，并在 24:51 使用 item_black_king_bar；敌方伤害 1066，控制 9 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 105,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": 1505,
+    "t_end": 1517,
+    "t_anchor": 1505,
+    "time_range": "25:05-25:17",
+    "anchor_time": "25:05",
+    "heroes": "使用: Liquid(夜魇) 巫医; 进入: 巫医",
+    "region": "上路/上半区 raw=(96,143) game=(-4122,1937)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 106,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "带盾阵亡"
+    ],
+    "status": "auto",
+    "confidence": 0.95,
+    "t_start": 1512,
+    "t_end": 1512,
+    "t_anchor": 1512,
+    "time_range": "25:12-25:12",
+    "anchor_time": "25:12",
+    "heroes": "XG(天辉) 虚空假面",
+    "region": "上路/上半区 raw=(71,119) game=(-7311,-1154)",
+    "evidence": "25:12 虚空假面 带盾阵亡/消耗不朽盾；Aegis 获取时间 24:37",
+    "notes": "",
+    "id": 107,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1544,
+    "t_end": 1549,
+    "t_anchor": 1549,
+    "time_range": "25:44-25:49",
+    "anchor_time": "25:49",
+    "heroes": "天辉赏金符点附近: XG(天辉): 无; Liquid(夜魇): 暗夜魔王",
+    "region": "天辉赏金符点 raw=(131.46,89.68) game=(443,-4905)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=暗夜魔王拾取天辉赏金神符; 执行=Liquid(夜魇) 暗夜魔王",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 108,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1560,
+    "t_end": 1565,
+    "t_anchor": 1565,
+    "time_range": "26:00-26:05",
+    "anchor_time": "26:05",
+    "heroes": "上符点附近: XG(天辉): 无; Liquid(夜魇): 风暴之灵",
+    "region": "上符点 raw=(113.19,137.81) game=(-1896,1256)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=2; 控符结果=风暴之灵罐装幻象神符; 执行=Liquid(夜魇) 风暴之灵",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 109,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": 1641,
+    "t_end": 1662,
+    "t_anchor": 1641,
+    "time_range": "27:21-27:42",
+    "anchor_time": "27:21",
+    "heroes": "使用: Liquid(夜魇) 巫医; 进入: 光之守卫, 暗夜魔王, 风暴之灵, 小小, 巫医",
+    "region": "下路/下半区 raw=(136,87) game=(1080,-5209)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 110,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "小规模冲突"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.7,
+    "t_start": 1697,
+    "t_end": 1728,
+    "t_anchor": 1697,
+    "time_range": "28:17-28:48",
+    "anchor_time": "28:17",
+    "heroes": "XG(天辉): 孽主, 魅惑魔女, 莱恩; Liquid(夜魇): 光之守卫, 暗夜魔王, 风暴之灵, 小小, 巫医",
+    "region": "中路/河道 raw=(105,84) game=(-2914,-5570)",
+    "evidence": "Liquid(夜魇) 小小 tiny toss tree 先手/开团技能; 参与 XG(天辉) 3人/Liquid(夜魇) 5人; 伤害 XG(天辉) 1669 / Liquid(夜魇) 4112; 击杀 XG(天辉) 0 / Liquid(夜魇) 1; 死亡: 28:38 莱恩",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 111,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1697,
+    "t_end": 1702,
+    "t_anchor": 1702,
+    "time_range": "28:17-28:22",
+    "anchor_time": "28:22",
+    "heroes": "下符点附近: XG(天辉): 无; Liquid(夜魇): 暗夜魔王",
+    "region": "下符点 raw=(139.47,117.36) game=(1468,-1362)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=6; 控符结果=暗夜魔王拾取奥术神符; 执行=Liquid(夜魇) 暗夜魔王",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 112,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1701,
+    "t_end": 1706,
+    "t_anchor": 1706,
+    "time_range": "28:21-28:26",
+    "anchor_time": "28:26",
+    "heroes": "天辉赏金符点附近: XG(天辉): 魅惑魔女; Liquid(夜魇): 无",
+    "region": "天辉赏金符点 raw=(131.63,92.09) game=(464,-4596)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=魅惑魔女拾取天辉赏金神符; 执行=XG(天辉) 魅惑魔女",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 113,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 1712,
+    "t_end": 1712,
+    "t_anchor": 1712,
+    "time_range": "28:32-28:32",
+    "anchor_time": "28:32",
+    "heroes": "参与抓人: 孽主; 被抓但逃脱: 风暴之灵; 逃脱动作: black king bar; 受害方附近队友: 暗夜魔王",
+    "region": "中路/河道 raw=(117,94) game=(-1422,-4402)",
+    "evidence": "目标被集火/控制后未死亡，并在 28:32 使用 item_black_king_bar；敌方伤害 0，控制 1 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 114,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 1720,
+    "t_end": 1722,
+    "t_anchor": 1720,
+    "time_range": "28:40-28:42",
+    "anchor_time": "28:40",
+    "heroes": "参与抓人: 暗夜魔王, 风暴之灵; 被抓但逃脱: 魅惑魔女; 逃脱动作: black king bar; 受害方附近队友: 孽主, 莱恩",
+    "region": "中路/河道 raw=(103,78) game=(-3206,-6394)",
+    "evidence": "目标被集火/控制后未死亡，并在 28:42 使用 item_black_king_bar；敌方伤害 1045，控制 3 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 115,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 1743,
+    "t_end": 1753,
+    "t_anchor": 1753,
+    "time_range": "29:03-29:13",
+    "anchor_time": "29:13",
+    "heroes": "天辉侧智慧神符附近: XG(天辉): 虚空假面; Liquid(夜魇): 无",
+    "region": "天辉侧智慧神符附近 (66,134)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=8; 控符结果=虚空假面拾取智慧神符; 执行=XG(天辉) 虚空假面; 约29分钟智慧神符；结束时间=激活神龛时间",
+    "notes": "",
+    "id": 116,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.76,
+    "t_start": 1795,
+    "t_end": 1815,
+    "t_anchor": 1810,
+    "time_range": "29:55-30:15",
+    "anchor_time": "30:10",
+    "heroes": "参与抓人: 虚空假面, 莱恩; 被抓: 暗夜魔王; 受害方附近队友: 无",
+    "region": "上路/上半区 raw=(82,159) game=(-5895,3999)",
+    "evidence": "死亡窗口敌方伤害占比 92%; 受害者1000码队友数 0; death source=combat_logs",
+    "notes": "根据伤害占比+队友距离生成，符合 Excel 抓人候选口径；需确认是否有实质反抗。",
+    "id": 117,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1802,
+    "t_end": 1807,
+    "t_anchor": 1807,
+    "time_range": "30:02-30:07",
+    "anchor_time": "30:07",
+    "heroes": "下符点附近: XG(天辉): 无; Liquid(夜魇): 风暴之灵",
+    "region": "下符点 raw=(136.37,120.62) game=(1071,-945)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=9; 控符结果=风暴之灵罐装护盾神符; 执行=Liquid(夜魇) 风暴之灵",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 118,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "团战"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.78,
+    "t_start": 1835,
+    "t_end": 1874,
+    "t_anchor": 1835,
+    "time_range": "30:35-31:14",
+    "anchor_time": "30:35",
+    "heroes": "XG(天辉): 孽主, 魅惑魔女, 虚空假面, 莱恩, 电炎绝手; Liquid(夜魇): 光之守卫, 风暴之灵, 小小, 巫医",
+    "region": "中路/河道 raw=(113,113) game=(-1861,-1873)",
+    "evidence": "Liquid(夜魇) 风暴之灵 storm spirit electric vortex 先手/开团技能; 参与 XG(天辉) 5人/Liquid(夜魇) 4人; 伤害 XG(天辉) 9026 / Liquid(夜魇) 10459; 击杀 XG(天辉) 1 / Liquid(夜魇) 4; 死亡: 30:42 巫医, 30:45 孽主, 30:45 莱恩, 31:06 虚空假面, 31:14 电炎绝手",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 119,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 1835,
+    "t_end": 1849,
+    "t_anchor": 1835,
+    "time_range": "30:35-30:49",
+    "anchor_time": "30:35",
+    "heroes": "参与抓人: 孽主, 魅惑魔女, 虚空假面, 莱恩, 电炎绝手; 被抓但逃脱: 风暴之灵; 逃脱动作: black king bar; 受害方附近队友: 巫医",
+    "region": "中路/河道 raw=(111,116) game=(-2181,-1594)",
+    "evidence": "目标被集火/控制后未死亡，并在 30:49 使用 item_black_king_bar；敌方伤害 1182，控制 17 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 120,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 1843,
+    "t_end": 1857,
+    "t_anchor": 1843,
+    "time_range": "30:43-30:57",
+    "anchor_time": "30:43",
+    "heroes": "参与抓人: 孽主, 魅惑魔女, 虚空假面, 电炎绝手; 被抓但逃脱: 小小; 逃脱动作: black king bar; 受害方附近队友: 巫医, 光之守卫",
+    "region": "中路/河道 raw=(115,111) game=(-1632,-2176)",
+    "evidence": "目标被集火/控制后未死亡，并在 30:57 使用 item_black_king_bar；敌方伤害 1789，控制 6 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 121,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 1858,
+    "t_end": 1872,
+    "t_anchor": 1858,
+    "time_range": "30:58-31:12",
+    "anchor_time": "30:58",
+    "heroes": "参与抓人: 风暴之灵; 被抓但逃脱: 魅惑魔女; 逃脱动作: black king bar; 受害方附近队友: 孽主, 莱恩",
+    "region": "中路/河道 raw=(111,114) game=(-2176,-1798)",
+    "evidence": "目标被集火/控制后未死亡，并在 31:12 使用 item_black_king_bar；敌方伤害 347，控制 0 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 122,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "囤野/堆野"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.72,
+    "t_start": 1916,
+    "t_end": 1926,
+    "t_anchor": 1921,
+    "time_range": "31:56-32:06",
+    "anchor_time": "32:01",
+    "heroes": "Liquid(夜魇) 巫医",
+    "region": "下路/下半区 raw=(141,91) game=(1666,-4739)",
+    "evidence": "player_intervals2 camps_stacked +1, creeps_stacked +1; total camps=1, creeps=1",
+    "notes": "Excel v1.4 标为需人工核查；这里按堆野计数字段生成候选。",
+    "id": 123,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1919,
+    "t_end": 1924,
+    "t_anchor": 1924,
+    "time_range": "31:59-32:04",
+    "anchor_time": "32:04",
+    "heroes": "下符点附近: XG(天辉): 无; Liquid(夜魇): 风暴之灵",
+    "region": "下符点 raw=(132.09,115.68) game=(524,-1577)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=1; 控符结果=风暴之灵罐装急速神符; 执行=Liquid(夜魇) 风暴之灵",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 124,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 1920,
+    "t_end": 1925,
+    "t_anchor": 1925,
+    "time_range": "32:00-32:05",
+    "anchor_time": "32:05",
+    "heroes": "天辉赏金符点附近: XG(天辉): 无; Liquid(夜魇): 巫医, 小小",
+    "region": "天辉赏金符点 raw=(134.27,91.70) game=(802,-4646)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=小小拾取天辉赏金神符; 执行=Liquid(夜魇) 小小",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 125,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "资源获得"
+    ],
+    "status": "auto",
+    "confidence": 0.95,
+    "t_start": 1959,
+    "t_end": 1959,
+    "t_anchor": 1959,
+    "time_range": "32:39-32:39",
+    "anchor_time": "32:39",
+    "heroes": "Liquid(夜魇) 光之守卫",
+    "region": "下路/下半区 raw=(189,83) game=(7836,-5721)",
+    "evidence": "32:39 击杀魔晶/获得魔晶: Liquid(夜魇) 光之守卫; chat type=CHAT_MESSAGE_MINIBOSS_KILL; value=3",
+    "notes": "",
+    "id": 126,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 1970,
+    "t_end": 1980,
+    "t_anchor": 1980,
+    "time_range": "32:50-33:00",
+    "anchor_time": "33:00",
+    "heroes": "夜魇侧智慧神符附近: XG(天辉): 无; Liquid(夜魇): 光之守卫",
+    "region": "夜魇侧智慧神符附近 (192,121)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=8; 控符结果=光之守卫拾取智慧神符; 执行=Liquid(夜魇) 光之守卫; 约33分钟智慧神符；结束时间=激活神龛时间",
+    "notes": "",
+    "id": 127,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 2036,
+    "t_end": 2041,
+    "t_anchor": 2041,
+    "time_range": "33:56-34:01",
+    "anchor_time": "34:01",
+    "heroes": "上符点附近: XG(天辉): 莱恩, 魅惑魔女; Liquid(夜魇): 无",
+    "region": "上符点 raw=(108.59,127.66) game=(-2484,-44)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_DENY value=3; 控符结果=魅惑魔女反补隐身神符; 执行=XG(天辉) 魅惑魔女",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 128,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": 2043,
+    "t_end": 2065,
+    "t_anchor": 2043,
+    "time_range": "34:03-34:25",
+    "anchor_time": "34:03",
+    "heroes": "使用: Liquid(夜魇) 巫医; 进入: 光之守卫, 暗夜魔王, 风暴之灵, 小小, 巫医",
+    "region": "上路/上半区 raw=(133,169) game=(667,5257)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 129,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 2043,
+    "t_end": 2048,
+    "t_anchor": 2048,
+    "time_range": "34:03-34:08",
+    "anchor_time": "34:08",
+    "heroes": "夜魇赏金符点附近: XG(天辉): 无; Liquid(夜魇): 小小",
+    "region": "夜魇赏金符点 raw=(122.20,163.09) game=(-743,4491)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=小小拾取夜魇赏金神符; 执行=Liquid(夜魇) 小小",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 130,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": 2061,
+    "t_end": 2065,
+    "t_anchor": 2061,
+    "time_range": "34:21-34:25",
+    "anchor_time": "34:21",
+    "heroes": "使用: XG(天辉) 莱恩; 进入: 魅惑魔女, 虚空假面, 莱恩, 电炎绝手",
+    "region": "中路/河道 raw=(103,121) game=(-3136,-880)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 131,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "高地团",
+      "团战"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.78,
+    "t_start": 2066,
+    "t_end": 2109,
+    "t_anchor": 2066,
+    "time_range": "34:26-35:09",
+    "anchor_time": "34:26",
+    "heroes": "XG(天辉): 孽主, 魅惑魔女, 虚空假面, 莱恩, 电炎绝手; Liquid(夜魇): 光之守卫, 暗夜魔王, 风暴之灵, 小小, 巫医",
+    "region": "中路/河道 raw=(109,116) game=(-2449,-1554)",
+    "evidence": "XG(天辉) 莱恩 blink 先手/开团技能; 参与 XG(天辉) 5人/Liquid(夜魇) 5人; 伤害 XG(天辉) 7761 / Liquid(夜魇) 10400; 击杀 XG(天辉) 0 / Liquid(夜魇) 3; 死亡: 34:32 莱恩, 34:36 电炎绝手, 34:45 虚空假面",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 132,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 2071,
+    "t_end": 2073,
+    "t_anchor": 2071,
+    "time_range": "34:31-34:33",
+    "anchor_time": "34:31",
+    "heroes": "参与抓人: 虚空假面, 电炎绝手; 被抓但逃脱: 小小; 逃脱动作: black king bar; 受害方附近队友: 暗夜魔王, 风暴之灵",
+    "region": "中路/河道 raw=(109,117) game=(-2442,-1377)",
+    "evidence": "目标被集火/控制后未死亡，并在 34:33 使用 item_black_king_bar；敌方伤害 53，控制 1 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 133,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 2107,
+    "t_end": 2117,
+    "t_anchor": 2117,
+    "time_range": "35:07-35:17",
+    "anchor_time": "35:17",
+    "heroes": "夜魇侧智慧神符附近: XG(天辉): 莱恩; Liquid(夜魇): 无",
+    "region": "夜魇侧智慧神符附近 (192,121)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=8; 控符结果=莱恩拾取智慧神符; 执行=XG(天辉) 莱恩; 约35分钟智慧神符；结束时间=激活神龛时间",
+    "notes": "",
+    "id": 134,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 2156,
+    "t_end": 2161,
+    "t_anchor": 2161,
+    "time_range": "35:56-36:01",
+    "anchor_time": "36:01",
+    "heroes": "天辉赏金符点附近: XG(天辉): 无; Liquid(夜魇): 暗夜魔王",
+    "region": "天辉赏金符点 raw=(129.89,87.99) game=(242,-5122)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=暗夜魔王拾取天辉赏金神符; 执行=Liquid(夜魇) 暗夜魔王",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 135,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.9,
+    "t_start": 2167,
+    "t_end": 2177,
+    "t_anchor": 2177,
+    "time_range": "36:07-36:17",
+    "anchor_time": "36:17",
+    "heroes": "天辉侧智慧神符附近: XG(天辉): 虚空假面; Liquid(夜魇): 无",
+    "region": "天辉侧智慧神符附近 (66,135)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=8; 控符结果=虚空假面拾取智慧神符; 执行=XG(天辉) 虚空假面; 约36分钟智慧神符；结束时间=激活神龛时间",
+    "notes": "",
+    "id": 136,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "资源获得"
+    ],
+    "status": "auto",
+    "confidence": 0.95,
+    "t_start": 2188,
+    "t_end": 2188,
+    "t_anchor": 2188,
+    "time_range": "36:28-36:28",
+    "anchor_time": "36:28",
+    "heroes": "Liquid(夜魇)",
+    "region": "下路/下半区 raw=(148,108) game=(2593,-2528)",
+    "evidence": "36:28 击杀肉山: Liquid(夜魇); chat type=CHAT_MESSAGE_ROSHAN_KILL; value=135; actor_source=combat_logs roshan_death",
+    "notes": "",
+    "id": 137,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "资源获得"
+    ],
+    "status": "auto",
+    "confidence": 0.95,
+    "t_start": 2188,
+    "t_end": 2188,
+    "t_anchor": 2188,
+    "time_range": "36:28-36:28",
+    "anchor_time": "36:28",
+    "heroes": "Liquid(夜魇) 小小",
+    "region": "下路/下半区 raw=(148,107) game=(2525,-2694)",
+    "evidence": "36:28 获得肉山盾: Liquid(夜魇) 小小; chat type=CHAT_MESSAGE_AEGIS; value=0",
+    "notes": "",
+    "id": 138,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 2190,
+    "t_end": 2195,
+    "t_anchor": 2195,
+    "time_range": "36:30-36:35",
+    "anchor_time": "36:35",
+    "heroes": "下符点附近: XG(天辉): 无; Liquid(夜魇): 风暴之灵",
+    "region": "下符点 raw=(138.13,117.63) game=(1297,-1327)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=2; 控符结果=风暴之灵罐装幻象神符; 执行=Liquid(夜魇) 风暴之灵",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 139,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "团战"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.78,
+    "t_start": 2204,
+    "t_end": 2236,
+    "t_anchor": 2204,
+    "time_range": "36:44-37:16",
+    "anchor_time": "36:44",
+    "heroes": "XG(天辉): 孽主, 魅惑魔女, 虚空假面, 莱恩, 电炎绝手; Liquid(夜魇): 光之守卫, 暗夜魔王, 风暴之灵, 巫医",
+    "region": "中路/河道 raw=(104,75) game=(-3077,-6839)",
+    "evidence": "XG(天辉) 莱恩 blink 先手/开团技能; 参与 XG(天辉) 5人/Liquid(夜魇) 4人; 伤害 XG(天辉) 10109 / Liquid(夜魇) 7203; 击杀 XG(天辉) 1 / Liquid(夜魇) 0; 死亡: 37:05 暗夜魔王",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 140,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 2206,
+    "t_end": 2211,
+    "t_anchor": 2211,
+    "time_range": "36:46-36:51",
+    "anchor_time": "36:51",
+    "heroes": "夜魇赏金符点附近: XG(天辉): 无; Liquid(夜魇): 小小",
+    "region": "夜魇赏金符点 raw=(122.64,161.75) game=(-685,4320)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=小小拾取夜魇赏金神符; 执行=Liquid(夜魇) 小小",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 141,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 2212,
+    "t_end": 2230,
+    "t_anchor": 2212,
+    "time_range": "36:52-37:10",
+    "anchor_time": "36:52",
+    "heroes": "参与抓人: 孽主, 魅惑魔女, 电炎绝手; 被抓但逃脱: 风暴之灵; 逃脱动作: black king bar; 受害方附近队友: 暗夜魔王",
+    "region": "中路/河道 raw=(105,77) game=(-2974,-6513)",
+    "evidence": "目标被集火/控制后未死亡，并在 37:10 使用 item_black_king_bar；敌方伤害 1297，控制 9 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 142,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 2218,
+    "t_end": 2223,
+    "t_anchor": 2218,
+    "time_range": "36:58-37:03",
+    "anchor_time": "36:58",
+    "heroes": "参与抓人: 暗夜魔王, 巫医; 被抓但逃脱: 虚空假面; 逃脱动作: black king bar; 受害方附近队友: 魅惑魔女",
+    "region": "下路/下半区 raw=(108,72) game=(-2582,-7133)",
+    "evidence": "目标被集火/控制后未死亡，并在 37:03 使用 item_black_king_bar；敌方伤害 148，控制 1 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 143,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 2230,
+    "t_end": 2234,
+    "t_anchor": 2230,
+    "time_range": "37:10-37:14",
+    "anchor_time": "37:10",
+    "heroes": "参与抓人: 风暴之灵; 被抓但逃脱: 电炎绝手; 逃脱动作: black king bar; 受害方附近队友: 魅惑魔女",
+    "region": "中路/河道 raw=(99,79) game=(-3740,-6222)",
+    "evidence": "目标被集火/控制后未死亡，并在 37:14 使用 item_black_king_bar；敌方伤害 1166，控制 0 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 144,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 2278,
+    "t_end": 2283,
+    "t_anchor": 2283,
+    "time_range": "37:58-38:03",
+    "anchor_time": "38:03",
+    "heroes": "上符点附近: XG(天辉): 无; Liquid(夜魇): 风暴之灵",
+    "region": "上符点 raw=(114.04,136.49) game=(-1787,1087)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=4; 控符结果=风暴之灵罐装恢复神符; 执行=Liquid(夜魇) 风暴之灵",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 145,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "团战",
+      "守塔团"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.78,
+    "t_start": 2334,
+    "t_end": 2369,
+    "t_anchor": 2334,
+    "time_range": "38:54-39:29",
+    "anchor_time": "38:54",
+    "heroes": "XG(天辉): 孽主, 魅惑魔女, 虚空假面, 莱恩, 电炎绝手; Liquid(夜魇): 光之守卫, 暗夜魔王, 风暴之灵, 小小",
+    "region": "中路/河道 raw=(78,98) game=(-6454,-3896)",
+    "evidence": "Liquid(夜魇) 小小 tiny toss 先手/开团技能; 参与 XG(天辉) 5人/Liquid(夜魇) 4人; 伤害 XG(天辉) 4932 / Liquid(夜魇) 4108; 击杀 XG(天辉) 0 / Liquid(夜魇) 0; 死亡: 无; 防御塔上下文: tower_status_update team_num=2 hp=2253 (76,101)",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 146,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 2416,
+    "t_end": 2421,
+    "t_anchor": 2421,
+    "time_range": "40:16-40:21",
+    "anchor_time": "40:21",
+    "heroes": "下符点附近: XG(天辉): 无; Liquid(夜魇): 小小",
+    "region": "下符点 raw=(135.29,117.55) game=(934,-1338)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_BOTTLE value=0; 控符结果=小小罐装双倍神符; 执行=Liquid(夜魇) 小小",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 147,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": 2419,
+    "t_end": 2430,
+    "t_anchor": 2419,
+    "time_range": "40:19-40:30",
+    "anchor_time": "40:19",
+    "heroes": "使用: XG(天辉) 莱恩; 进入: 孽主, 魅惑魔女, 虚空假面, 莱恩, 电炎绝手",
+    "region": "天辉高地/基地 raw=(91,88) game=(-4684,-5163)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 148,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 2439,
+    "t_end": 2444,
+    "t_anchor": 2444,
+    "time_range": "40:39-40:44",
+    "anchor_time": "40:44",
+    "heroes": "夜魇赏金符点附近: XG(天辉): 无; Liquid(夜魇): 光之守卫",
+    "region": "夜魇赏金符点 raw=(121.63,162.58) game=(-815,4426)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=光之守卫拾取夜魇赏金神符; 执行=Liquid(夜魇) 光之守卫",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 149,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "控符"
+    ],
+    "status": "auto",
+    "confidence": 0.88,
+    "t_start": 2448,
+    "t_end": 2453,
+    "t_anchor": 2453,
+    "time_range": "40:48-40:53",
+    "anchor_time": "40:53",
+    "heroes": "天辉赏金符点附近: XG(天辉): 无; Liquid(夜魇): 巫医",
+    "region": "天辉赏金符点 raw=(133.78,91.65) game=(740,-4653)",
+    "evidence": "match_chat_events CHAT_MESSAGE_RUNE_PICKUP value=5; 控符结果=巫医拾取天辉赏金神符; 执行=Liquid(夜魇) 巫医",
+    "notes": "全场控符事件；同一英雄同一神符的罐装+后续拾取只记录一次，以罐装为准；附近英雄按1000码计算。",
+    "id": 150,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "开雾"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.86,
+    "t_start": 2458,
+    "t_end": 2481,
+    "t_anchor": 2458,
+    "time_range": "40:58-41:21",
+    "anchor_time": "40:58",
+    "heroes": "使用: Liquid(夜魇) 光之守卫; 进入: 光之守卫, 暗夜魔王, 风暴之灵, 小小, 巫医",
+    "region": "中路/河道 raw=(138,137) game=(1332,1197)",
+    "evidence": "combat_logs DOTA_COMBATLOG_ITEM/ABILITY item_smoke_of_deceit + smoke modifier；结束时间取第一个 modifier_smoke_of_deceit 移除。",
+    "notes": "Excel v1.4 标为需人工核查；DB 能确定使用和进入雾的人。",
+    "id": 151,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "高地团",
+      "团战",
+      "守塔团"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.78,
+    "t_start": 2482,
+    "t_end": 2528,
+    "t_anchor": 2482,
+    "time_range": "41:22-42:08",
+    "anchor_time": "41:22",
+    "heroes": "XG(天辉): 孽主, 魅惑魔女, 虚空假面, 莱恩, 电炎绝手; Liquid(夜魇): 光之守卫, 暗夜魔王, 风暴之灵, 小小, 巫医",
+    "region": "天辉高地/基地 raw=(90,86) game=(-4921,-5355)",
+    "evidence": "Liquid(夜魇) 小小 tiny avalanche 先手/开团技能; 参与 XG(天辉) 5人/Liquid(夜魇) 5人; 伤害 XG(天辉) 7237 / Liquid(夜魇) 19632; 击杀 XG(天辉) 0 / Liquid(夜魇) 6; 死亡: 41:29 电炎绝手, 41:30 莱恩, 41:35 孽主, 41:40 虚空假面, 41:53 魅惑魔女, 42:06 虚空假面; 防御塔上下文: tower_status_update team_num=2 hp=2537 (86,87)",
+    "notes": "按 Excel v1.4 战斗类标签生成候选；边界和语义仍建议录像复核。",
+    "id": 152,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 2484,
+    "t_end": 2499,
+    "t_anchor": 2484,
+    "time_range": "41:24-41:39",
+    "anchor_time": "41:24",
+    "heroes": "参与抓人: 孽主, 虚空假面, 莱恩; 被抓但逃脱: 风暴之灵; 逃脱动作: black king bar; 受害方附近队友: 巫医, 光之守卫, 小小",
+    "region": "中路/河道 raw=(98,88) game=(-3863,-5173)",
+    "evidence": "目标被集火/控制后未死亡，并在 41:39 使用 item_black_king_bar；敌方伤害 251，控制 5 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 153,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 2484,
+    "t_end": 2490,
+    "t_anchor": 2484,
+    "time_range": "41:24-41:30",
+    "anchor_time": "41:24",
+    "heroes": "参与抓人: 孽主, 魅惑魔女, 虚空假面, 莱恩; 被抓但逃脱: 小小; 逃脱动作: black king bar; 受害方附近队友: 巫医, 暗夜魔王, 风暴之灵",
+    "region": "天辉高地/基地 raw=(92,88) game=(-4587,-5143)",
+    "evidence": "目标被集火/控制后未死亡，并在 41:30 使用 item_black_king_bar；敌方伤害 905，控制 5 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 154,
+    "match_id": "8826052816"
+  },
+  {
+    "labels": [
+      "抓人"
+    ],
+    "status": "candidate_review",
+    "confidence": 0.68,
+    "t_start": 2488,
+    "t_end": 2489,
+    "t_anchor": 2488,
+    "time_range": "41:28-41:29",
+    "anchor_time": "41:28",
+    "heroes": "参与抓人: 孽主; 被抓但逃脱: 暗夜魔王; 逃脱动作: black king bar; 受害方附近队友: 巫医, 小小",
+    "region": "天辉高地/基地 raw=(88,84) game=(-5093,-5637)",
+    "evidence": "目标被集火/控制后未死亡，并在 41:29 使用 item_black_king_bar；敌方伤害 0，控制 1 条。",
+    "notes": "抓人未遂/逃脱候选；例如 BKB+TP 逃脱也计入抓人。",
+    "id": 155,
+    "match_id": "8826052816"
+  }
+]

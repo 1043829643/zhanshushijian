@@ -1,0 +1,19 @@
+# Local runtime dependencies
+node_modules/
+__pycache__/
+*.pyc
+
+# Raw database extracts and heavy intermediate data
+raw_db/
+raw_db_test/
+computed_events/
+computed_events_test/
+
+# Local environment and secrets
+.env
+*.env
+
+# Temporary/editor files
+~$*
+*.tmp
+*.bak
