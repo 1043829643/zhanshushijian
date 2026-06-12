@@ -43,6 +43,11 @@ LANE_ZONE_MIN_SAMPLES = 12
 CUT_LANE_GROUP_GAP = 10
 CUT_LANE_MIN_CREEP_DEATHS = 2
 AGGRO_LANE_GROUP_GAP = 10
+ROSHAN_ATTEMPT_MIN_TIME = 600
+ROSHAN_ATTEMPT_GROUP_GAP = 45
+ROSHAN_ATTEMPT_DAMAGE_MIN = 1500
+ROSHAN_ATTEMPT_KILL_GRACE = 8
+ROSHAN_ATTEMPT_END_PAD = 10
 
 
 def read_jsonl(path):
@@ -161,6 +166,10 @@ def hero_unit_from_row(row, key):
     source_key = "sourcename" if key == "attackername" else "targetsourcename"
     value = row.get(source_key)
     return value if value and value != "dota_unknown" else None
+
+
+def is_roshan_name(name):
+    return str(name) == "npc_dota_roshan"
 
 
 class MatchContext:
@@ -763,6 +772,106 @@ def compute_roshan_kill_events(ctx):
     return events
 
 
+def compute_roshan_attempt_events(ctx):
+    damage_rows = []
+    roshan_death_times = []
+    chat_kill_times = []
+    for row in ctx.combat:
+        row_type = row.get("type")
+        t = to_int(row.get("time"))
+        if t is None:
+            continue
+        if row_type == "DOTA_COMBATLOG_DEATH" and (
+            is_roshan_name(row.get("targetname")) or is_roshan_name(row.get("targetsourcename"))
+        ):
+            roshan_death_times.append(t)
+            continue
+        if row_type != "DOTA_COMBATLOG_DAMAGE":
+            continue
+        if not (is_roshan_name(row.get("targetname")) or is_roshan_name(row.get("targetsourcename"))):
+            continue
+        if t < ROSHAN_ATTEMPT_MIN_TIME:
+            continue
+        damage = to_float(row.get("value"), 0) or 0
+        if damage <= 0:
+            continue
+        attacker = hero_unit_from_row(row, "attackername")
+        if not attacker or ctx.unit_team(attacker) not in (2, 3):
+            continue
+        damage_rows.append({
+            "time": t,
+            "log_index": to_int(row.get("log_index"), 0),
+            "attacker": attacker,
+            "hero": ctx.unit_hero(attacker),
+            "team": ctx.unit_team(attacker),
+            "damage": damage,
+        })
+
+    for row in ctx.chat:
+        if row.get("type") == "CHAT_MESSAGE_ROSHAN_KILL":
+            t = to_int(row.get("time"))
+            if t is not None:
+                chat_kill_times.append(t)
+
+    groups = []
+    for item in sorted(damage_rows, key=lambda row: (row["time"], row["log_index"])):
+        if not groups or item["time"] - groups[-1][-1]["time"] > ROSHAN_ATTEMPT_GROUP_GAP:
+            groups.append([item])
+        else:
+            groups[-1].append(item)
+
+    events = []
+    for group in groups:
+        start = group[0]["time"]
+        last_damage_time = group[-1]["time"]
+        if any(start <= death_time <= last_damage_time + ROSHAN_ATTEMPT_KILL_GRACE for death_time in roshan_death_times):
+            continue
+        if any(start <= kill_time <= last_damage_time + ROSHAN_ATTEMPT_KILL_GRACE for kill_time in chat_kill_times):
+            continue
+
+        total_damage = sum(item["damage"] for item in group)
+        if total_damage < ROSHAN_ATTEMPT_DAMAGE_MIN:
+            continue
+
+        heroes_by_team = defaultdict(set)
+        damage_by_team = defaultdict(float)
+        for item in group:
+            heroes_by_team[item["team"]].add(item["hero"])
+            damage_by_team[item["team"]] += item["damage"]
+
+        heroes = ctx.heroes_text(heroes_by_team.get(2), heroes_by_team.get(3))
+        active_teams = sorted(team for team, damage in damage_by_team.items() if damage > 0)
+        if len(active_teams) > 1:
+            team_parts = []
+            for team in active_teams:
+                hero_list = "、".join(sorted(heroes_by_team.get(team, [])))
+                team_parts.append(f"{side_name(team)}：{hero_list}，伤害{int(round(damage_by_team[team]))}")
+            result = f"双方围绕肉山尝试/争夺，{'; '.join(team_parts)}；Roshan总伤害{int(round(total_damage))}，未完成击杀"
+        else:
+            main_team = active_teams[0]
+            hero_list = "、".join(sorted(heroes_by_team.get(main_team, [])))
+            result = (
+                f"{side_name(main_team)}尝试击杀肉山，参与英雄：{hero_list}；"
+                f"Roshan总伤害{int(round(total_damage))}，未完成击杀"
+            )
+        evidence = (
+            f"combat_logs Roshan damage group start_log_index={group[0]['log_index']} "
+            f"end_log_index={group[-1]['log_index']} hits={len(group)} "
+            f"damage={int(round(total_damage))}; no roshan death within {ROSHAN_ATTEMPT_KILL_GRACE}s"
+        )
+        events.append(event(
+            ctx.match_id,
+            "肉山尝试",
+            0.72,
+            start,
+            heroes,
+            result,
+            evidence,
+            last_damage_time + ROSHAN_ATTEMPT_END_PAD,
+        ))
+    return events
+
+
 def compute_resource_events(ctx):
     events = []
     for row in sorted(ctx.chat, key=lambda item: (to_int(item.get("time"), 0), to_int(item.get("log_index"), 0))):
@@ -850,6 +959,7 @@ def compute(match_dir, output_dir):
     rows.extend(compute_rune_events(ctx))
     rows.extend(compute_smoke_events(ctx))
     rows.extend(compute_roshan_kill_events(ctx))
+    rows.extend(compute_roshan_attempt_events(ctx))
     rows.extend(compute_resource_events(ctx))
     rows.extend(compute_aegis_death_events(ctx))
     rows = assign_ids(rows)
