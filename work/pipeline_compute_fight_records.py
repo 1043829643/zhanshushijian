@@ -57,6 +57,10 @@ def is_true(value):
     return str(value).lower() == "true"
 
 
+def involves_illusion(row):
+    return is_true(row.get("attackerillusion")) or is_true(row.get("targetillusion"))
+
+
 def is_roshan_name(name):
     return str(name) == "npc_dota_roshan"
 
@@ -136,6 +140,8 @@ def build_signals(ctx):
     for row in ctx.combat:
         t = to_int(row.get("time"))
         if t is None:
+            continue
+        if involves_illusion(row):
             continue
         row_type = row.get("type")
         attacker = hero_from_log_name(ctx, row, "attackername", allow_source_fallback=True)
