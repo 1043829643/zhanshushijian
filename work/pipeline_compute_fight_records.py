@@ -20,6 +20,7 @@ PARAMS = {
     "cluster_distance_raw": 48,
     "cluster_seed_damage": 550,
     "cluster_min_signals": 2,
+    "early_fight_control_seed_cutoff": 600,
     "participant_near_radius_game": 1600,
     "teamfight_min_side_count": 4,
     "teamfight_min_direct_count": 3,
@@ -338,6 +339,8 @@ def is_valid_seed(cluster, stats):
         return True
     if stats["deaths"]:
         return True
+    if 0 <= cluster["start"] <= PARAMS["early_fight_control_seed_cutoff"]:
+        return False
     return stats["signal_count"] >= PARAMS["cluster_min_signals"] and stats["controls"]
 
 
