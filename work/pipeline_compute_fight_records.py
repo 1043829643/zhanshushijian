@@ -27,7 +27,7 @@ PARAMS = {
     "teamfight_death_threshold": 2,
     "teamfight_duration_threshold": 15,
     "skirmish_min_total_heroes": 2,
-    "gank_min_direct_attackers": 2,
+    "gank_min_attacker_side_heroes": 2,
     "gank_max_victim_side_heroes": 1,
 }
 
@@ -276,10 +276,10 @@ def classify_fight(stats, duration):
     if total < PARAMS["skirmish_min_total_heroes"] and death_count == 0:
         return None
     if (
-        direct_radiant >= PARAMS["gank_min_direct_attackers"]
+        radiant_count >= PARAMS["gank_min_attacker_side_heroes"]
         and dire_count <= PARAMS["gank_max_victim_side_heroes"]
     ) or (
-        direct_dire >= PARAMS["gank_min_direct_attackers"]
+        dire_count >= PARAMS["gank_min_attacker_side_heroes"]
         and radiant_count <= PARAMS["gank_max_victim_side_heroes"]
     ):
         return "GANK"
