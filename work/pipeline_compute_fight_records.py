@@ -10,7 +10,7 @@ from pipeline_compute_fact_events import MatchContext, seconds_to_time, time_ran
 
 
 ROOT = Path(__file__).resolve().parents[1]
-COMBAT_LABELS = {"小规模冲突", "团战"}
+COMBAT_LABELS = {"GANK", "小规模冲突", "团战"}
 EVENT_FIELDNAMES = ["id", "match_id", "labels", "confidence", "time_range", "heroes", "结果", "evidence", "批注"]
 
 PARAMS = {
@@ -27,6 +27,8 @@ PARAMS = {
     "teamfight_death_threshold": 2,
     "teamfight_duration_threshold": 15,
     "skirmish_min_total_heroes": 2,
+    "gank_min_direct_attackers": 2,
+    "gank_max_victim_side_heroes": 1,
 }
 
 
@@ -274,6 +276,14 @@ def classify_fight(stats, duration):
     if total < PARAMS["skirmish_min_total_heroes"] and death_count == 0:
         return None
     if (
+        direct_radiant >= PARAMS["gank_min_direct_attackers"]
+        and dire_count <= PARAMS["gank_max_victim_side_heroes"]
+    ) or (
+        direct_dire >= PARAMS["gank_min_direct_attackers"]
+        and radiant_count <= PARAMS["gank_max_victim_side_heroes"]
+    ):
+        return "GANK"
+    if (
         radiant_count >= PARAMS["teamfight_min_side_count"]
         and dire_count >= PARAMS["teamfight_min_side_count"]
         and direct_radiant >= PARAMS["teamfight_min_direct_count"]
@@ -354,7 +364,7 @@ def build_fight_records(ctx):
 def records_to_events(ctx, records):
     rows = []
     for idx, record in enumerate(records, start=1):
-        confidence = 0.74 if record["label"] == "团战" else 0.68
+        confidence = 0.74 if record["label"] == "团战" else 0.7 if record["label"] == "GANK" else 0.68
         rows.append({
             "id": idx,
             "match_id": ctx.match_id,

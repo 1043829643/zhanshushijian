@@ -137,10 +137,11 @@ const fightRows = normalizeRows(await readJsonArray(fightPath));
 let rows = [...factRows, ...fightRows].sort((a, b) => rangeStartSeconds(a) - rangeStartSeconds(b) || String(a.labels).localeCompare(String(b.labels), "zh-Hans-CN"));
 rows = rows.map((row, index) => ({ ...row, id: index + 1 }));
 
+const labelsMissingFromDefinitions = new Set();
 for (const row of rows) {
   for (const label of splitLabels(row.labels)) {
     if (!allowedLabels.has(label)) {
-      throw new Error(`Label "${label}" is not in definitions`);
+      labelsMissingFromDefinitions.add(label);
     }
   }
 }
@@ -166,6 +167,7 @@ writeSheet(
     { 项目: "事件数", 内容: rows.length, 批注: "" },
     { 项目: "输出列", 内容: expectedHeaders.join(", "), 批注: "" },
     { 项目: "数据来源", 内容: `pipeline: ${path.basename(factPath)} + ${path.basename(fightPath)}`, 批注: "" },
+    { 项目: "定义表未列出标签", 内容: [...labelsMissingFromDefinitions].join("、") || "无", 批注: "" },
   ],
   [160, 760, 220],
   34,
@@ -196,6 +198,7 @@ console.log(JSON.stringify({
   factRows: factRows.length,
   fightRows: fightRows.length,
   definitionLabels: allowedLabels.size,
+  labelsMissingFromDefinitions: [...labelsMissingFromDefinitions].sort((a, b) => a.localeCompare(b, "zh-Hans-CN")),
   labelCounts: Object.fromEntries(countLabels(rows)),
   formulaErrorScan: formulaErrors.ndjson,
 }, null, 2));

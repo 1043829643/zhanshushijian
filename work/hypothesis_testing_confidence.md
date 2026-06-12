@@ -143,6 +143,7 @@ H1: FieldAccuracy > A0
 | 控符 | 事件级 | Precision/Recall/字段准确率 | 符点、附近英雄、执行英雄、神符类型、动作 | Precision/Recall > 0.90 |
 | 囤野/堆野 | 事件级 | Precision | 执行英雄、时间 | Precision > 0.85 |
 | 开雾 | 事件级 | 字段准确率 | 使用者、进雾英雄、结束时间 | 使用者准确率 > 0.95，进雾英雄准确率 > 0.80 |
+| GANK | 窗口级 | Precision/Recall/字段准确率 | gank方英雄、被抓英雄、时间窗、死亡结果 | Precision > 0.80，Recall > 0.75 |
 | 小规模冲突 | 窗口级 | Precision/Recall/字段准确率 | 时间窗、参战英雄、死亡结果 | Precision > 0.80，Recall > 0.75 |
 | 团战 | 窗口级 | Precision/Recall/字段准确率 | 时间窗、参战英雄、死亡结果 | Precision > 0.80，Recall > 0.75 |
 | 守塔团 | 窗口级 | 标签准确率 | 塔上下文、战斗标签 | 标签准确率 > 0.85 |
