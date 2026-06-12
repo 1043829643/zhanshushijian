@@ -9,6 +9,12 @@ raw_db_test/
 computed_events/
 computed_events_test/
 
+# Generated match reports stay local
+pipeline_excels/
+outputs/tactical_events_*/
+outputs/战术事件_*/
+outputs/战术事件_序号*/
+
 # Local environment and secrets
 .env
 *.env
