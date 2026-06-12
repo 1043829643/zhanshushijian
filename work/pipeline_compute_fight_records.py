@@ -6,7 +6,7 @@ from bisect import bisect_left
 from collections import defaultdict
 from pathlib import Path
 
-from pipeline_compute_fact_events import MatchContext, seconds_to_time, time_range, to_float, to_int
+from pipeline_compute_fact_events import MatchContext, seconds_to_time, side_name, time_range, to_float, to_int
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -33,6 +33,8 @@ PARAMS = {
     "roshan_damage_context_pad": 30,
     "roshan_kill_context_before": 45,
     "roshan_kill_context_after": 75,
+    "tower_context_radius": 1000,
+    "tower_context_time_pad": 5,
 }
 
 
@@ -339,6 +341,13 @@ def is_valid_seed(cluster, stats):
     return stats["signal_count"] >= PARAMS["cluster_min_signals"] and stats["controls"]
 
 
+def add_context_label(label_text, context_label):
+    labels = [label.strip() for label in str(label_text).split("/") if label.strip()]
+    if context_label not in labels:
+        labels.insert(0, context_label)
+    return " / ".join(labels)
+
+
 def build_roshan_context(ctx):
     damage_times = []
     death_times = []
@@ -396,8 +405,94 @@ def apply_roshan_fight_context(records, roshan_context):
         context = roshan_context_for_record(record, roshan_context)
         if context and record["label"] != "GANK":
             record = dict(record)
-            record["label"] = f"肉山团 / {record['label']}"
+            record["label"] = add_context_label(record["label"], "肉山团")
             record["evidence"] = f"{record['evidence']}; roshan_context={context}"
+        annotated.append(record)
+    return annotated
+
+
+def build_tower_context(ctx):
+    towers = defaultdict(list)
+    for row in ctx.tables.get("tower_status_update", []):
+        t = to_int(row.get("time"))
+        team = to_int(row.get("team_num"))
+        hp = to_float(row.get("hp"))
+        max_hp = to_float(row.get("max_hp"))
+        x = to_float(row.get("x"))
+        y = to_float(row.get("y"))
+        ehandle = row.get("ehandle")
+        if t is None or team not in (2, 3) or hp is None or x is None or y is None or not ehandle:
+            continue
+        towers[ehandle].append({
+            "time": t,
+            "team": team,
+            "hp": hp,
+            "max_hp": max_hp,
+            "pos": (x, y),
+        })
+    for rows in towers.values():
+        rows.sort(key=lambda item: item["time"])
+    return towers
+
+
+def tower_status_near_time(rows, time_value):
+    if not rows:
+        return None
+    allowed_time = time_value + PARAMS["tower_context_time_pad"]
+    latest = None
+    for row in rows:
+        if row["time"] <= allowed_time:
+            latest = row
+        else:
+            break
+    return latest
+
+
+def tower_context_for_record(record, tower_context):
+    center = record.get("center_raw")
+    if not center:
+        return None
+    radius_raw = PARAMS["tower_context_radius"] / 130
+    best = None
+    for ehandle, rows in tower_context.items():
+        status = tower_status_near_time(rows, record["start"])
+        if not status or status["hp"] <= 0:
+            continue
+        dist = distance_raw(tuple(center), status["pos"])
+        if dist is None or dist > radius_raw:
+            continue
+        candidate = {
+            "ehandle": ehandle,
+            "team": status["team"],
+            "hp": status["hp"],
+            "max_hp": status.get("max_hp"),
+            "distance_raw": dist,
+            "pos": status["pos"],
+            "status_time": status["time"],
+        }
+        if best is None or candidate["distance_raw"] < best["distance_raw"]:
+            best = candidate
+    return best
+
+
+def apply_tower_fight_context(records, tower_context):
+    annotated = []
+    for record in records:
+        context = tower_context_for_record(record, tower_context)
+        if context and record["label"] != "GANK":
+            record = dict(record)
+            side = side_name(context["team"])
+            hp_text = int(round(context["hp"]))
+            max_hp = context.get("max_hp")
+            if max_hp:
+                hp_text = f"{hp_text}/{int(round(max_hp))}"
+            record["label"] = add_context_label(record["label"], "守塔团")
+            record["tower_context"] = f"{side}防御塔附近交战，塔血量{hp_text}"
+            record["evidence"] = (
+                f"{record['evidence']}; tower_context=ehandle={context['ehandle']} "
+                f"team={side} hp={hp_text} distance_raw={context['distance_raw']:.1f} "
+                f"status_time={seconds_to_time(context['status_time'])}"
+            )
         annotated.append(record)
     return annotated
 
@@ -429,7 +524,9 @@ def build_fight_records(ctx):
             "signal_count": stats["signal_count"],
             "evidence": evidence_text(cluster, stats),
         })
-    return apply_roshan_fight_context(records, build_roshan_context(ctx))
+    records = apply_roshan_fight_context(records, build_roshan_context(ctx))
+    records = apply_tower_fight_context(records, build_tower_context(ctx))
+    return records
 
 
 def records_to_events(ctx, records):
@@ -444,7 +541,7 @@ def records_to_events(ctx, records):
             "confidence": confidence,
             "time_range": record["time_range"],
             "heroes": ctx.heroes_text(record["radiant"], record["dire"]),
-            "结果": result_text(record),
+            "结果": result_text(record) + (f"；守塔上下文：{record['tower_context']}" if record.get("tower_context") else ""),
             "evidence": record["evidence"],
             "批注": "",
         })
