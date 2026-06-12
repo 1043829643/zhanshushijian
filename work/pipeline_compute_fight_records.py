@@ -29,6 +29,10 @@ PARAMS = {
     "skirmish_min_total_heroes": 2,
     "gank_min_attacker_side_heroes": 2,
     "gank_max_victim_side_heroes": 1,
+    "roshan_context_min_time": 600,
+    "roshan_damage_context_pad": 30,
+    "roshan_kill_context_before": 45,
+    "roshan_kill_context_after": 75,
 }
 
 
@@ -50,6 +54,10 @@ def distance_game(a, b):
 
 def is_true(value):
     return str(value).lower() == "true"
+
+
+def is_roshan_name(name):
+    return str(name) == "npc_dota_roshan"
 
 
 def hero_from_log_name(ctx, row, key, allow_source_fallback=True):
@@ -331,6 +339,69 @@ def is_valid_seed(cluster, stats):
     return stats["signal_count"] >= PARAMS["cluster_min_signals"] and stats["controls"]
 
 
+def build_roshan_context(ctx):
+    damage_times = []
+    death_times = []
+    chat_kill_times = []
+    for row in ctx.combat:
+        t = to_int(row.get("time"))
+        if t is None:
+            continue
+        row_type = row.get("type")
+        if row_type == "DOTA_COMBATLOG_DAMAGE" and (
+            is_roshan_name(row.get("targetname")) or is_roshan_name(row.get("targetsourcename"))
+        ):
+            damage = to_float(row.get("value"), 0) or 0
+            attacker = hero_from_log_name(ctx, row, "attackername", allow_source_fallback=True)
+            if t >= PARAMS["roshan_context_min_time"] and damage > 0 and attacker:
+                damage_times.append(t)
+        elif row_type == "DOTA_COMBATLOG_DEATH" and (
+            is_roshan_name(row.get("targetname")) or is_roshan_name(row.get("targetsourcename"))
+        ):
+            death_times.append(t)
+
+    for row in ctx.chat:
+        if row.get("type") == "CHAT_MESSAGE_ROSHAN_KILL":
+            t = to_int(row.get("time"))
+            if t is not None:
+                chat_kill_times.append(t)
+
+    return {
+        "damage_times": sorted(damage_times),
+        "kill_times": sorted(set(death_times + chat_kill_times)),
+    }
+
+
+def roshan_context_for_record(record, roshan_context):
+    start = record["start"]
+    end = record["end"]
+    damage_matches = [
+        t for t in roshan_context["damage_times"]
+        if start - PARAMS["roshan_damage_context_pad"] <= t <= end + PARAMS["roshan_damage_context_pad"]
+    ]
+    kill_matches = [
+        t for t in roshan_context["kill_times"]
+        if start - PARAMS["roshan_kill_context_before"] <= t <= end + PARAMS["roshan_kill_context_after"]
+    ]
+    if damage_matches:
+        return f"Roshan damage near fight at {seconds_to_time(damage_matches[0])}"
+    if kill_matches:
+        return f"Roshan kill near fight at {seconds_to_time(kill_matches[0])}"
+    return ""
+
+
+def apply_roshan_fight_context(records, roshan_context):
+    annotated = []
+    for record in records:
+        context = roshan_context_for_record(record, roshan_context)
+        if context and record["label"] != "GANK":
+            record = dict(record)
+            record["label"] = f"肉山团 / {record['label']}"
+            record["evidence"] = f"{record['evidence']}; roshan_context={context}"
+        annotated.append(record)
+    return annotated
+
+
 def build_fight_records(ctx):
     signals = build_signals(ctx)
     raw_clusters = cluster_signals(signals)
@@ -358,13 +429,14 @@ def build_fight_records(ctx):
             "signal_count": stats["signal_count"],
             "evidence": evidence_text(cluster, stats),
         })
-    return records
+    return apply_roshan_fight_context(records, build_roshan_context(ctx))
 
 
 def records_to_events(ctx, records):
     rows = []
     for idx, record in enumerate(records, start=1):
-        confidence = 0.74 if record["label"] == "团战" else 0.7 if record["label"] == "GANK" else 0.68
+        labels = {label.strip() for label in record["label"].split("/")}
+        confidence = 0.74 if "团战" in labels else 0.7 if "GANK" in labels else 0.68
         rows.append({
             "id": idx,
             "match_id": ctx.match_id,
@@ -401,7 +473,11 @@ def compute(match_dir, output_dir):
 
     counts = defaultdict(int)
     for row in events:
-        counts[row["labels"]] += 1
+        for label in str(row["labels"]).split("/"):
+            label = label.strip()
+            if not label:
+                continue
+            counts[label] += 1
     return {
         "match_id": ctx.match_id,
         "fight_records": len(records),
