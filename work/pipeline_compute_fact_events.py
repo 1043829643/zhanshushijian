@@ -39,6 +39,7 @@ LANE_ROLE = {
 LANE_ZONE_SAMPLE_WINDOW = 600
 LANE_ZONE_NEAR_ENEMY_CREEP_RAW = 8.0
 LANE_ZONE_NEAR_ENEMY_DEATH_SECONDS = 3
+LANE_CREEP_SOURCE_EARLY_SECONDS = 8
 RUNE_NEAR_RADIUS_SERVER = 1400
 SERVER_COORD_EXTENT = 16384
 RUNE_SPOTS_SERVER = {
@@ -53,6 +54,7 @@ RAW_TO_SERVER_HOMOGRAPHY = (
 SMOKE_LINK_WINDOW = 120
 LANE_ZONE_MARGIN_RAW = 10.0
 LANE_ZONE_MIN_SAMPLES = 12
+LANE_MANIP_TOWER_PROTECT_RAW = 12.0
 CUT_LANE_GROUP_GAP = 10
 CUT_LANE_MIN_CREEP_DEATHS = 2
 AGGRO_LANE_GROUP_GAP = 10
@@ -62,6 +64,7 @@ PULL_GROUP_DISTANCE_RAW = 28.0
 PULL_STATUS_MATCH_WINDOW = 2
 PULL_STATUS_POINT_DISTANCE_RAW = 20.0
 PULL_STATUS_PAIR_DISTANCE_RAW = 18.0
+PULL_STATUS_PROXIMITY_RAW = 9.0
 PULL_NEARBY_HERO_RADIUS_SERVER = 1500
 PULL_NEARBY_HERO_TIME_PAD = 8
 PULL_MIN_INTERACTIONS = 3
@@ -149,6 +152,18 @@ def enemy_team(team):
 
 def lane_display_name(lane):
     return {"top": "上路", "mid": "中路", "bot": "下路"}.get(lane, lane)
+
+
+def hero_with_primary_lane(hero, hero_primary_lanes):
+    lane_text = hero_primary_lanes.get(hero)
+    return f"{hero}（{lane_text}）" if lane_text else hero
+
+
+def format_xp_hero(hero, xp, hero_primary_lanes):
+    lane_text = hero_primary_lanes.get(hero)
+    if lane_text:
+        return f"{hero}（{lane_text}，{xp}xp）"
+    return f"{hero}({xp}xp)"
 
 
 def raw_to_server_xy(x, y):
@@ -295,6 +310,29 @@ def event(match_id, label, confidence, start, heroes, result="", evidence="", en
     }
 
 
+def build_hero_primary_lanes(ctx):
+    by_slot = defaultdict(list)
+    for row in ctx.intervals:
+        t = to_int(row.get("time"))
+        x = to_float(row.get("x"))
+        y = to_float(row.get("y"))
+        slot = to_int(row.get("slot"))
+        if t is None or slot is None or x is None or y is None:
+            continue
+        if 0 <= t <= 300:
+            by_slot[slot].append(lane_from_xy(x, y))
+
+    by_hero = {}
+    for slot in sorted(ctx.slot_to_player):
+        samples = by_slot.get(slot, [])
+        if not samples:
+            continue
+        lane_counts = {lane: samples.count(lane) for lane in ("top", "mid", "bot")}
+        primary_lane = max(("top", "mid", "bot"), key=lambda lane: (lane_counts[lane], lane == "mid"))
+        by_hero[ctx.slot_hero(slot)] = lane_display_name(primary_lane)
+    return by_hero
+
+
 def compute_laning_events(ctx):
     by_slot = defaultdict(list)
     for row in ctx.intervals:
@@ -389,13 +427,17 @@ def lane_creep_deaths(ctx, max_time=600):
         if t is None or x is None or y is None or not is_lane_creep_name(target) or team not in (2, 3):
             continue
         if 0 <= t <= max_time:
+            xy_lane = lane_from_xy(x, y)
             deaths.append({
                 "time": t,
                 "log_index": to_int(row.get("log_index"), 0),
                 "row": row,
                 "target": target,
                 "team": team,
-                "lane": lane_from_xy(x, y),
+                "lane": xy_lane,
+                "death_xy_lane": xy_lane,
+                "source_lane": xy_lane,
+                "source_lane_method": "xy_fallback",
                 "x": x,
                 "y": y,
             })
@@ -412,7 +454,9 @@ def build_lane_creep_status_context(ctx, max_time=650):
         team = to_int(row.get("team"))
         x = to_float(row.get("x"))
         y = to_float(row.get("y"))
-        ehandle = to_int(row.get("ehandle"))
+        raw_ehandle = to_int(row.get("ehandle"))
+        log_index = to_int(row.get("log_index"), 0)
+        ehandle = raw_ehandle if raw_ehandle is not None else -log_index
         unit = row.get("unit")
         if t is None or x is None or y is None or ehandle is None or team not in (2, 3):
             continue
@@ -422,10 +466,11 @@ def build_lane_creep_status_context(ctx, max_time=650):
             continue
         item = {
             "time": t,
-            "log_index": to_int(row.get("log_index"), 0),
+            "log_index": log_index,
             "unit": unit,
             "team": team,
             "ehandle": ehandle,
+            "has_ehandle": raw_ehandle is not None,
             "x": x,
             "y": y,
             "hp": to_float(row.get("hp"), 0) or 0,
@@ -436,14 +481,32 @@ def build_lane_creep_status_context(ctx, max_time=650):
         by_ehandle[ehandle].append(item)
 
     lane_by_ehandle = {}
+    source_lane_by_ehandle = {}
     for ehandle, rows in by_ehandle.items():
         counts = defaultdict(int)
         for row in rows:
             counts[row["lane_at_pos"]] += 1
         if counts:
             lane_by_ehandle[ehandle] = max(("top", "mid", "bot"), key=lambda lane: counts[lane])
+        sorted_rows = sorted(rows, key=lambda row: (row["time"], row["log_index"]))
+        if sorted_rows and sorted_rows[0].get("has_ehandle"):
+            first_time = sorted_rows[0]["time"]
+            early_rows = [
+                row for row in sorted_rows
+                if row["time"] <= first_time + LANE_CREEP_SOURCE_EARLY_SECONDS
+            ] or sorted_rows[:5]
+            early_counts = defaultdict(int)
+            for row in early_rows:
+                early_counts[row["lane_at_pos"]] += 1
+            if early_counts:
+                source_lane_by_ehandle[ehandle] = max(("top", "mid", "bot"), key=lambda lane: early_counts[lane])
 
-    return {"by_time": by_time, "by_ehandle": by_ehandle, "lane_by_ehandle": lane_by_ehandle}
+    return {
+        "by_time": by_time,
+        "by_ehandle": by_ehandle,
+        "lane_by_ehandle": lane_by_ehandle,
+        "source_lane_by_ehandle": source_lane_by_ehandle,
+    }
 
 
 def match_death_to_creep_status(death, status_context):
@@ -472,7 +535,18 @@ def enrich_deaths_with_status(deaths, status_context):
         if match:
             death = dict(death)
             death["ehandle"] = match["ehandle"]
-            death["lane"] = status_context["lane_by_ehandle"].get(match["ehandle"], death["lane"])
+            source_lane = (
+                status_context["source_lane_by_ehandle"].get(match["ehandle"])
+                if match.get("has_ehandle")
+                else None
+            )
+            if source_lane:
+                death["source_lane"] = source_lane
+                death["source_lane_method"] = "ehandle_early_path"
+                death["lane"] = source_lane
+            else:
+                death["source_lane"] = death.get("source_lane", death["lane"])
+                death["source_lane_method"] = death.get("source_lane_method", "xy_fallback")
             death["status_match_time"] = match["time"]
             death["status_match_log_index"] = match["log_index"]
         enriched.append(death)
@@ -512,8 +586,51 @@ def build_t1_alive_lookup(ctx):
     return is_alive
 
 
+def build_t1_position_lookup(ctx):
+    positions = {}
+    for row in ctx.tables.get("tower_status_update", []):
+        team = to_int(row.get("team_num"))
+        max_hp = to_float(row.get("max_hp"))
+        x = to_float(row.get("x"))
+        y = to_float(row.get("y"))
+        if team not in (2, 3) or max_hp is None or x is None or y is None:
+            continue
+        if int(max_hp) != 1800:
+            continue
+        lane = lane_from_xy(x, y)
+        key = (team, lane)
+        row_time = to_int(row.get("time"), -10**9)
+        if key not in positions or row_time < positions[key][0]:
+            positions[key] = (row_time, x, y)
+    return {key: (item[1], item[2]) for key, item in positions.items()}
+
+
 def lane_t1s_alive(t1_alive, lane, t):
     return t1_alive(2, lane, t) and t1_alive(3, lane, t)
+
+
+def near_alive_lane_t1(death, t1_positions, t1_alive, radius=LANE_MANIP_TOWER_PROTECT_RAW):
+    point = (death["x"], death["y"])
+    radius_sq = radius * radius
+    best = None
+    for team in (2, 3):
+        pos = t1_positions.get((team, death["lane"]))
+        if not pos:
+            continue
+        if not t1_alive(team, death["lane"], death["time"]):
+            continue
+        dist_sq = distance_sq(point, pos)
+        if dist_sq > radius_sq:
+            continue
+        if best is None or dist_sq < best["distance_sq"]:
+            best = {
+                "team": team,
+                "lane": death["lane"],
+                "x": pos[0],
+                "y": pos[1],
+                "distance_sq": dist_sq,
+            }
+    return best
 
 
 def nearby_enemy_creep_count(death, deaths, status_context, radius=LANE_ZONE_NEAR_ENEMY_CREEP_RAW):
@@ -528,7 +645,11 @@ def nearby_enemy_creep_count(death, deaths, status_context, radius=LANE_ZONE_NEA
         for pos in status_context["by_time"].get(t, []):
             if pos["team"] != enemy:
                 continue
-            if status_context["lane_by_ehandle"].get(pos["ehandle"], pos["lane_at_pos"]) != death["lane"]:
+            pos_lane = status_context["source_lane_by_ehandle"].get(
+                pos["ehandle"],
+                status_context["lane_by_ehandle"].get(pos["ehandle"], pos["lane_at_pos"]),
+            )
+            if pos_lane != death["lane"]:
                 continue
             if pos["life_state"] == 1 or pos["hp"] <= 0:
                 continue
@@ -696,6 +817,8 @@ def compute_lane_manipulation_events(ctx):
     status_context = build_lane_creep_status_context(ctx)
     deaths = enrich_deaths_with_status(deaths, status_context)
     t1_alive = build_t1_alive_lookup(ctx)
+    t1_positions = build_t1_position_lookup(ctx)
+    hero_primary_lanes = build_hero_primary_lanes(ctx)
     eligible_deaths = [death for death in deaths if lane_t1s_alive(t1_alive, death["lane"], death["time"])]
     zones = build_lane_zones(ctx, eligible_deaths, status_context, t1_alive)
     death_xp_index = build_death_xp_index(
@@ -706,6 +829,8 @@ def compute_lane_manipulation_events(ctx):
     cut_candidates = []
     aggro_candidates = []
     for death in eligible_deaths:
+        if near_alive_lane_t1(death, t1_positions, t1_alive):
+            continue
         zone_state = in_lane_zone(death, zones)
         if zone_state is not False:
             continue
@@ -718,6 +843,9 @@ def compute_lane_manipulation_events(ctx):
         base_evidence = (
             f"creep_death log_index={death['log_index']} target={death['target']} "
             f"ehandle={death.get('ehandle', 'unmatched')} "
+            f"source_lane={death.get('source_lane', death['lane'])} "
+            f"source_lane_method={death.get('source_lane_method', 'xy_fallback')} "
+            f"death_xy_lane={death.get('death_xy_lane', death['lane'])} "
             f"lane={death['lane']} xy=({death['x']:.1f},{death['y']:.1f}) "
             f"both_t1_alive=true lane_zone={zone_text} near_enemy_creep_count={near_count} source={near_source}"
         )
@@ -752,13 +880,15 @@ def compute_lane_manipulation_events(ctx):
         attacker_team = first["attacker_team"]
         victim_side = side_name(first["team"])
         lane = first["lane"]
+        lane_text = lane_display_name(lane)
+        hero_text = hero_with_primary_lane(hero, hero_primary_lanes)
         events.append(event(
             ctx.match_id,
             "断线",
             "未知",
             group[0]["time"],
             ctx.hero_side_text(hero, attacker_team),
-            f"{hero}在{lane}路双方一塔存活时断兵；{len(group)}个{victim_side}{lane}路小兵死于lane_zone外，附近无敌方线上小兵",
+            f"{hero_text}在{lane_text}断{victim_side}{lane_text}小兵；{len(group)}个{victim_side}{lane_text}小兵死于lane_zone外，附近无敌方线上小兵",
             "；".join(item["evidence"] for item in group[:6]),
             group[-1]["time"],
         ))
@@ -772,14 +902,18 @@ def compute_lane_manipulation_events(ctx):
         xp_team = enemy_team(first["team"])
         xp_hero_names = sorted(xp_totals)
         victim_side = side_name(first["team"])
-        result_heroes = "、".join(f"{hero}({xp_totals[hero]}xp)" for hero in xp_hero_names)
+        lane_text = lane_display_name(first["lane"])
+        result_heroes = "、".join(
+            format_xp_hero(hero, xp_totals[hero], hero_primary_lanes)
+            for hero in xp_hero_names
+        )
         events.append(event(
             ctx.match_id,
             "勾兵",
             "未知",
             group[0]["time"],
             ctx.heroes_text(xp_hero_names if xp_team == 2 else [], xp_hero_names if xp_team == 3 else []),
-            f"{side_name(xp_team)}英雄获得{victim_side}{first['lane']}路小兵死亡经验：{result_heroes}；{len(group)}个小兵死于lane_zone外且附近有敌方线上小兵",
+            f"{side_name(xp_team)}英雄获得{victim_side}{lane_text}小兵死亡经验：{result_heroes}；{len(group)}个小兵死于lane_zone外且附近有敌方线上小兵",
             "；".join(item["evidence"] for item in group[:6]),
             group[-1]["time"],
         ))
@@ -796,7 +930,9 @@ def build_neutral_status_context(ctx, max_time=PULL_LANE_MAX_TIME + 5):
         team = to_int(row.get("team"))
         x = to_float(row.get("x"))
         y = to_float(row.get("y"))
-        ehandle = to_int(row.get("ehandle"))
+        raw_ehandle = to_int(row.get("ehandle"))
+        log_index = to_int(row.get("log_index"), 0)
+        ehandle = raw_ehandle if raw_ehandle is not None else -log_index
         unit = row.get("unit")
         owner_class = row.get("ownerClass") or ""
         if t is None or x is None or y is None or ehandle is None:
@@ -809,10 +945,11 @@ def build_neutral_status_context(ctx, max_time=PULL_LANE_MAX_TIME + 5):
             continue
         by_time[t].append({
             "time": t,
-            "log_index": to_int(row.get("log_index"), 0),
+            "log_index": log_index,
             "unit": unit,
             "team": team,
             "ehandle": ehandle,
+            "has_ehandle": raw_ehandle is not None,
             "x": x,
             "y": y,
             "hp": to_float(row.get("hp"), 0) or 0,
@@ -999,6 +1136,98 @@ def pull_interaction_candidates(ctx, lane_status_context, neutral_status_context
     return sorted(candidates, key=lambda item: (item["time"], item["log_index"]))
 
 
+def status_handle_text(status):
+    if status is None:
+        return "unmatched"
+    prefix = "" if status.get("has_ehandle") else "synthetic:"
+    return f"{prefix}{status.get('ehandle')}"
+
+
+def pull_status_proximity_candidates(lane_status_context, neutral_status_context, anchors):
+    best_by_bucket = {}
+    max_distance_sq = PULL_STATUS_PROXIMITY_RAW * PULL_STATUS_PROXIMITY_RAW
+    for anchor in anchors:
+        if anchor.get("row_type") not in ("DOTA_COMBATLOG_DAMAGE", "DOTA_COMBATLOG_DEATH"):
+            continue
+        anchor_time = anchor["time"]
+        lane_team = anchor["lane_team"]
+        lane = anchor["lane"]
+        neutral_unit = anchor["neutral_unit"]
+        start = max(0, anchor_time - 8)
+        end = min(PULL_LANE_MAX_TIME, anchor_time + 2)
+        for t in range(start, end + 1):
+            lane_statuses = [
+                status for status in lane_status_context["by_time"].get(t, [])
+                if status["team"] == lane_team
+            ]
+            neutral_statuses = [
+                status for status in neutral_status_context["by_time"].get(t, [])
+                if status["unit"] == neutral_unit
+            ]
+            if not lane_statuses or not neutral_statuses:
+                continue
+
+            for lane_status in lane_statuses:
+                status_lane = lane_status_context["source_lane_by_ehandle"].get(
+                    lane_status["ehandle"],
+                    lane_status["lane_at_pos"],
+                )
+                if status_lane != lane:
+                    continue
+                for neutral_status in neutral_statuses:
+                    dist_sq = distance_sq(
+                        (lane_status["x"], lane_status["y"]),
+                        (neutral_status["x"], neutral_status["y"]),
+                    )
+                    if dist_sq > max_distance_sq:
+                        continue
+
+                    center_x = (lane_status["x"] + neutral_status["x"]) / 2
+                    center_y = (lane_status["y"] + neutral_status["y"]) / 2
+                    bucket = (
+                        t,
+                        lane_team,
+                        lane,
+                        neutral_unit,
+                        round(center_x / 5),
+                        round(center_y / 5),
+                    )
+                    score = (dist_sq, lane_status["log_index"], neutral_status["log_index"])
+                    previous = best_by_bucket.get(bucket)
+                    if previous and previous["score"] <= score:
+                        continue
+
+                    dist = math.sqrt(dist_sq)
+                    best_by_bucket[bucket] = {
+                        "score": score,
+                        "item": {
+                            "time": t,
+                            "log_index": min(lane_status["log_index"], neutral_status["log_index"]),
+                            "row_type": "STATUS_PROXIMITY",
+                            "lane_team": lane_team,
+                            "lane": lane,
+                            "x": center_x,
+                            "y": center_y,
+                            "lane_unit": lane_status["unit"],
+                            "neutral_unit": neutral_status["unit"],
+                            "direction": "status_proximity",
+                            "lane_death": False,
+                            "neutral_death": False,
+                            "value": 0,
+                            "evidence": (
+                                f"pull_status_proximity anchor_log_index={anchor['log_index']} time={t} "
+                                f"lane_unit={lane_status['unit']} neutral_unit={neutral_status['unit']} "
+                                f"lane={lane} xy=({center_x:.1f},{center_y:.1f}) distance_raw={dist:.1f} "
+                                f"lane_status_ehandle={status_handle_text(lane_status)} "
+                                f"neutral_status_ehandle={status_handle_text(neutral_status)}"
+                            ),
+                        },
+                    }
+
+    candidates = [entry["item"] for entry in best_by_bucket.values()]
+    return sorted(candidates, key=lambda item: (item["time"], item["log_index"]))
+
+
 def group_pull_candidates(candidates):
     by_key = defaultdict(list)
     for item in candidates:
@@ -1051,7 +1280,12 @@ def nearby_heroes_for_pull(ctx, center_raw, start, end):
 def compute_pull_events(ctx):
     lane_status_context = build_lane_creep_status_context(ctx, max_time=PULL_LANE_MAX_TIME + 5)
     neutral_status_context = build_neutral_status_context(ctx, max_time=PULL_LANE_MAX_TIME + 5)
-    candidates = pull_interaction_candidates(ctx, lane_status_context, neutral_status_context)
+    combat_candidates = pull_interaction_candidates(ctx, lane_status_context, neutral_status_context)
+    candidates = sorted(
+        combat_candidates
+        + pull_status_proximity_candidates(lane_status_context, neutral_status_context, combat_candidates),
+        key=lambda item: (item["time"], item["log_index"]),
+    )
     events = []
     for group in group_pull_candidates(candidates):
         interaction_count = len(group)

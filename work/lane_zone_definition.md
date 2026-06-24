@@ -21,6 +21,15 @@ lane_zone[bot]
 如果某个该路线小兵死亡点落在对应 `lane_zone` 内，视为正常对线区内。
 如果死亡点落在对应 `lane_zone` 外，才进入 `断线` 或 `勾兵` 的候选判断。
 
+路线判定优先使用小兵来源路：
+
+```text
+source_lane = 该小兵出生/早期轨迹所属路线
+death_xy_lane = 小兵死亡坐标所属路线
+```
+
+如果 `dota_model_neutral_siege_creep` 能通过 `ehandle` 追踪到该小兵，则用出生/早期轨迹计算 `source_lane`，断线/勾兵按 `source_lane` 判断。缺少 `ehandle` 或无法匹配到个体轨迹时，才用死亡坐标路线兜底，并在 evidence 写 `source_lane_method=xy_fallback`。
+
 ## 生成样本
 
 每局比赛先用本局数据生成对线区样本。
@@ -70,6 +79,7 @@ lane_zone_quantile_low = 0.10
 lane_zone_quantile_high = 0.90
 lane_zone_margin_raw = 10 raw 坐标
 lane_zone_min_samples = 12
+lane_zone_tower_protect_radius = 12 raw 坐标
 ```
 
 如果某一路有效样本数少于 `lane_zone_min_samples`，该局不使用本局自适应区域，改用全局基准区域。
@@ -102,9 +112,13 @@ lane_zone_min_samples = 12
 ```text
 if x_min <= x <= x_max and y_min <= y <= y_max:
     in_lane_zone = true
+elif distance_to_alive_t1_same_lane <= lane_zone_tower_protect_radius:
+    in_lane_zone = true
 else:
     in_lane_zone = false
 ```
+
+一塔保护区视为正常吃兵区：如果小兵死亡点距离该路线任一存活一塔 `<= 12 raw`，即使它落在自适应 `lane_zone` 矩形外，也不进入 `断线` 或 `勾兵` 候选。塔杀小兵、英雄在一塔内补进塔兵，都按正常塔下吃兵处理。
 
 `断线` 和 `勾兵` 只在 `in_lane_zone = false` 时继续判断。
 
@@ -115,6 +129,7 @@ else:
 ```text
 己方某路线小兵死在 lane_zone 外
 且该路线己方一塔存活
+且死亡点不在该路线双方一塔保护区内
 且 500 范围内无敌方线上小兵
 且击杀来源为敌方英雄
 ```
@@ -124,6 +139,7 @@ else:
 ```text
 己方某路线小兵死在 lane_zone 外
 且该路线己方一塔存活
+且死亡点不在该路线双方一塔保护区内
 且 500 范围内有敌方线上小兵
 且敌方英雄获得该小兵死亡经验
 ```
@@ -134,6 +150,9 @@ else:
 
 ```text
 lane
+source_lane
+source_lane_method
+death_xy_lane
 death_time
 death_x/death_y
 lane_zone_source: match_adaptive 或 global_baseline
@@ -141,6 +160,8 @@ lane_zone_bbox
 in_lane_zone=false
 near_enemy_creep_count_500
 tower_alive=true
+tower_protect_radius_raw=12
+near_alive_t1=false
 ```
 
 这样人工复核时可以直接判断“对线区外”是否合理。
