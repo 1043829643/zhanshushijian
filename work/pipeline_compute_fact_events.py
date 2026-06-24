@@ -46,6 +46,34 @@ RUNE_SPOTS_SERVER = {
     "上符点": (-1640, 1110),
     "下符点": (1180, -1210),
 }
+BOUNTY_RUNE_SPOTS_SERVER = {
+    "radiant_bounty": (590, -4637),
+    "dire_bounty": (-1000, 4443),
+}
+WISDOM_RUNE_SPOTS_SERVER = {
+    "radiant_wisdom": (-7468, 610),
+    "dire_wisdom": (7537, -1285),
+}
+BOUNTY_RUNE_SPOTS_RAW = {
+    "radiant_bounty": (133.6, 90.4),
+    "dire_bounty": (120.0, 166.8),
+}
+WISDOM_RUNE_SPOTS_RAW = {
+    "radiant_wisdom": (66.0, 134.0),
+    "dire_wisdom": (191.0, 118.0),
+}
+RUNE_SPOT_DISPLAY = {
+    "上符点": "上河道",
+    "下符点": "下河道",
+    "radiant_bounty": "天辉赏金符点",
+    "dire_bounty": "夜魇赏金符点",
+    "radiant_wisdom": "天辉智慧符点",
+    "dire_wisdom": "夜魇智慧符点",
+}
+BOUNTY_RUNE_ALL_SPOTS_SERVER = {
+    **RUNE_SPOTS_SERVER,
+    **BOUNTY_RUNE_SPOTS_SERVER,
+}
 RAW_TO_SERVER_HOMOGRAPHY = (
     (0.0076578273910818, 0.0002417645481266, -0.4912248797627541),
     (-0.0000195675289368, 0.0078239058911833, -0.4804050188013505),
@@ -64,11 +92,18 @@ PULL_GROUP_DISTANCE_RAW = 28.0
 PULL_STATUS_MATCH_WINDOW = 2
 PULL_STATUS_POINT_DISTANCE_RAW = 20.0
 PULL_STATUS_PAIR_DISTANCE_RAW = 18.0
-PULL_STATUS_PROXIMITY_RAW = 9.0
+PULL_STATUS_PROXIMITY_GAME = 550
+PULL_STATUS_ANCHOR_PRE_WINDOW = 45
+PULL_STATUS_ANCHOR_POST_WINDOW = 5
 PULL_NEARBY_HERO_RADIUS_SERVER = 1500
 PULL_NEARBY_HERO_TIME_PAD = 8
 PULL_MIN_INTERACTIONS = 3
 PULL_MIN_DEATHS = 2
+PULL_STATUS_ONLY_MIN_SECONDS = 6
+PULL_STATUS_ONLY_MIN_HP_DROP = 20
+PULL_EXECUTOR_RADIUS_SERVER = 800
+PULL_EXECUTOR_PRE_WINDOW = 30
+PULL_EXECUTOR_POST_WINDOW = 10
 ROSHAN_ATTEMPT_MIN_TIME = 600
 ROSHAN_ATTEMPT_GROUP_GAP = 45
 ROSHAN_ATTEMPT_DAMAGE_MIN = 1500
@@ -183,6 +218,12 @@ def server_distance(a, b):
     if a is None or b is None:
         return None
     return math.hypot(a[0] - b[0], a[1] - b[1])
+
+
+def raw_distance_to_game(distance_raw_value):
+    if distance_raw_value is None:
+        return None
+    return distance_raw_value * 130
 
 
 def is_lane_creep_name(name):
@@ -1122,6 +1163,10 @@ def pull_interaction_candidates(ctx, lane_status_context, neutral_status_context
             "y": point[1],
             "lane_unit": units["lane_unit"],
             "neutral_unit": units["neutral_unit"],
+            "lane_ehandle": lane_status["ehandle"] if lane_status else None,
+            "neutral_ehandle": neutral_status["ehandle"],
+            "lane_hp": lane_status["hp"] if lane_status else None,
+            "neutral_hp": neutral_status["hp"],
             "direction": units["direction"],
             "lane_death": lane_death,
             "neutral_death": neutral_death,
@@ -1145,7 +1190,70 @@ def status_handle_text(status):
 
 def pull_status_proximity_candidates(lane_status_context, neutral_status_context, anchors):
     best_by_bucket = {}
-    max_distance_sq = PULL_STATUS_PROXIMITY_RAW * PULL_STATUS_PROXIMITY_RAW
+    max_distance_raw = PULL_STATUS_PROXIMITY_GAME / 130
+    max_distance_sq = max_distance_raw * max_distance_raw
+
+    def add_pair(t, lane_team, lane, lane_status, neutral_status, anchor=None):
+        dist_sq = distance_sq(
+            (lane_status["x"], lane_status["y"]),
+            (neutral_status["x"], neutral_status["y"]),
+        )
+        if dist_sq > max_distance_sq:
+            return
+
+        center_x = (lane_status["x"] + neutral_status["x"]) / 2
+        center_y = (lane_status["y"] + neutral_status["y"]) / 2
+        bucket = (
+            t,
+            lane_team,
+            lane,
+            neutral_status["unit"],
+            round(center_x / 5),
+            round(center_y / 5),
+        )
+        score = (dist_sq, lane_status["log_index"], neutral_status["log_index"])
+        previous = best_by_bucket.get(bucket)
+        if previous and previous["score"] <= score:
+            return
+
+        dist = math.sqrt(dist_sq)
+        dist_game = raw_distance_to_game(dist)
+        anchor_text = (
+            f"anchor_log_index={anchor['log_index']}"
+            if anchor is not None
+            else "anchor_log_index=status_scan"
+        )
+        best_by_bucket[bucket] = {
+            "score": score,
+            "item": {
+                "time": t,
+                "log_index": min(lane_status["log_index"], neutral_status["log_index"]),
+                "row_type": "STATUS_PROXIMITY",
+                "lane_team": lane_team,
+                "lane": lane,
+                "x": center_x,
+                "y": center_y,
+                "lane_unit": lane_status["unit"],
+                "neutral_unit": neutral_status["unit"],
+                "lane_ehandle": lane_status["ehandle"],
+                "neutral_ehandle": neutral_status["ehandle"],
+                "lane_hp": lane_status["hp"],
+                "neutral_hp": neutral_status["hp"],
+                "direction": "status_proximity",
+                "lane_death": False,
+                "neutral_death": False,
+                "value": 0,
+                "evidence": (
+                    f"pull_status_proximity {anchor_text} time={t} "
+                    f"lane_unit={lane_status['unit']} neutral_unit={neutral_status['unit']} "
+                    f"lane={lane} xy=({center_x:.1f},{center_y:.1f}) "
+                    f"distance_game={dist_game:.0f} radius_game={PULL_STATUS_PROXIMITY_GAME} "
+                    f"lane_status_ehandle={status_handle_text(lane_status)} "
+                    f"neutral_status_ehandle={status_handle_text(neutral_status)}"
+                ),
+            },
+        }
+
     for anchor in anchors:
         if anchor.get("row_type") not in ("DOTA_COMBATLOG_DAMAGE", "DOTA_COMBATLOG_DEATH"):
             continue
@@ -1153,8 +1261,8 @@ def pull_status_proximity_candidates(lane_status_context, neutral_status_context
         lane_team = anchor["lane_team"]
         lane = anchor["lane"]
         neutral_unit = anchor["neutral_unit"]
-        start = max(0, anchor_time - 8)
-        end = min(PULL_LANE_MAX_TIME, anchor_time + 2)
+        start = max(0, anchor_time - PULL_STATUS_ANCHOR_PRE_WINDOW)
+        end = min(PULL_LANE_MAX_TIME, anchor_time + PULL_STATUS_ANCHOR_POST_WINDOW)
         for t in range(start, end + 1):
             lane_statuses = [
                 status for status in lane_status_context["by_time"].get(t, [])
@@ -1168,64 +1276,62 @@ def pull_status_proximity_candidates(lane_status_context, neutral_status_context
                 continue
 
             for lane_status in lane_statuses:
-                status_lane = lane_status_context["source_lane_by_ehandle"].get(
+                status_lane = lane_status_context["lane_by_ehandle"].get(
                     lane_status["ehandle"],
-                    lane_status["lane_at_pos"],
+                    lane_status_context["source_lane_by_ehandle"].get(
+                        lane_status["ehandle"],
+                        lane_status["lane_at_pos"],
+                    ),
                 )
                 if status_lane != lane:
                     continue
                 for neutral_status in neutral_statuses:
-                    dist_sq = distance_sq(
-                        (lane_status["x"], lane_status["y"]),
-                        (neutral_status["x"], neutral_status["y"]),
-                    )
-                    if dist_sq > max_distance_sq:
-                        continue
+                    add_pair(t, lane_team, lane, lane_status, neutral_status, anchor=anchor)
 
-                    center_x = (lane_status["x"] + neutral_status["x"]) / 2
-                    center_y = (lane_status["y"] + neutral_status["y"]) / 2
-                    bucket = (
-                        t,
-                        lane_team,
-                        lane,
-                        neutral_unit,
-                        round(center_x / 5),
-                        round(center_y / 5),
-                    )
-                    score = (dist_sq, lane_status["log_index"], neutral_status["log_index"])
-                    previous = best_by_bucket.get(bucket)
-                    if previous and previous["score"] <= score:
-                        continue
-
-                    dist = math.sqrt(dist_sq)
-                    best_by_bucket[bucket] = {
-                        "score": score,
-                        "item": {
-                            "time": t,
-                            "log_index": min(lane_status["log_index"], neutral_status["log_index"]),
-                            "row_type": "STATUS_PROXIMITY",
-                            "lane_team": lane_team,
-                            "lane": lane,
-                            "x": center_x,
-                            "y": center_y,
-                            "lane_unit": lane_status["unit"],
-                            "neutral_unit": neutral_status["unit"],
-                            "direction": "status_proximity",
-                            "lane_death": False,
-                            "neutral_death": False,
-                            "value": 0,
-                            "evidence": (
-                                f"pull_status_proximity anchor_log_index={anchor['log_index']} time={t} "
-                                f"lane_unit={lane_status['unit']} neutral_unit={neutral_status['unit']} "
-                                f"lane={lane} xy=({center_x:.1f},{center_y:.1f}) distance_raw={dist:.1f} "
-                                f"lane_status_ehandle={status_handle_text(lane_status)} "
-                                f"neutral_status_ehandle={status_handle_text(neutral_status)}"
-                            ),
-                        },
-                    }
+    for t in sorted(lane_status_context["by_time"]):
+        if not (0 <= t <= PULL_LANE_MAX_TIME):
+            continue
+        lane_statuses = lane_status_context["by_time"].get(t, [])
+        neutral_statuses = neutral_status_context["by_time"].get(t, [])
+        if not lane_statuses or not neutral_statuses:
+            continue
+        for lane_status in lane_statuses:
+            lane_team = lane_status["team"]
+            lane = lane_status_context["lane_by_ehandle"].get(
+                lane_status["ehandle"],
+                lane_status_context["source_lane_by_ehandle"].get(
+                    lane_status["ehandle"],
+                    lane_status["lane_at_pos"],
+                ),
+            )
+            if lane_team not in (2, 3) or lane not in ("top", "bot"):
+                continue
+            for neutral_status in neutral_statuses:
+                add_pair(t, lane_team, lane, lane_status, neutral_status)
 
     candidates = [entry["item"] for entry in best_by_bucket.values()]
     return sorted(candidates, key=lambda item: (item["time"], item["log_index"]))
+
+
+def group_hp_drop(group, prefix):
+    by_handle = defaultdict(list)
+    for item in group:
+        handle = item.get(f"{prefix}_ehandle")
+        hp = item.get(f"{prefix}_hp")
+        if handle is None or hp is None:
+            continue
+        by_handle[handle].append((item["time"], item["log_index"], hp))
+
+    best_drop = 0
+    for rows in by_handle.values():
+        rows = sorted(rows)
+        if not rows:
+            continue
+        max_seen = rows[0][2]
+        for _, _, hp in rows[1:]:
+            best_drop = max(best_drop, max_seen - hp)
+            max_seen = max(max_seen, hp)
+    return best_drop
 
 
 def group_pull_candidates(candidates):
@@ -1277,6 +1383,102 @@ def nearby_heroes_for_pull(ctx, center_raw, start, end):
     return nearby
 
 
+def pull_executor_for_pull(ctx, center_raw, lane_team, start):
+    center_server = raw_to_server_xy(center_raw[0], center_raw[1])
+    if center_server is None:
+        return None
+    best = None
+    start_window = start - PULL_EXECUTOR_PRE_WINDOW
+    end_window = start + PULL_EXECUTOR_POST_WINDOW
+    for row in ctx.intervals:
+        t = to_int(row.get("time"))
+        if t is None or not (start_window <= t <= end_window):
+            continue
+        slot = to_int(row.get("slot"))
+        if slot is None or ctx.slot_team(slot) != lane_team:
+            continue
+        x = to_float(row.get("x"))
+        y = to_float(row.get("y"))
+        if x is None or y is None:
+            continue
+        dist = server_distance(center_server, raw_to_server_xy(x, y))
+        if dist is None or dist > PULL_EXECUTOR_RADIUS_SERVER:
+            continue
+        hero = ctx.slot_hero(slot)
+        candidate = (dist, t, hero)
+        if best is None or candidate < best:
+            best = candidate
+    if best is None:
+        return None
+    dist, t, hero = best
+    return {"hero": hero, "distance": dist, "time": t, "method": "position_nearest"}
+
+
+def row_combat_owner(ctx, row, unit_key, source_key):
+    unit = row.get(unit_key)
+    source = row.get(source_key)
+    for candidate in (source, unit):
+        if not candidate:
+            continue
+        if is_hero_unit_name(candidate) or ctx.unit_team(candidate) in (2, 3):
+            team = ctx.unit_team(candidate)
+            if team in (2, 3):
+                return {
+                    "hero": ctx.unit_hero(candidate),
+                    "team": team,
+                    "unit": unit,
+                    "source": source,
+                }
+    return None
+
+
+def pull_executor_from_neutral_interaction(ctx, group, lane_team):
+    start = group[0]["time"]
+    end = min(group[-1]["time"], start + PULL_EXECUTOR_POST_WINDOW)
+    start_window = start - PULL_EXECUTOR_PRE_WINDOW
+    neutral_units = {item["neutral_unit"] for item in group if item.get("neutral_unit")}
+    best = None
+    for row in ctx.combat:
+        t = to_int(row.get("time"))
+        if t is None or not (start_window <= t <= end):
+            continue
+        attacker = row.get("attackername")
+        target = row.get("targetname")
+        attacker_is_pulled_neutral = attacker in neutral_units
+        target_is_pulled_neutral = target in neutral_units
+        if not attacker_is_pulled_neutral and not target_is_pulled_neutral:
+            continue
+
+        if target_is_pulled_neutral:
+            owner = row_combat_owner(ctx, row, "attackername", "sourcename")
+            direction = "hero_to_neutral"
+        else:
+            owner = row_combat_owner(ctx, row, "targetname", "targetsourcename")
+            direction = "neutral_to_hero"
+        if not owner or owner["team"] != lane_team:
+            continue
+
+        neutral_unit = target if target_is_pulled_neutral else attacker
+        # Prefer interaction before pull start, then closest to start, then earlier log index.
+        after_start_penalty = 1 if t > start else 0
+        score = (after_start_penalty, abs(t - start), to_int(row.get("log_index"), 0))
+        if best is None or score < best["score"]:
+            best = {
+                "score": score,
+                "hero": owner["hero"],
+                "time": t,
+                "method": "neutral_interaction",
+                "direction": direction,
+                "neutral_unit": neutral_unit,
+                "log_index": to_int(row.get("log_index"), 0),
+                "row_type": row.get("type"),
+            }
+    if best is None:
+        return None
+    best.pop("score", None)
+    return best
+
+
 def compute_pull_events(ctx):
     lane_status_context = build_lane_creep_status_context(ctx, max_time=PULL_LANE_MAX_TIME + 5)
     neutral_status_context = build_neutral_status_context(ctx, max_time=PULL_LANE_MAX_TIME + 5)
@@ -1294,6 +1496,18 @@ def compute_pull_events(ctx):
         death_count = lane_deaths + neutral_deaths
         if interaction_count < PULL_MIN_INTERACTIONS and death_count < PULL_MIN_DEATHS:
             continue
+        has_combat_anchor = any(
+            item["row_type"] in ("DOTA_COMBATLOG_DAMAGE", "DOTA_COMBATLOG_DEATH")
+            for item in group
+        )
+        if not has_combat_anchor:
+            unique_seconds = len({item["time"] for item in group})
+            lane_hp_drop = group_hp_drop(group, "lane")
+            neutral_hp_drop = group_hp_drop(group, "neutral")
+            if unique_seconds < PULL_STATUS_ONLY_MIN_SECONDS:
+                continue
+            if lane_hp_drop < PULL_STATUS_ONLY_MIN_HP_DROP or neutral_hp_drop < PULL_STATUS_ONLY_MIN_HP_DROP:
+                continue
 
         first = group[0]
         lane = first["lane"]
@@ -1306,6 +1520,21 @@ def compute_pull_events(ctx):
         nearby_radiant = sorted(nearby[2])
         nearby_dire = sorted(nearby[3])
         nearby_text = f"附近天辉英雄：{'、'.join(nearby_radiant) if nearby_radiant else '无'}；附近夜魇英雄：{'、'.join(nearby_dire) if nearby_dire else '无'}"
+        executor = (
+            pull_executor_from_neutral_interaction(ctx, group, lane_team)
+            or pull_executor_for_pull(ctx, center_raw, lane_team, group[0]["time"])
+        )
+        if executor:
+            heroes = ctx.hero_side_text(executor["hero"], lane_team)
+            executor_evidence = (
+                f"pull_executor hero={executor['hero']} method={executor['method']} "
+                f"time={executor['time']} distance={executor.get('distance', '')} "
+                f"direction={executor.get('direction', '')} neutral_unit={executor.get('neutral_unit', '')} "
+                f"log_index={executor.get('log_index', '')}"
+            )
+        else:
+            heroes = ctx.hero_side_text("未知", lane_team)
+            executor_evidence = "pull_executor hero=unknown method=none"
         side = side_name(lane_team)
         lane_text = lane_display_name(lane)
         events.append(event(
@@ -1313,12 +1542,12 @@ def compute_pull_events(ctx):
             "拉野",
             "未知",
             group[0]["time"],
-            ctx.heroes_text(nearby_radiant, nearby_dire),
+            heroes,
             (
                 f"{side}{lane_text}小兵与中立野怪发生连续交战，判定为{side}{lane_text}拉野；"
                 f"交互数 {interaction_count}，线兵死亡 {lane_deaths}，野怪死亡 {neutral_deaths}；{nearby_text}"
             ),
-            "；".join(item["evidence"] for item in group[:8]),
+            executor_evidence + "；" + "；".join(item["evidence"] for item in group[:8]),
             group[-1]["time"],
         ))
     return events
@@ -1356,10 +1585,12 @@ def nearest_slot_position(position_index, slot, time_value, max_gap=6):
     return best
 
 
-def rune_spot_presence_text(ctx, position_index, time_value):
+def rune_spot_presence_text(ctx, position_index, time_value, spots=None):
+    spots = spots or RUNE_SPOTS_SERVER
     spot_results = {}
     evidence_parts = []
-    for spot_name, spot_pos in RUNE_SPOTS_SERVER.items():
+    text_parts = []
+    for spot_name, spot_pos in spots.items():
         by_team = {2: [], 3: []}
         distances = []
         for slot, player in ctx.slot_to_player.items():
@@ -1378,18 +1609,44 @@ def rune_spot_presence_text(ctx, position_index, time_value):
             by_team[team].sort()
         spot_results[spot_name] = by_team
         evidence_parts.append(f"{spot_name} server={spot_pos} nearby_distances={distances}")
+        display = RUNE_SPOT_DISPLAY.get(spot_name, spot_name)
+        text_parts.append(
+            f"{display}{RUNE_NEAR_RADIUS_SERVER}码：天辉"
+            f"{'、'.join(by_team[2]) if by_team[2] else '无'}，夜魇"
+            f"{'、'.join(by_team[3]) if by_team[3] else '无'}"
+        )
 
-    text = (
-        f"上符点{RUNE_NEAR_RADIUS_SERVER}码：天辉"
-        f"{'、'.join(spot_results['上符点'][2]) if spot_results['上符点'][2] else '无'}，夜魇"
-        f"{'、'.join(spot_results['上符点'][3]) if spot_results['上符点'][3] else '无'}；"
-        f"下符点{RUNE_NEAR_RADIUS_SERVER}码：天辉"
-        f"{'、'.join(spot_results['下符点'][2]) if spot_results['下符点'][2] else '无'}，夜魇"
-        f"{'、'.join(spot_results['下符点'][3]) if spot_results['下符点'][3] else '无'}"
-    )
-    radiant = sorted(set(spot_results["上符点"][2] + spot_results["下符点"][2]))
-    dire = sorted(set(spot_results["上符点"][3] + spot_results["下符点"][3]))
+    radiant = sorted(set(hero for by_team in spot_results.values() for hero in by_team[2]))
+    dire = sorted(set(hero for by_team in spot_results.values() for hero in by_team[3]))
+    text = "；".join(text_parts)
     return text, radiant, dire, "；".join(evidence_parts)
+
+
+def rune_spot_for_slot(position_index, slot, time_value, spots=None):
+    spots = spots or RUNE_SPOTS_SERVER
+    pos = nearest_slot_position(position_index, slot, time_value)
+    if not pos:
+        return "", "actor_rune_spot=missing_position"
+
+    best_name = None
+    best_dist = None
+    for spot_name, spot_pos in spots.items():
+        dist = server_distance(pos["server"], spot_pos)
+        if dist is None:
+            continue
+        if best_dist is None or dist < best_dist:
+            best_name = spot_name
+            best_dist = dist
+
+    if best_name is None or best_dist > RUNE_NEAR_RADIUS_SERVER:
+        distance_text = "unknown" if best_dist is None else int(round(best_dist))
+        return "", f"actor_rune_spot=outside_configured_spots actor_nearest_distance={distance_text}"
+
+    return (
+        RUNE_SPOT_DISPLAY.get(best_name, best_name),
+        f"actor_rune_spot={best_name} actor_rune_spot_display={RUNE_SPOT_DISPLAY.get(best_name, best_name)} "
+        f"actor_distance={int(round(best_dist))}",
+    )
 
 
 def compute_rune_events(ctx):
@@ -1407,6 +1664,12 @@ def compute_rune_events(ctx):
         rune = RUNE_NAMES.get(rune_value, f"未知神符({rune_value})")
         hero = ctx.slot_hero(slot)
         team = ctx.slot_team(slot)
+        if rune_value == 5:
+            spot_set = BOUNTY_RUNE_ALL_SPOTS_SERVER
+        elif rune_value == 8:
+            spot_set = WISDOM_RUNE_SPOTS_SERVER
+        else:
+            spot_set = RUNE_SPOTS_SERVER
 
         if msg_type == "CHAT_MESSAGE_RUNE_PICKUP":
             duplicate = any(old_slot == slot and old_value == rune_value and 0 <= t - old_time <= 90 for old_time, old_slot, old_value in bottle_events)
@@ -1419,7 +1682,8 @@ def compute_rune_events(ctx):
         else:
             action = "反补"
 
-        presence_text, radiant_near, dire_near, presence_evidence = rune_spot_presence_text(ctx, position_index, t)
+        actor_spot, actor_spot_evidence = rune_spot_for_slot(position_index, slot, t, spot_set)
+        presence_text, radiant_near, dire_near, presence_evidence = rune_spot_presence_text(ctx, position_index, t, spot_set)
         if team == 2:
             radiant_near = sorted(set(radiant_near + [hero]))
         elif team == 3:
@@ -1430,10 +1694,11 @@ def compute_rune_events(ctx):
             0.9,
             t,
             ctx.heroes_text(radiant_near, dire_near),
-            f"{hero}{action}{rune}；符点附近：{presence_text}",
+            f"{hero}{action}{actor_spot}{rune}；符点附近：{presence_text}",
             (
                 f"match_chat_events {msg_type} value={rune_value} player1={slot} log_index={row.get('log_index')}; "
-                f"rune_spot_radius={RUNE_NEAR_RADIUS_SERVER}; transform=homography_to_server; {presence_evidence}"
+                f"rune_spot_radius={RUNE_NEAR_RADIUS_SERVER}; transform=homography_to_server; "
+                f"{actor_spot_evidence}; {presence_evidence}"
             ),
         ))
     return events

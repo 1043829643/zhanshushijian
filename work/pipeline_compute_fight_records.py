@@ -17,9 +17,16 @@ PARAMS = {
     "damage_min_event": 45,
     "control_min_duration": 0.25,
     "cluster_gap_seconds": 12,
-    "cluster_distance_raw": 48,
+    "cluster_distance_game": 2200,
+    "cluster_tail_seconds": 12,
+    "cluster_tail_signal_count": 8,
+    "merge_adjacent_gap_seconds": 3,
+    "merge_adjacent_distance_game": 2200,
+    "merge_adjacent_min_shared_heroes": 4,
+    "merge_adjacent_min_jaccard": 0.5,
     "cluster_seed_damage": 550,
     "participant_near_radius_game": 1600,
+    "remote_contribution_distance_game": 2000,
     "teamfight_min_side_count": 4,
     "teamfight_min_direct_count": 3,
     "teamfight_damage_threshold": 2500,
@@ -28,10 +35,12 @@ PARAMS = {
     "skirmish_min_side_heroes": 2,
     "gank_min_attacker_side_heroes": 2,
     "gank_max_victim_side_heroes": 1,
+    "gank_victim_damage_min": 600,
     "roshan_context_min_time": 600,
     "roshan_damage_context_pad": 30,
     "roshan_kill_context_before": 45,
     "roshan_kill_context_after": 75,
+    "roshan_pit_context_radius_game": 2000,
     "tower_context_radius": 1000,
     "tower_context_time_pad": 5,
     "laning_kill_start_time": 20,
@@ -39,6 +48,17 @@ PARAMS = {
 }
 
 LANE_TEXT = {"top": "上路", "mid": "中路", "bot": "下路"}
+
+ROSHAN_PITS = {
+    "上路坑": {
+        "server": (-3084, 2296),
+        "raw": (102.587, 148.321),
+    },
+    "下路坑": {
+        "server": (2842, -2743),
+        "raw": (152.116, 105.919),
+    },
+}
 
 
 def raw_to_game(value):
@@ -176,6 +196,8 @@ def build_signals(ctx):
         pos = row_position(row, pos_index, attacker, target)
         if pos is None and signal["kind"] != "death":
             continue
+        attacker_pos = pos_index.nearest(attacker, t) if attacker else None
+        target_pos = pos_index.nearest(target, t) if target else None
         signals.append({
             "time": t,
             "log_index": to_int(row.get("log_index"), 0) or 0,
@@ -184,6 +206,8 @@ def build_signals(ctx):
             "attacker": attacker,
             "target": target,
             "pos": pos,
+            "attacker_pos": attacker_pos,
+            "target_pos": target_pos,
             "inflictor": row.get("inflictor") or "",
         })
     return sorted(signals, key=lambda item: (item["time"], item["log_index"]))
@@ -192,9 +216,32 @@ def build_signals(ctx):
 def can_attach(cluster, signal):
     if signal["time"] - cluster["end"] > PARAMS["cluster_gap_seconds"]:
         return False
-    if signal["pos"] is None or cluster["center"] is None:
+    compare_center = cluster.get("tail_center") or cluster.get("center")
+    if signal["pos"] is None or compare_center is None:
         return True
-    return distance_raw(cluster["center"], signal["pos"]) <= PARAMS["cluster_distance_raw"]
+    return distance_game(compare_center, signal["pos"]) <= PARAMS["cluster_distance_game"]
+
+
+def average_position(points):
+    if not points:
+        return None
+    return (
+        sum(point[0] for point in points) / len(points),
+        sum(point[1] for point in points) / len(points),
+    )
+
+
+def cluster_tail_center(cluster):
+    positioned = [item for item in cluster["signals"] if item.get("pos") is not None]
+    if not positioned:
+        return None
+    tail_start = cluster["end"] - PARAMS["cluster_tail_seconds"]
+    tail = [item for item in positioned if item["time"] >= tail_start]
+    if len(tail) > PARAMS["cluster_tail_signal_count"]:
+        tail = tail[-PARAMS["cluster_tail_signal_count"]:]
+    if not tail:
+        tail = positioned[-PARAMS["cluster_tail_signal_count"]:]
+    return average_position([item["pos"] for item in tail])
 
 
 def update_cluster(cluster, signal):
@@ -203,10 +250,8 @@ def update_cluster(cluster, signal):
     cluster["end"] = max(cluster["end"], signal["time"])
     if signal["pos"] is not None:
         points = [item["pos"] for item in cluster["signals"] if item["pos"] is not None]
-        cluster["center"] = (
-            sum(point[0] for point in points) / len(points),
-            sum(point[1] for point in points) / len(points),
-        )
+        cluster["center"] = average_position(points)
+        cluster["tail_center"] = cluster_tail_center(cluster)
 
 
 def cluster_signals(signals):
@@ -224,6 +269,7 @@ def cluster_signals(signals):
             "start": signal["time"],
             "end": signal["time"],
             "center": signal["pos"],
+            "tail_center": signal["pos"],
             "signals": [signal],
         })
     return clusters
@@ -233,6 +279,10 @@ def cluster_stats(ctx, cluster):
     heroes = defaultdict(set)
     direct_heroes = defaultdict(set)
     damage_by_team = defaultdict(float)
+    damage_taken_by_team = defaultdict(float)
+    damage_taken_by_hero = defaultdict(float)
+    remote_heroes = defaultdict(set)
+    remote_damage_by_team = defaultdict(float)
     deaths = []
     seen_deaths = set()
     controls = []
@@ -241,19 +291,41 @@ def cluster_stats(ctx, cluster):
     for signal in cluster["signals"]:
         attacker = signal.get("attacker")
         target = signal.get("target")
-        for unit in (attacker, target):
-            team = ctx.unit_team(unit)
-            if team in {2, 3}:
-                heroes[team].add(ctx.unit_hero(unit))
-                participants.add(unit)
-        if attacker and signal["kind"] in {"damage", "control"}:
-            team = ctx.unit_team(attacker)
+        attacker_team = ctx.unit_team(attacker)
+        target_team = ctx.unit_team(target)
+        attacker_remote = False
+        if attacker and signal["kind"] in {"damage", "control"} and cluster.get("center") is not None:
+            attacker_dist = distance_game(cluster["center"], signal.get("pos"))
+            attacker_remote = (
+                attacker_dist is not None
+                and attacker_dist > PARAMS["remote_contribution_distance_game"]
+            )
+
+        if target_team in {2, 3}:
+            heroes[target_team].add(ctx.unit_hero(target))
+            participants.add(target)
+
+        if attacker_team in {2, 3}:
+            if attacker_remote:
+                remote_heroes[attacker_team].add(ctx.unit_hero(attacker))
+            else:
+                heroes[attacker_team].add(ctx.unit_hero(attacker))
+                participants.add(attacker)
+
+        if attacker and signal["kind"] in {"damage", "control"} and not attacker_remote:
+            team = attacker_team
             if team in {2, 3}:
                 direct_heroes[team].add(ctx.unit_hero(attacker))
         if signal["kind"] == "damage" and attacker:
-            team = ctx.unit_team(attacker)
+            team = attacker_team
             if team in {2, 3}:
-                damage_by_team[team] += signal["value"]
+                if attacker_remote:
+                    remote_damage_by_team[team] += signal["value"]
+                else:
+                    damage_by_team[team] += signal["value"]
+                    if target_team in {2, 3}:
+                        damage_taken_by_team[target_team] += signal["value"]
+                        damage_taken_by_hero[ctx.unit_hero(target)] += signal["value"]
         elif signal["kind"] == "death" and target:
             death_key = (signal["time"], target)
             if death_key in seen_deaths:
@@ -272,10 +344,19 @@ def cluster_stats(ctx, cluster):
     return {
         "radiant": sorted(heroes[2]),
         "dire": sorted(heroes[3]),
+        "remote_radiant": sorted(remote_heroes[2] - heroes[2]),
+        "remote_dire": sorted(remote_heroes[3] - heroes[3]),
         "direct_radiant": sorted(direct_heroes[2]),
         "direct_dire": sorted(direct_heroes[3]),
         "damage_radiant": round(damage_by_team[2]),
         "damage_dire": round(damage_by_team[3]),
+        "damage_taken_radiant": round(damage_taken_by_team[2]),
+        "damage_taken_dire": round(damage_taken_by_team[3]),
+        "damage_taken_by_hero": {
+            hero: round(value) for hero, value in sorted(damage_taken_by_hero.items())
+        },
+        "remote_damage_radiant": round(remote_damage_by_team[2]),
+        "remote_damage_dire": round(remote_damage_by_team[3]),
         "deaths": deaths,
         "controls": controls,
         "signal_count": len(cluster["signals"]),
@@ -289,6 +370,8 @@ def classify_fight(stats, duration):
     direct_dire = len(stats["direct_dire"])
     total_damage = stats["damage_radiant"] + stats["damage_dire"]
     death_count = len(stats["deaths"])
+    radiant_death_count = sum(1 for item in stats["deaths"] if item["team"] == 2)
+    dire_death_count = sum(1 for item in stats["deaths"] if item["team"] == 3)
 
     if radiant_count == 0 or dire_count == 0:
         return None
@@ -297,9 +380,17 @@ def classify_fight(stats, duration):
     if (
         radiant_count >= PARAMS["gank_min_attacker_side_heroes"]
         and dire_count <= PARAMS["gank_max_victim_side_heroes"]
+        and (
+            stats["damage_taken_dire"] >= PARAMS["gank_victim_damage_min"]
+            or dire_death_count > 0
+        )
     ) or (
         dire_count >= PARAMS["gank_min_attacker_side_heroes"]
         and radiant_count <= PARAMS["gank_max_victim_side_heroes"]
+        and (
+            stats["damage_taken_radiant"] >= PARAMS["gank_victim_damage_min"]
+            or radiant_death_count > 0
+        )
     ):
         return "GANK"
     if (
@@ -339,6 +430,10 @@ def evidence_text(cluster, stats):
     last = cluster["signals"][-1]
     return (
         f"signals={dict(kinds)}; damage 天辉={stats['damage_radiant']} 夜魇={stats['damage_dire']}; "
+        f"damage_taken 天辉={stats.get('damage_taken_radiant', 0)} 夜魇={stats.get('damage_taken_dire', 0)} "
+        f"by_hero={stats.get('damage_taken_by_hero', {})}; "
+        f"remote_damage 天辉={stats.get('remote_damage_radiant', 0)} 夜魇={stats.get('remote_damage_dire', 0)}; "
+        f"remote_heroes 天辉={stats.get('remote_radiant', [])} 夜魇={stats.get('remote_dire', [])}; "
         f"center {center_text}; log_index {first['log_index']}-{last['log_index']}"
     )
 
@@ -365,6 +460,114 @@ def label_set(label_text):
 
 def has_any_label(label_text, labels):
     return bool(label_set(label_text) & set(labels))
+
+
+def record_heroes(record):
+    return set(record.get("radiant", [])) | set(record.get("dire", []))
+
+
+def record_center(record):
+    center = record.get("center_raw")
+    if not center:
+        return None
+    return tuple(center)
+
+
+def should_merge_adjacent_records(left, right):
+    gap = right["start"] - left["end"]
+    if gap < 0 or gap > PARAMS["merge_adjacent_gap_seconds"]:
+        return False
+    if not (has_any_label(left["label"], {"团战"}) or has_any_label(right["label"], {"团战"})):
+        return False
+
+    left_heroes = record_heroes(left)
+    right_heroes = record_heroes(right)
+    shared = left_heroes & right_heroes
+    union = left_heroes | right_heroes
+    jaccard = len(shared) / len(union) if union else 0
+    if len(shared) < PARAMS["merge_adjacent_min_shared_heroes"] and jaccard < PARAMS["merge_adjacent_min_jaccard"]:
+        return False
+
+    left_center = record_center(left)
+    right_center = record_center(right)
+    if left_center is not None and right_center is not None:
+        if distance_game(left_center, right_center) > PARAMS["merge_adjacent_distance_game"]:
+            return False
+    return True
+
+
+def merge_sorted_names(*groups):
+    values = set()
+    for group in groups:
+        values.update(group or [])
+    return sorted(values)
+
+
+def merge_damage_by_hero(left, right):
+    totals = defaultdict(float)
+    for source in (left.get("damage_taken_by_hero", {}), right.get("damage_taken_by_hero", {})):
+        for hero, value in source.items():
+            totals[hero] += value
+    return {hero: round(value) for hero, value in sorted(totals.items())}
+
+
+def merge_adjacent_record(left, right):
+    left_count = max(left.get("signal_count", 0), 1)
+    right_count = max(right.get("signal_count", 0), 1)
+    left_center = record_center(left)
+    right_center = record_center(right)
+    if left_center and right_center:
+        center = (
+            (left_center[0] * left_count + right_center[0] * right_count) / (left_count + right_count),
+            (left_center[1] * left_count + right_center[1] * right_count) / (left_count + right_count),
+        )
+    else:
+        center = left_center or right_center
+
+    labels = []
+    for label_text in (left["label"], right["label"]):
+        for label in [item.strip() for item in str(label_text).split("/") if item.strip()]:
+            if label not in labels:
+                labels.append(label)
+    if "团战" in labels:
+        labels.remove("团战")
+        labels.insert(0, "团战")
+
+    deaths = sorted(left.get("deaths", []) + right.get("deaths", []), key=lambda item: (item.get("time", 0), item.get("hero", "")))
+    merged = {
+        **left,
+        "end": max(left["end"], right["end"]),
+        "time_range": time_range(left["start"], max(left["end"], right["end"])),
+        "label": " / ".join(labels),
+        "center_raw": None if center is None else [round(center[0], 3), round(center[1], 3)],
+        "radiant": merge_sorted_names(left.get("radiant"), right.get("radiant")),
+        "dire": merge_sorted_names(left.get("dire"), right.get("dire")),
+        "remote_radiant": merge_sorted_names(left.get("remote_radiant"), right.get("remote_radiant")),
+        "remote_dire": merge_sorted_names(left.get("remote_dire"), right.get("remote_dire")),
+        "direct_radiant": merge_sorted_names(left.get("direct_radiant"), right.get("direct_radiant")),
+        "direct_dire": merge_sorted_names(left.get("direct_dire"), right.get("direct_dire")),
+        "damage_radiant": left.get("damage_radiant", 0) + right.get("damage_radiant", 0),
+        "damage_dire": left.get("damage_dire", 0) + right.get("damage_dire", 0),
+        "damage_taken_radiant": left.get("damage_taken_radiant", 0) + right.get("damage_taken_radiant", 0),
+        "damage_taken_dire": left.get("damage_taken_dire", 0) + right.get("damage_taken_dire", 0),
+        "damage_taken_by_hero": merge_damage_by_hero(left, right),
+        "remote_damage_radiant": left.get("remote_damage_radiant", 0) + right.get("remote_damage_radiant", 0),
+        "remote_damage_dire": left.get("remote_damage_dire", 0) + right.get("remote_damage_dire", 0),
+        "deaths": deaths,
+        "signal_count": left.get("signal_count", 0) + right.get("signal_count", 0),
+        "evidence": f"{left.get('evidence', '')}; merged_adjacent_fight gap={right['start'] - left['end']}s; next_evidence=({right.get('evidence', '')})",
+    }
+    return merged
+
+
+def merge_adjacent_fight_records(records):
+    merged = []
+    for record in sorted(records, key=lambda item: (item["start"], item["end"])):
+        if merged and should_merge_adjacent_records(merged[-1], record):
+            merged[-1] = merge_adjacent_record(merged[-1], record)
+        else:
+            merged.append(record)
+    return merged
 
 
 def laning_kill_context_for_record(record):
@@ -477,6 +680,47 @@ def apply_roshan_fight_context(records, roshan_context):
     return annotated
 
 
+def roshan_pit_context_for_record(record):
+    if not has_any_label(record["label"], {"团战", "小规模冲突"}):
+        return None
+    center = record.get("center_raw")
+    if not center:
+        return None
+    best = None
+    for pit_name, pit in ROSHAN_PITS.items():
+        dist = distance_game(tuple(center), pit["raw"])
+        if dist is None or dist > PARAMS["roshan_pit_context_radius_game"]:
+            continue
+        candidate = {
+            "pit_name": pit_name,
+            "distance_game": dist,
+            "server": pit["server"],
+            "raw": pit["raw"],
+        }
+        if best is None or candidate["distance_game"] < best["distance_game"]:
+            best = candidate
+    return best
+
+
+def apply_roshan_pit_fight_context(records):
+    annotated = []
+    for record in records:
+        context = roshan_pit_context_for_record(record)
+        if context:
+            record = dict(record)
+            context_text = f"肉山{context['pit_name']}战斗"
+            record["label"] = add_context_label(record["label"], "肉山团")
+            record["roshan_pit_context"] = context_text
+            record["evidence"] = (
+                f"{record['evidence']}; roshan_pit_context={context_text} "
+                f"server={context['server']} raw=({context['raw'][0]:.3f},{context['raw'][1]:.3f}) "
+                f"distance_game={context['distance_game']:.0f} "
+                f"radius_game={PARAMS['roshan_pit_context_radius_game']}"
+            )
+        annotated.append(record)
+    return annotated
+
+
 def build_tower_context(ctx):
     towers = defaultdict(list)
     for row in ctx.tables.get("tower_status_update", []):
@@ -552,7 +796,7 @@ def apply_tower_fight_context(records, tower_context):
             max_hp = context.get("max_hp")
             if max_hp:
                 hp_text = f"{hp_text}/{int(round(max_hp))}"
-            record["label"] = add_context_label(record["label"], "守塔团")
+            record["label"] = add_context_label(record["label"], "塔下")
             record["tower_context"] = f"{side}防御塔附近交战，塔血量{hp_text}"
             record["evidence"] = (
                 f"{record['evidence']}; tower_context=ehandle={context['ehandle']} "
@@ -582,18 +826,36 @@ def build_fight_records(ctx):
             "center_raw": None if cluster["center"] is None else [round(cluster["center"][0], 3), round(cluster["center"][1], 3)],
             "radiant": stats["radiant"],
             "dire": stats["dire"],
+            "remote_radiant": stats["remote_radiant"],
+            "remote_dire": stats["remote_dire"],
             "direct_radiant": stats["direct_radiant"],
             "direct_dire": stats["direct_dire"],
             "damage_radiant": stats["damage_radiant"],
             "damage_dire": stats["damage_dire"],
+            "damage_taken_radiant": stats["damage_taken_radiant"],
+            "damage_taken_dire": stats["damage_taken_dire"],
+            "damage_taken_by_hero": stats["damage_taken_by_hero"],
+            "remote_damage_radiant": stats["remote_damage_radiant"],
+            "remote_damage_dire": stats["remote_damage_dire"],
             "deaths": stats["deaths"],
             "signal_count": stats["signal_count"],
             "evidence": evidence_text(cluster, stats),
         })
+    records = merge_adjacent_fight_records(records)
     records = apply_roshan_fight_context(records, build_roshan_context(ctx))
+    records = apply_roshan_pit_fight_context(records)
     records = apply_tower_fight_context(records, build_tower_context(ctx))
     records = apply_laning_kill_context(records)
     return records
+
+
+def heroes_with_remote(normal, remote):
+    names = list(normal or [])
+    normal_set = set(names)
+    for hero in remote or []:
+        if hero not in normal_set:
+            names.append(f"{hero}（远程）")
+    return names
 
 
 def records_to_events(ctx, records):
@@ -607,10 +869,14 @@ def records_to_events(ctx, records):
             "labels": record["label"],
             "confidence": confidence,
             "time_range": record["time_range"],
-            "heroes": ctx.heroes_text(record["radiant"], record["dire"]),
+            "heroes": ctx.heroes_text(
+                heroes_with_remote(record["radiant"], record.get("remote_radiant")),
+                heroes_with_remote(record["dire"], record.get("remote_dire")),
+            ),
             "结果": (
                 result_text(record)
                 + (f"；对线击杀：{record['laning_kill_context']}" if record.get("laning_kill_context") else "")
+                + (f"；肉山坑上下文：{record['roshan_pit_context']}" if record.get("roshan_pit_context") else "")
                 + (f"；守塔上下文：{record['tower_context']}" if record.get("tower_context") else "")
             ),
             "evidence": record["evidence"],

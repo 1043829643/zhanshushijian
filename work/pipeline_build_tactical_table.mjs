@@ -20,7 +20,9 @@ const fightPath = path.join(computedDir, `fight_events_${matchId}.json`);
 const outputPath = path.join(outputDir, `战术事件_${matchId}_pipeline${outputSuffix}.xlsx`);
 const previewPath = path.join(outputDir, `战术事件_${matchId}_pipeline${outputSuffix}_preview.png`);
 
-const expectedHeaders = ["id", "match_id", "labels", "time_range", "heroes", "结果", "批注"];
+const RESULT_HEADER = "\u7ed3\u679c";
+const NOTE_HEADER = "\u6279\u6ce8";
+const expectedHeaders = ["id", "match_id", "labels", "time_range", "heroes", RESULT_HEADER, NOTE_HEADER];
 
 function colLetter(index) {
   let n = index + 1;
@@ -103,7 +105,8 @@ function normalizeRows(rows) {
       out[header] = row[header] ?? "";
     }
     out.match_id = String(out.match_id || matchId);
-    out["批注"] = "";
+    out[RESULT_HEADER] = row[RESULT_HEADER] ?? row["\u7f01\u6496\u7049"] ?? "";
+    out[NOTE_HEADER] = "";
     return out;
   });
 }
@@ -127,7 +130,7 @@ const definitionRows = eventDefinitions.ndjson.split("\n").filter(Boolean).map((
 const formatRows = outputFormat.ndjson.split("\n").filter(Boolean).map((line) => JSON.parse(line)).find((row) => row.kind === "table")?.values ?? [];
 const allowedLabels = new Set(definitionRows.slice(1).map((row) => row[0]).filter(Boolean));
 const definitionHeaders = formatRows.slice(1).map((row) => row[0]).filter(Boolean);
-const supportedDefinitionHeaders = ["id", "match_id", "labels", "confidence", "time_range", "heroes", "结果", "批注"];
+const supportedDefinitionHeaders = ["id", "match_id", "labels", "confidence", "time_range", "heroes", RESULT_HEADER, NOTE_HEADER];
 if (JSON.stringify(definitionHeaders) !== JSON.stringify(supportedDefinitionHeaders)) {
   throw new Error(`Unexpected output headers from definitions: ${JSON.stringify(definitionHeaders)}`);
 }
