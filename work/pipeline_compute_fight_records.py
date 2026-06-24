@@ -26,7 +26,7 @@ PARAMS = {
     "merge_adjacent_min_jaccard": 0.5,
     "cluster_seed_damage": 550,
     "participant_near_radius_game": 1600,
-    "remote_contribution_distance_game": 2000,
+    "remote_contribution_distance_game": 1400,
     "teamfight_min_side_count": 4,
     "teamfight_min_direct_count": 3,
     "teamfight_damage_threshold": 2500,
@@ -283,6 +283,8 @@ def cluster_stats(ctx, cluster):
     damage_taken_by_hero = defaultdict(float)
     remote_heroes = defaultdict(set)
     remote_damage_by_team = defaultdict(float)
+    first_remote_time = {}
+    first_direct_time = {}
     deaths = []
     seen_deaths = set()
     controls = []
@@ -294,8 +296,8 @@ def cluster_stats(ctx, cluster):
         attacker_team = ctx.unit_team(attacker)
         target_team = ctx.unit_team(target)
         attacker_remote = False
-        if attacker and signal["kind"] in {"damage", "control"} and cluster.get("center") is not None:
-            attacker_dist = distance_game(cluster["center"], signal.get("pos"))
+        if attacker and target and signal["kind"] in {"damage", "control"}:
+            attacker_dist = distance_game(signal.get("attacker_pos"), signal.get("target_pos"))
             attacker_remote = (
                 attacker_dist is not None
                 and attacker_dist > PARAMS["remote_contribution_distance_game"]
@@ -307,15 +309,26 @@ def cluster_stats(ctx, cluster):
 
         if attacker_team in {2, 3}:
             if attacker_remote:
-                remote_heroes[attacker_team].add(ctx.unit_hero(attacker))
+                hero = ctx.unit_hero(attacker)
+                remote_heroes[attacker_team].add(hero)
+                first_remote_time[(attacker_team, hero)] = min(
+                    first_remote_time.get((attacker_team, hero), signal["time"]),
+                    signal["time"],
+                )
             else:
-                heroes[attacker_team].add(ctx.unit_hero(attacker))
+                hero = ctx.unit_hero(attacker)
+                heroes[attacker_team].add(hero)
                 participants.add(attacker)
 
         if attacker and signal["kind"] in {"damage", "control"} and not attacker_remote:
             team = attacker_team
             if team in {2, 3}:
-                direct_heroes[team].add(ctx.unit_hero(attacker))
+                hero = ctx.unit_hero(attacker)
+                direct_heroes[team].add(hero)
+                first_direct_time[(team, hero)] = min(
+                    first_direct_time.get((team, hero), signal["time"]),
+                    signal["time"],
+                )
         if signal["kind"] == "damage" and attacker:
             team = attacker_team
             if team in {2, 3}:
@@ -341,11 +354,24 @@ def cluster_stats(ctx, cluster):
         elif signal["kind"] == "control":
             controls.append(signal)
 
+    remote_then_direct_radiant = {
+        hero
+        for hero in (remote_heroes[2] & direct_heroes[2])
+        if first_remote_time.get((2, hero), 10**9) < first_direct_time.get((2, hero), -1)
+    }
+    remote_then_direct_dire = {
+        hero
+        for hero in (remote_heroes[3] & direct_heroes[3])
+        if first_remote_time.get((3, hero), 10**9) < first_direct_time.get((3, hero), -1)
+    }
+
     return {
         "radiant": sorted(heroes[2]),
         "dire": sorted(heroes[3]),
         "remote_radiant": sorted(remote_heroes[2] - heroes[2]),
         "remote_dire": sorted(remote_heroes[3] - heroes[3]),
+        "remote_then_direct_radiant": sorted(remote_then_direct_radiant),
+        "remote_then_direct_dire": sorted(remote_then_direct_dire),
         "direct_radiant": sorted(direct_heroes[2]),
         "direct_dire": sorted(direct_heroes[3]),
         "damage_radiant": round(damage_by_team[2]),
@@ -434,6 +460,7 @@ def evidence_text(cluster, stats):
         f"by_hero={stats.get('damage_taken_by_hero', {})}; "
         f"remote_damage 天辉={stats.get('remote_damage_radiant', 0)} 夜魇={stats.get('remote_damage_dire', 0)}; "
         f"remote_heroes 天辉={stats.get('remote_radiant', [])} 夜魇={stats.get('remote_dire', [])}; "
+        f"remote_then_direct 天辉={stats.get('remote_then_direct_radiant', [])} 夜魇={stats.get('remote_then_direct_dire', [])}; "
         f"center {center_text}; log_index {first['log_index']}-{last['log_index']}"
     )
 
@@ -544,6 +571,8 @@ def merge_adjacent_record(left, right):
         "dire": merge_sorted_names(left.get("dire"), right.get("dire")),
         "remote_radiant": merge_sorted_names(left.get("remote_radiant"), right.get("remote_radiant")),
         "remote_dire": merge_sorted_names(left.get("remote_dire"), right.get("remote_dire")),
+        "remote_then_direct_radiant": merge_sorted_names(left.get("remote_then_direct_radiant"), right.get("remote_then_direct_radiant")),
+        "remote_then_direct_dire": merge_sorted_names(left.get("remote_then_direct_dire"), right.get("remote_then_direct_dire")),
         "direct_radiant": merge_sorted_names(left.get("direct_radiant"), right.get("direct_radiant")),
         "direct_dire": merge_sorted_names(left.get("direct_dire"), right.get("direct_dire")),
         "damage_radiant": left.get("damage_radiant", 0) + right.get("damage_radiant", 0),
@@ -828,6 +857,8 @@ def build_fight_records(ctx):
             "dire": stats["dire"],
             "remote_radiant": stats["remote_radiant"],
             "remote_dire": stats["remote_dire"],
+            "remote_then_direct_radiant": stats["remote_then_direct_radiant"],
+            "remote_then_direct_dire": stats["remote_then_direct_dire"],
             "direct_radiant": stats["direct_radiant"],
             "direct_dire": stats["direct_dire"],
             "damage_radiant": stats["damage_radiant"],
@@ -849,9 +880,14 @@ def build_fight_records(ctx):
     return records
 
 
-def heroes_with_remote(normal, remote):
+def heroes_with_remote(normal, remote, remote_then_direct=None):
     names = list(normal or [])
     normal_set = set(names)
+    remote_then_direct_set = set(remote_then_direct or [])
+    names = [
+        f"{hero}（远程后进场）" if hero in remote_then_direct_set else hero
+        for hero in names
+    ]
     for hero in remote or []:
         if hero not in normal_set:
             names.append(f"{hero}（远程）")
@@ -870,8 +906,8 @@ def records_to_events(ctx, records):
             "confidence": confidence,
             "time_range": record["time_range"],
             "heroes": ctx.heroes_text(
-                heroes_with_remote(record["radiant"], record.get("remote_radiant")),
-                heroes_with_remote(record["dire"], record.get("remote_dire")),
+                heroes_with_remote(record["radiant"], record.get("remote_radiant"), record.get("remote_then_direct_radiant")),
+                heroes_with_remote(record["dire"], record.get("remote_dire"), record.get("remote_then_direct_dire")),
             ),
             "结果": (
                 result_text(record)
