@@ -6,11 +6,11 @@ from bisect import bisect_left
 from collections import defaultdict
 from pathlib import Path
 
-from pipeline_compute_fact_events import MatchContext, seconds_to_time, side_name, time_range, to_float, to_int
+from pipeline_compute_fact_events import MatchContext, lane_from_xy, seconds_to_time, side_name, time_range, to_float, to_int
 
 
 ROOT = Path(__file__).resolve().parents[1]
-COMBAT_LABELS = {"GANK", "小规模冲突", "团战"}
+COMBAT_LABELS = {"单杀", "GANK", "小规模冲突", "团战"}
 EVENT_FIELDNAMES = ["id", "match_id", "labels", "confidence", "time_range", "heroes", "结果", "evidence", "批注"]
 
 PARAMS = {
@@ -25,7 +25,7 @@ PARAMS = {
     "teamfight_damage_threshold": 2500,
     "teamfight_death_threshold": 2,
     "teamfight_duration_threshold": 15,
-    "skirmish_min_total_heroes": 2,
+    "skirmish_min_side_heroes": 2,
     "gank_min_attacker_side_heroes": 2,
     "gank_max_victim_side_heroes": 1,
     "roshan_context_min_time": 600,
@@ -34,7 +34,11 @@ PARAMS = {
     "roshan_kill_context_after": 75,
     "tower_context_radius": 1000,
     "tower_context_time_pad": 5,
+    "laning_kill_start_time": 20,
+    "laning_kill_end_time": 300,
 }
+
+LANE_TEXT = {"top": "上路", "mid": "中路", "bot": "下路"}
 
 
 def raw_to_game(value):
@@ -260,6 +264,7 @@ def cluster_stats(ctx, cluster):
                 "hero": ctx.unit_hero(target),
                 "team": ctx.unit_team(target),
                 "killer": ctx.unit_hero(attacker) if attacker else "",
+                "pos_raw": None if signal.get("pos") is None else [round(signal["pos"][0], 3), round(signal["pos"][1], 3)],
             })
         elif signal["kind"] == "control":
             controls.append(signal)
@@ -280,7 +285,6 @@ def cluster_stats(ctx, cluster):
 def classify_fight(stats, duration):
     radiant_count = len(stats["radiant"])
     dire_count = len(stats["dire"])
-    total = radiant_count + dire_count
     direct_radiant = len(stats["direct_radiant"])
     direct_dire = len(stats["direct_dire"])
     total_damage = stats["damage_radiant"] + stats["damage_dire"]
@@ -288,8 +292,8 @@ def classify_fight(stats, duration):
 
     if radiant_count == 0 or dire_count == 0:
         return None
-    if total < PARAMS["skirmish_min_total_heroes"] and death_count == 0:
-        return None
+    if radiant_count == 1 and dire_count == 1:
+        return "单杀" if death_count > 0 else None
     if (
         radiant_count >= PARAMS["gank_min_attacker_side_heroes"]
         and dire_count <= PARAMS["gank_max_victim_side_heroes"]
@@ -310,7 +314,9 @@ def classify_fight(stats, duration):
         )
     ):
         return "团战"
-    return "小规模冲突"
+    if radiant_count >= PARAMS["skirmish_min_side_heroes"] and dire_count >= PARAMS["skirmish_min_side_heroes"]:
+        return "小规模冲突"
+    return None
 
 
 def result_text(stats):
@@ -351,6 +357,61 @@ def add_context_label(label_text, context_label):
     if context_label not in labels:
         labels.insert(0, context_label)
     return " / ".join(labels)
+
+
+def label_set(label_text):
+    return {label.strip() for label in str(label_text).split("/") if label.strip()}
+
+
+def has_any_label(label_text, labels):
+    return bool(label_set(label_text) & set(labels))
+
+
+def laning_kill_context_for_record(record):
+    labels = label_set(record["label"])
+    if not ({"单杀", "小规模冲突"} & labels):
+        return None
+    lane_deaths = defaultdict(list)
+    evidence_parts = []
+    for death in record.get("deaths", []):
+        t = death.get("time")
+        if t is None or t < PARAMS["laning_kill_start_time"] or t > PARAMS["laning_kill_end_time"]:
+            continue
+        pos = death.get("pos_raw")
+        if not pos:
+            continue
+        lane = lane_from_xy(pos[0], pos[1])
+        lane_name = LANE_TEXT.get(lane, lane)
+        lane_deaths[lane_name].append(death)
+        evidence_parts.append(
+            f"laning_kill lane={lane_name} death_time={seconds_to_time(t)} "
+            f"victim={death['hero']} killer={death.get('killer', '')} pos_raw=({pos[0]},{pos[1]})"
+        )
+    if not lane_deaths:
+        return None
+
+    parts = []
+    for lane_name in sorted(lane_deaths):
+        deaths = sorted(lane_deaths[lane_name], key=lambda item: item["time"])
+        death_text = "、".join(f"{seconds_to_time(item['time'])} {item['hero']}" for item in deaths)
+        parts.append(f"{lane_name} {len(deaths)} 次，{death_text}")
+    return {
+        "text": "；".join(parts),
+        "evidence": "；".join(evidence_parts),
+    }
+
+
+def apply_laning_kill_context(records):
+    annotated = []
+    for record in records:
+        context = laning_kill_context_for_record(record)
+        if context:
+            record = dict(record)
+            record["label"] = add_context_label(record["label"], "对线击杀")
+            record["laning_kill_context"] = context["text"]
+            record["evidence"] = f"{record['evidence']}; {context['evidence']}"
+        annotated.append(record)
+    return annotated
 
 
 def build_roshan_context(ctx):
@@ -408,7 +469,7 @@ def apply_roshan_fight_context(records, roshan_context):
     annotated = []
     for record in records:
         context = roshan_context_for_record(record, roshan_context)
-        if context and record["label"] != "GANK":
+        if context and not has_any_label(record["label"], {"GANK", "单杀"}):
             record = dict(record)
             record["label"] = add_context_label(record["label"], "肉山团")
             record["evidence"] = f"{record['evidence']}; roshan_context={context}"
@@ -484,7 +545,7 @@ def apply_tower_fight_context(records, tower_context):
     annotated = []
     for record in records:
         context = tower_context_for_record(record, tower_context)
-        if context and record["label"] != "GANK":
+        if context and not has_any_label(record["label"], {"GANK", "单杀"}):
             record = dict(record)
             side = side_name(context["team"])
             hp_text = int(round(context["hp"]))
@@ -531,6 +592,7 @@ def build_fight_records(ctx):
         })
     records = apply_roshan_fight_context(records, build_roshan_context(ctx))
     records = apply_tower_fight_context(records, build_tower_context(ctx))
+    records = apply_laning_kill_context(records)
     return records
 
 
@@ -538,7 +600,7 @@ def records_to_events(ctx, records):
     rows = []
     for idx, record in enumerate(records, start=1):
         labels = {label.strip() for label in record["label"].split("/")}
-        confidence = 0.74 if "团战" in labels else 0.7 if "GANK" in labels else 0.68
+        confidence = 0.74 if "团战" in labels else 0.7 if "GANK" in labels else 0.69 if "单杀" in labels else 0.68
         rows.append({
             "id": idx,
             "match_id": ctx.match_id,
@@ -546,7 +608,11 @@ def records_to_events(ctx, records):
             "confidence": confidence,
             "time_range": record["time_range"],
             "heroes": ctx.heroes_text(record["radiant"], record["dire"]),
-            "结果": result_text(record) + (f"；守塔上下文：{record['tower_context']}" if record.get("tower_context") else ""),
+            "结果": (
+                result_text(record)
+                + (f"；对线击杀：{record['laning_kill_context']}" if record.get("laning_kill_context") else "")
+                + (f"；守塔上下文：{record['tower_context']}" if record.get("tower_context") else "")
+            ),
             "evidence": record["evidence"],
             "批注": "",
         })
