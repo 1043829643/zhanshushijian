@@ -24,9 +24,12 @@ PARAMS = {
     "merge_adjacent_distance_game": 2200,
     "merge_adjacent_min_shared_heroes": 4,
     "merge_adjacent_min_jaccard": 0.5,
+    "merge_hero_center_distance_game": 2500,
+    "merge_hero_center_min_shared_heroes": 2,
+    "merge_hero_center_min_jaccard": 0.2,
     "cluster_seed_damage": 550,
     "participant_near_radius_game": 1600,
-    "remote_contribution_distance_game": 1400,
+    "remote_contribution_distance_game": 2000,
     "teamfight_min_side_count": 4,
     "teamfight_min_direct_count": 3,
     "teamfight_damage_threshold": 2500,
@@ -500,11 +503,61 @@ def record_center(record):
     return tuple(center)
 
 
+def record_hero_second_centers(ctx, pos_index, start, end, hero_names):
+    hero_to_unit = {
+        hero: unit
+        for unit, hero in ctx.unit_to_cn.items()
+        if str(unit).startswith("npc_dota_hero_")
+    }
+    centers = {}
+    for t in range(start, end + 1):
+        points = []
+        for hero in hero_names:
+            unit = hero_to_unit.get(hero)
+            if not unit:
+                continue
+            pos = pos_index.nearest(unit, t, max_gap=2)
+            if pos is not None:
+                points.append(pos)
+        center = average_position(points)
+        if center is not None:
+            centers[str(t)] = [round(center[0], 3), round(center[1], 3)]
+    return centers
+
+
+def record_hero_second_center(record, second):
+    center = (record.get("hero_second_centers") or {}).get(str(second))
+    if not center:
+        return None
+    return tuple(center)
+
+
+def min_hero_second_center_distance(left, right):
+    start = max(left["start"], right["start"])
+    end = min(left["end"], right["end"])
+    seconds = []
+    if start <= end:
+        seconds.extend(range(start, end + 1))
+    else:
+        seconds.extend([left["end"], right["start"]])
+
+    distances = []
+    for second in seconds:
+        left_center = record_hero_second_center(left, second)
+        right_center = record_hero_second_center(right, second)
+        if left_center is None or right_center is None:
+            continue
+        distance = distance_game(left_center, right_center)
+        if distance is not None:
+            distances.append(distance)
+    if not distances:
+        return None
+    return min(distances)
+
+
 def should_merge_adjacent_records(left, right):
     gap = right["start"] - left["end"]
-    if gap < 0 or gap > PARAMS["merge_adjacent_gap_seconds"]:
-        return False
-    if not (has_any_label(left["label"], {"团战"}) or has_any_label(right["label"], {"团战"})):
+    if gap > PARAMS["merge_adjacent_gap_seconds"]:
         return False
 
     left_heroes = record_heroes(left)
@@ -512,6 +565,23 @@ def should_merge_adjacent_records(left, right):
     shared = left_heroes & right_heroes
     union = left_heroes | right_heroes
     jaccard = len(shared) / len(union) if union else 0
+
+    hero_center_distance = min_hero_second_center_distance(left, right)
+    if (
+        hero_center_distance is not None
+        and hero_center_distance <= PARAMS["merge_hero_center_distance_game"]
+        and (
+            len(shared) >= PARAMS["merge_hero_center_min_shared_heroes"]
+            or jaccard >= PARAMS["merge_hero_center_min_jaccard"]
+        )
+    ):
+        return True
+
+    if gap < 0:
+        return False
+    if not (has_any_label(left["label"], {"团战"}) or has_any_label(right["label"], {"团战"})):
+        return False
+
     if len(shared) < PARAMS["merge_adjacent_min_shared_heroes"] and jaccard < PARAMS["merge_adjacent_min_jaccard"]:
         return False
 
@@ -536,6 +606,19 @@ def merge_damage_by_hero(left, right):
         for hero, value in source.items():
             totals[hero] += value
     return {hero: round(value) for hero, value in sorted(totals.items())}
+
+
+def merge_hero_second_centers(left, right):
+    merged = dict(left.get("hero_second_centers") or {})
+    for second, center in (right.get("hero_second_centers") or {}).items():
+        if second in merged:
+            merged[second] = [
+                round((merged[second][0] + center[0]) / 2, 3),
+                round((merged[second][1] + center[1]) / 2, 3),
+            ]
+        else:
+            merged[second] = center
+    return merged
 
 
 def merge_adjacent_record(left, right):
@@ -584,6 +667,7 @@ def merge_adjacent_record(left, right):
         "remote_damage_dire": left.get("remote_damage_dire", 0) + right.get("remote_damage_dire", 0),
         "deaths": deaths,
         "signal_count": left.get("signal_count", 0) + right.get("signal_count", 0),
+        "hero_second_centers": merge_hero_second_centers(left, right),
         "evidence": f"{left.get('evidence', '')}; merged_adjacent_fight gap={right['start'] - left['end']}s; next_evidence=({right.get('evidence', '')})",
     }
     return merged
@@ -839,6 +923,7 @@ def apply_tower_fight_context(records, tower_context):
 def build_fight_records(ctx):
     signals = build_signals(ctx)
     raw_clusters = cluster_signals(signals)
+    pos_index = HeroPositionIndex(ctx)
     records = []
     for cluster in raw_clusters:
         stats = cluster_stats(ctx, cluster)
@@ -870,6 +955,13 @@ def build_fight_records(ctx):
             "remote_damage_dire": stats["remote_damage_dire"],
             "deaths": stats["deaths"],
             "signal_count": stats["signal_count"],
+            "hero_second_centers": record_hero_second_centers(
+                ctx,
+                pos_index,
+                cluster["start"],
+                cluster["end"],
+                stats["radiant"] + stats["dire"],
+            ),
             "evidence": evidence_text(cluster, stats),
         })
     records = merge_adjacent_fight_records(records)
