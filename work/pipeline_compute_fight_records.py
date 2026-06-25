@@ -14,11 +14,14 @@ COMBAT_LABELS = {"单杀", "GANK", "小规模冲突", "团战"}
 EVENT_FIELDNAMES = ["id", "match_id", "labels", "confidence", "time_range", "heroes", "结果", "evidence", "批注"]
 
 PARAMS = {
-    "damage_min_event": 45,
+    "damage_min_event_pre10": 30,
+    "damage_min_event_post10": 45,
     "control_min_duration": 0.25,
-    "cluster_gap_seconds": 12,
+    "cluster_gap_seconds_pre10": 7,
+    "cluster_gap_seconds_post10": 12,
     "cluster_distance_game": 2200,
-    "cluster_tail_seconds": 12,
+    "cluster_tail_seconds_pre10": 7,
+    "cluster_tail_seconds_post10": 12,
     "cluster_tail_signal_count": 8,
     "merge_adjacent_gap_seconds": 3,
     "merge_adjacent_distance_game": 2200,
@@ -27,6 +30,13 @@ PARAMS = {
     "merge_hero_center_distance_game": 2500,
     "merge_hero_center_min_shared_heroes": 2,
     "merge_hero_center_min_jaccard": 0.2,
+    "merge_chase_gap_seconds": 10,
+    "merge_chase_center_distance_game": 3500,
+    "merge_chase_min_shared_attackers": 2,
+    "merge_interaction_continuation_gap_seconds_pre10": 6,
+    "merge_interaction_continuation_gap_seconds_post10": 13,
+    "merge_interaction_continuation_step_distance_game": 3500,
+    "merge_interaction_continuation_position_pad_seconds": 13,
     "cluster_seed_damage": 550,
     "participant_near_radius_game": 1600,
     "remote_contribution_distance_game": 2000,
@@ -39,13 +49,21 @@ PARAMS = {
     "gank_min_attacker_side_heroes": 2,
     "gank_max_victim_side_heroes": 1,
     "gank_victim_damage_min": 600,
-    "roshan_context_min_time": 600,
+    "roshan_context_min_time": 900,
     "roshan_damage_context_pad": 30,
     "roshan_kill_context_before": 45,
     "roshan_kill_context_after": 75,
-    "roshan_pit_context_radius_game": 2000,
+    "roshan_pit_context_radius_game": 1000,
+    "roshan_pit_opening_seconds": 3,
+    "skirmish_pre10_single_hero_damage_threshold": 400,
+    "skirmish_pre10_total_damage_threshold": 900,
+    "skirmish_pre10_short_duration_seconds": 12,
+    "skirmish_pre10_burst_window_seconds": 8,
+    "skirmish_pre10_burst_total_damage_threshold": 700,
+    "skirmish_pre10_burst_single_hero_damage_threshold": 360,
     "tower_context_radius": 1000,
     "tower_context_time_pad": 5,
+    "tower_context_opening_seconds": 3,
     "laning_kill_start_time": 20,
     "laning_kill_end_time": 300,
 }
@@ -54,12 +72,12 @@ LANE_TEXT = {"top": "上路", "mid": "中路", "bot": "下路"}
 
 ROSHAN_PITS = {
     "上路坑": {
-        "server": (-3084, 2296),
-        "raw": (102.587, 148.321),
+        "server": (-2924.964844, 1522.657715),
+        "raw": (104.015, 141.712),
     },
     "下路坑": {
-        "server": (2842, -2743),
-        "raw": (152.116, 105.919),
+        "server": (2867.646973, -3401.379395),
+        "raw": (152.291, 100.499),
     },
 }
 
@@ -92,10 +110,35 @@ def is_roshan_name(name):
     return str(name) == "npc_dota_roshan"
 
 
+CONTROLLED_UNIT_OWNER_PREFIXES = [
+    ("npc_dota_lone_druid_bear", "npc_dota_hero_lone_druid"),
+    ("npc_dota_furion_treant", "npc_dota_hero_furion"),
+    ("npc_dota_lycan_wolf", "npc_dota_hero_lycan"),
+    ("npc_dota_beastmaster_boar", "npc_dota_hero_beastmaster"),
+    ("npc_dota_beastmaster_hawk", "npc_dota_hero_beastmaster"),
+    ("npc_dota_broodmother_spider", "npc_dota_hero_broodmother"),
+    ("npc_dota_warlock_golem", "npc_dota_hero_warlock"),
+    ("npc_dota_venomancer_plague_ward", "npc_dota_hero_venomancer"),
+    ("npc_dota_shadow_shaman_ward", "npc_dota_hero_shadow_shaman"),
+    ("npc_dota_witch_doctor_death_ward", "npc_dota_hero_witch_doctor"),
+]
+
+
+def controlled_unit_owner(ctx, value):
+    text = str(value or "")
+    for prefix, owner in CONTROLLED_UNIT_OWNER_PREFIXES:
+        if text.startswith(prefix) and owner in ctx.unit_to_cn:
+            return owner
+    return None
+
+
 def hero_from_log_name(ctx, row, key, allow_source_fallback=True):
     value = row.get(key)
     if value and value in ctx.unit_to_cn:
         return value
+    owner = controlled_unit_owner(ctx, value)
+    if owner:
+        return owner
     if not allow_source_fallback:
         return None
     source_key = "sourcename" if key == "attackername" else "targetsourcename"
@@ -161,6 +204,34 @@ def control_duration(row):
     return max(durations)
 
 
+def is_pre10_time(time_value):
+    return time_value is not None and time_value < 600
+
+
+def damage_min_event_for_time(time_value):
+    if is_pre10_time(time_value):
+        return PARAMS["damage_min_event_pre10"]
+    return PARAMS["damage_min_event_post10"]
+
+
+def cluster_gap_seconds_for_time(time_value):
+    if is_pre10_time(time_value):
+        return PARAMS["cluster_gap_seconds_pre10"]
+    return PARAMS["cluster_gap_seconds_post10"]
+
+
+def cluster_tail_seconds_for_time(time_value):
+    if is_pre10_time(time_value):
+        return PARAMS["cluster_tail_seconds_pre10"]
+    return PARAMS["cluster_tail_seconds_post10"]
+
+
+def interaction_continuation_gap_seconds_for_time(time_value):
+    if is_pre10_time(time_value):
+        return PARAMS["merge_interaction_continuation_gap_seconds_pre10"]
+    return PARAMS["merge_interaction_continuation_gap_seconds_post10"]
+
+
 def build_signals(ctx):
     pos_index = HeroPositionIndex(ctx)
     signals = []
@@ -184,7 +255,7 @@ def build_signals(ctx):
         signal = None
         if row_type == "DOTA_COMBATLOG_DAMAGE" and attacker and target and attacker != target:
             value = to_float(row.get("value"), 0) or 0
-            if value >= PARAMS["damage_min_event"]:
+            if value >= damage_min_event_for_time(t):
                 signal = {"kind": "damage", "value": value}
         elif row_type == "DOTA_COMBATLOG_DEATH" and target and is_true(row.get("targethero")):
             signal = {"kind": "death", "value": 1}
@@ -217,7 +288,7 @@ def build_signals(ctx):
 
 
 def can_attach(cluster, signal):
-    if signal["time"] - cluster["end"] > PARAMS["cluster_gap_seconds"]:
+    if signal["time"] - cluster["end"] > cluster_gap_seconds_for_time(signal["time"]):
         return False
     compare_center = cluster.get("tail_center") or cluster.get("center")
     if signal["pos"] is None or compare_center is None:
@@ -238,7 +309,7 @@ def cluster_tail_center(cluster):
     positioned = [item for item in cluster["signals"] if item.get("pos") is not None]
     if not positioned:
         return None
-    tail_start = cluster["end"] - PARAMS["cluster_tail_seconds"]
+    tail_start = cluster["end"] - cluster_tail_seconds_for_time(cluster["end"])
     tail = [item for item in positioned if item["time"] >= tail_start]
     if len(tail) > PARAMS["cluster_tail_signal_count"]:
         tail = tail[-PARAMS["cluster_tail_signal_count"]:]
@@ -401,6 +472,13 @@ def classify_fight(stats, duration):
     death_count = len(stats["deaths"])
     radiant_death_count = sum(1 for item in stats["deaths"] if item["team"] == 2)
     dire_death_count = sum(1 for item in stats["deaths"] if item["team"] == 3)
+    if death_count > 0 and (
+        (radiant_death_count > 0 and direct_dire == 1)
+        or (dire_death_count > 0 and direct_radiant == 1)
+    ):
+        return "单杀"
+    if direct_radiant == 1 and direct_dire == 1 and death_count > 0:
+        return "单杀"
 
     if radiant_count == 0 or dire_count == 0:
         return None
@@ -439,6 +517,71 @@ def classify_fight(stats, duration):
     return None
 
 
+def death_window_core_stats(ctx, cluster, stats):
+    if not stats.get("deaths"):
+        return stats
+    window_seconds = 12
+    radiant = set()
+    dire = set()
+    direct_radiant = set()
+    direct_dire = set()
+    death_times = [item["time"] for item in stats.get("deaths", [])]
+    for death in stats.get("deaths", []):
+        team = death.get("team")
+        hero = death.get("hero")
+        if team == 2:
+            radiant.add(hero)
+        elif team == 3:
+            dire.add(hero)
+    for signal in cluster.get("signals", []):
+        if signal.get("kind") not in {"damage", "control", "death"}:
+            continue
+        if not any(death_time - window_seconds <= signal["time"] <= death_time for death_time in death_times):
+            continue
+        attacker = signal.get("attacker")
+        target = signal.get("target")
+        attacker_team = ctx.unit_team(attacker)
+        target_team = ctx.unit_team(target)
+        attacker_remote = False
+        if attacker and target and signal.get("kind") in {"damage", "control"}:
+            attacker_dist = distance_game(signal.get("attacker_pos"), signal.get("target_pos"))
+            attacker_remote = (
+                attacker_dist is not None
+                and attacker_dist > PARAMS["remote_contribution_distance_game"]
+            )
+        if target_team == 2:
+            radiant.add(ctx.unit_hero(target))
+        elif target_team == 3:
+            dire.add(ctx.unit_hero(target))
+        if attacker_team == 2 and not attacker_remote:
+            hero = ctx.unit_hero(attacker)
+            radiant.add(hero)
+            direct_radiant.add(hero)
+        elif attacker_team == 3 and not attacker_remote:
+            hero = ctx.unit_hero(attacker)
+            dire.add(hero)
+            direct_dire.add(hero)
+    adjusted = dict(stats)
+    adjusted["radiant"] = sorted(radiant) or stats.get("radiant", [])
+    adjusted["dire"] = sorted(dire) or stats.get("dire", [])
+    adjusted["direct_radiant"] = sorted(direct_radiant) or stats.get("direct_radiant", [])
+    adjusted["direct_dire"] = sorted(direct_dire) or stats.get("direct_dire", [])
+    return adjusted
+
+
+def prune_death_record_participants(record):
+    if not record.get("deaths"):
+        return record
+    direct_radiant = set(record.get("direct_radiant") or [])
+    direct_dire = set(record.get("direct_dire") or [])
+    if not direct_radiant or not direct_dire:
+        return record
+    pruned = dict(record)
+    pruned["radiant"] = [hero for hero in (record.get("radiant") or []) if hero in direct_radiant]
+    pruned["dire"] = [hero for hero in (record.get("dire") or []) if hero in direct_dire]
+    return pruned
+
+
 def result_text(stats):
     radiant_kills = sum(1 for item in stats["deaths"] if item["team"] == 3)
     dire_kills = sum(1 for item in stats["deaths"] if item["team"] == 2)
@@ -468,8 +611,67 @@ def evidence_text(cluster, stats):
     )
 
 
-def is_valid_seed(cluster, stats):
+def pre10_skirmish_burst_metrics(ctx, cluster):
+    damage_signals = []
+    for signal in cluster["signals"]:
+        if signal.get("kind") != "damage":
+            continue
+        attacker = signal.get("attacker")
+        target = signal.get("target")
+        if not attacker or not target:
+            continue
+        attacker_team = ctx.unit_team(attacker)
+        target_team = ctx.unit_team(target)
+        if attacker_team not in {2, 3} or target_team not in {2, 3}:
+            continue
+        attacker_dist = distance_game(signal.get("attacker_pos"), signal.get("target_pos"))
+        if attacker_dist is not None and attacker_dist > PARAMS["remote_contribution_distance_game"]:
+            continue
+        damage_signals.append({
+            "time": signal["time"],
+            "value": signal["value"],
+            "target_hero": ctx.unit_hero(target),
+        })
+
+    if not damage_signals:
+        return {"max_total_damage": 0, "max_single_hero_damage": 0}
+
+    window_seconds = PARAMS["skirmish_pre10_burst_window_seconds"]
+    best_total = 0
+    best_single = 0
+    for anchor in sorted({item["time"] for item in damage_signals}):
+        window_end = anchor + window_seconds
+        total = 0
+        by_hero = defaultdict(float)
+        for item in damage_signals:
+            if anchor <= item["time"] < window_end:
+                total += item["value"]
+                by_hero[item["target_hero"]] += item["value"]
+        best_total = max(best_total, total)
+        best_single = max(best_single, max(by_hero.values(), default=0))
+    return {
+        "max_total_damage": round(best_total),
+        "max_single_hero_damage": round(best_single),
+    }
+
+
+def is_valid_seed(ctx, cluster, stats, label=None):
     total_damage = stats["damage_radiant"] + stats["damage_dire"]
+    if cluster["start"] < 600 and has_any_label(label or "", {"小规模冲突"}):
+        if stats["deaths"]:
+            return True
+        duration = cluster["end"] - cluster["start"]
+        max_single_hero_damage = max(stats.get("damage_taken_by_hero", {}).values(), default=0)
+        if duration <= PARAMS["skirmish_pre10_short_duration_seconds"]:
+            return (
+                max_single_hero_damage > PARAMS["skirmish_pre10_single_hero_damage_threshold"]
+                or total_damage > PARAMS["skirmish_pre10_total_damage_threshold"]
+            )
+        burst = pre10_skirmish_burst_metrics(ctx, cluster)
+        return (
+            burst["max_total_damage"] >= PARAMS["skirmish_pre10_burst_total_damage_threshold"]
+            or burst["max_single_hero_damage"] >= PARAMS["skirmish_pre10_burst_single_hero_damage_threshold"]
+        )
     if total_damage >= PARAMS["cluster_seed_damage"]:
         return True
     if stats["deaths"]:
@@ -492,6 +694,44 @@ def has_any_label(label_text, labels):
     return bool(label_set(label_text) & set(labels))
 
 
+def record_stats_for_classification(record):
+    return {
+        "radiant": record.get("radiant") or [],
+        "dire": record.get("dire") or [],
+        "direct_radiant": record.get("direct_radiant") or [],
+        "direct_dire": record.get("direct_dire") or [],
+        "damage_radiant": record.get("damage_radiant", 0),
+        "damage_dire": record.get("damage_dire", 0),
+        "damage_taken_radiant": record.get("damage_taken_radiant", 0),
+        "damage_taken_dire": record.get("damage_taken_dire", 0),
+        "deaths": record.get("deaths") or [],
+    }
+
+
+def reclassify_merged_record(record):
+    duration = record["end"] - record["start"]
+    primary = classify_fight(record_stats_for_classification(record), duration)
+    if not primary:
+        return record
+
+    old_label = record.get("label", "")
+    old_labels = label_set(old_label)
+    context_labels = [
+        label.strip()
+        for label in str(old_label).split("/")
+        if label.strip() and label.strip() not in COMBAT_LABELS
+    ]
+    labels = [primary] + [label for label in context_labels if label != primary]
+    new_label = " / ".join(labels)
+    if new_label != old_label:
+        record["evidence"] = (
+            f"{record.get('evidence', '')}; reclassified_after_merge "
+            f"from={sorted(old_labels)} to={new_label}"
+        )
+        record["label"] = new_label
+    return record
+
+
 def record_heroes(record):
     return set(record.get("radiant", [])) | set(record.get("dire", []))
 
@@ -503,14 +743,35 @@ def record_center(record):
     return tuple(center)
 
 
-def record_hero_second_centers(ctx, pos_index, start, end, hero_names):
-    hero_to_unit = {
+def hero_unit_by_name(ctx):
+    return {
         hero: unit
         for unit, hero in ctx.unit_to_cn.items()
         if str(unit).startswith("npc_dota_hero_")
     }
+
+
+def record_hero_second_positions(ctx, pos_index, start, end, hero_names):
+    hero_to_unit = hero_unit_by_name(ctx)
+    positions = {}
+    for t in range(max(0, start), end + 1):
+        second_positions = {}
+        for hero in hero_names:
+            unit = hero_to_unit.get(hero)
+            if not unit:
+                continue
+            pos = pos_index.nearest(unit, t, max_gap=2)
+            if pos is not None:
+                second_positions[hero] = [round(pos[0], 3), round(pos[1], 3)]
+        if second_positions:
+            positions[str(t)] = second_positions
+    return positions
+
+
+def record_hero_second_centers(ctx, pos_index, start, end, hero_names):
+    hero_to_unit = hero_unit_by_name(ctx)
     centers = {}
-    for t in range(start, end + 1):
+    for t in range(max(0, start), end + 1):
         points = []
         for hero in hero_names:
             unit = hero_to_unit.get(hero)
@@ -525,11 +786,99 @@ def record_hero_second_centers(ctx, pos_index, start, end, hero_names):
     return centers
 
 
+def cluster_interaction_positions(ctx, cluster):
+    positions = []
+    for signal in cluster["signals"]:
+        attacker_team = ctx.unit_team(signal.get("attacker"))
+        target_team = ctx.unit_team(signal.get("target"))
+        if attacker_team not in {2, 3} or target_team not in {2, 3} or attacker_team == target_team:
+            continue
+        if signal.get("kind") not in {"damage", "control", "death"}:
+            continue
+        pos = signal.get("pos")
+        if pos is None:
+            continue
+        interaction_distance = None
+        if signal.get("attacker_pos") and signal.get("target_pos"):
+            interaction_distance = distance_game(signal.get("attacker_pos"), signal.get("target_pos"))
+        is_remote = (
+            interaction_distance is not None
+            and interaction_distance > PARAMS["remote_contribution_distance_game"]
+        )
+        positions.append({
+            "time": signal["time"],
+            "pos": [round(pos[0], 3), round(pos[1], 3)],
+            "kind": signal.get("kind"),
+            "attacker": ctx.unit_hero(signal.get("attacker")),
+            "target": ctx.unit_hero(signal.get("target")),
+            "distance_game": None if interaction_distance is None else round(interaction_distance),
+            "is_remote": is_remote,
+        })
+    return positions
+
+
 def record_hero_second_center(record, second):
     center = (record.get("hero_second_centers") or {}).get(str(second))
     if not center:
         return None
     return tuple(center)
+
+
+def record_hero_positions_at(record, second, heroes=None):
+    positions_by_second = record.get("hero_second_positions") or {}
+    positions = positions_by_second.get(str(second)) or {}
+    allowed = set(heroes) if heroes else None
+    points = []
+    for hero, pos in positions.items():
+        if allowed is not None and hero not in allowed:
+            continue
+        if pos:
+            points.append(tuple(pos))
+    return points
+
+
+def continuation_second_center(left, right, second, heroes):
+    points = []
+    points.extend(record_hero_positions_at(left, second, heroes))
+    points.extend(record_hero_positions_at(right, second, heroes))
+    return average_position(points)
+
+
+def continuation_position_path(left, right, heroes):
+    gap = right["start"] - left["end"]
+    if gap <= 0:
+        start = max(left["start"], right["start"])
+        end = min(left["end"], right["end"])
+    else:
+        start = left["end"]
+        end = right["start"]
+
+    centers = []
+    max_step = 0
+    previous = None
+    for second in range(start, end + 1):
+        center = continuation_second_center(left, right, second, heroes)
+        if center is None:
+            continue
+        if previous is not None:
+            step = distance_game(previous, center)
+            if step is not None:
+                max_step = max(max_step, step)
+                if step > PARAMS["merge_interaction_continuation_step_distance_game"]:
+                    return None
+        centers.append((second, center))
+        previous = center
+
+    if not centers:
+        return None
+    if gap > 0 and len(centers) < 2:
+        return None
+    return {
+        "seconds": len(centers),
+        "max_step_game": max_step,
+        "start_second": centers[0][0],
+        "end_second": centers[-1][0],
+    }
 
 
 def min_hero_second_center_distance(left, right):
@@ -621,6 +970,110 @@ def merge_hero_second_centers(left, right):
     return merged
 
 
+def merge_hero_second_positions(left, right):
+    merged = {
+        second: dict(positions)
+        for second, positions in (left.get("hero_second_positions") or {}).items()
+    }
+    for second, positions in (right.get("hero_second_positions") or {}).items():
+        if second not in merged:
+            merged[second] = dict(positions)
+            continue
+        merged[second].update(positions)
+    return merged
+
+
+def center_from_hero_positions(record, start, end):
+    points = []
+    for second_text, positions in (record.get("hero_second_positions") or {}).items():
+        try:
+            second = int(second_text)
+        except (TypeError, ValueError):
+            continue
+        if second < start or second > end:
+            continue
+        for pos in positions.values():
+            if pos:
+                points.append(tuple(pos))
+    return average_position(points)
+
+
+def merge_interaction_positions(left, right):
+    return sorted(
+        (left.get("interaction_positions") or []) + (right.get("interaction_positions") or []),
+        key=lambda item: (item.get("time", 0), item.get("kind", "")),
+    )
+
+
+def record_interaction_heroes(record, direct_only=False):
+    heroes = set()
+    for item in record.get("interaction_positions") or []:
+        if direct_only and item.get("is_remote"):
+            target = item.get("target")
+            if target:
+                heroes.add(target)
+            continue
+        for key in ("attacker", "target"):
+            hero = item.get(key)
+            if hero:
+                heroes.add(hero)
+    return heroes
+
+
+def should_merge_interaction_continuation(left, right):
+    gap = right["start"] - left["end"]
+    if gap > interaction_continuation_gap_seconds_for_time(right["start"]):
+        return False
+    shared = record_interaction_heroes(left, direct_only=True) & record_interaction_heroes(right, direct_only=True)
+    if not shared:
+        return False
+    return continuation_position_path(left, right, shared) is not None
+
+
+def gank_sides(record):
+    if not has_any_label(record.get("label", ""), {"GANK"}):
+        return None
+    radiant = set(record.get("radiant") or [])
+    dire = set(record.get("dire") or [])
+    if len(radiant) >= PARAMS["gank_min_attacker_side_heroes"] and len(dire) <= PARAMS["gank_max_victim_side_heroes"]:
+        return {"attackers": radiant, "victims": dire}
+    if len(dire) >= PARAMS["gank_min_attacker_side_heroes"] and len(radiant) <= PARAMS["gank_max_victim_side_heroes"]:
+        return {"attackers": dire, "victims": radiant}
+    return None
+
+
+def should_merge_chase_record(left, right):
+    gap = right["start"] - left["end"]
+    if gap < 0 or gap > PARAMS["merge_chase_gap_seconds"]:
+        return False
+    sides = gank_sides(right)
+    if not sides:
+        return False
+    left_heroes = record_heroes(left)
+    if not (sides["victims"] & left_heroes):
+        return False
+    if len(sides["attackers"] & left_heroes) < PARAMS["merge_chase_min_shared_attackers"]:
+        return False
+
+    left_center = record_center(left)
+    right_center = record_center(right)
+    if left_center is not None and right_center is not None:
+        if distance_game(left_center, right_center) <= PARAMS["merge_chase_center_distance_game"]:
+            return True
+
+    hero_center_distance = min_hero_second_center_distance(left, right)
+    return (
+        hero_center_distance is not None
+        and hero_center_distance <= PARAMS["merge_chase_center_distance_game"]
+    )
+
+
+def remove_label(label_text, label_to_remove):
+    labels = [label.strip() for label in str(label_text).split("/") if label.strip()]
+    labels = [label for label in labels if label != label_to_remove]
+    return " / ".join(labels)
+
+
 def merge_adjacent_record(left, right):
     left_count = max(left.get("signal_count", 0), 1)
     right_count = max(right.get("signal_count", 0), 1)
@@ -668,15 +1121,49 @@ def merge_adjacent_record(left, right):
         "deaths": deaths,
         "signal_count": left.get("signal_count", 0) + right.get("signal_count", 0),
         "hero_second_centers": merge_hero_second_centers(left, right),
+        "hero_second_positions": merge_hero_second_positions(left, right),
+        "interaction_positions": merge_interaction_positions(left, right),
         "evidence": f"{left.get('evidence', '')}; merged_adjacent_fight gap={right['start'] - left['end']}s; next_evidence=({right.get('evidence', '')})",
     }
-    return merged
+    return reclassify_merged_record(merged)
+
+
+def merge_chase_record(left, right):
+    merged = merge_adjacent_record(left, right)
+    merged["label"] = remove_label(merged["label"], "GANK") or left["label"]
+    merged["evidence"] = (
+        f"{merged.get('evidence', '')}; merged_chase_gank gap={right['start'] - left['end']}s "
+        f"absorbed_time_range={right.get('time_range')}"
+    )
+    return reclassify_merged_record(merged)
+
+
+def merge_interaction_continuation_record(left, right):
+    merged = merge_adjacent_record(left, right)
+    shared = sorted(record_interaction_heroes(left, direct_only=True) & record_interaction_heroes(right, direct_only=True))
+    path = continuation_position_path(left, right, set(shared)) or {}
+    updated_center = center_from_hero_positions(merged, merged["start"], merged["end"])
+    if updated_center is not None:
+        merged["center_raw"] = [round(updated_center[0], 3), round(updated_center[1], 3)]
+    if has_any_label(right.get("label", ""), {"GANK"}):
+        merged["label"] = remove_label(merged["label"], "GANK") or left["label"]
+    merged["evidence"] = (
+        f"{merged.get('evidence', '')}; merged_interaction_continuation "
+        f"gap={right['start'] - left['end']}s shared_interaction_heroes={shared} "
+        f"path_seconds={path.get('seconds')} path_max_step_game={path.get('max_step_game', 0):.0f} "
+        f"absorbed_time_range={right.get('time_range')}"
+    )
+    return reclassify_merged_record(merged)
 
 
 def merge_adjacent_fight_records(records):
     merged = []
     for record in sorted(records, key=lambda item: (item["start"], item["end"])):
-        if merged and should_merge_adjacent_records(merged[-1], record):
+        if merged and should_merge_interaction_continuation(merged[-1], record):
+            merged[-1] = merge_interaction_continuation_record(merged[-1], record)
+        elif merged and should_merge_chase_record(merged[-1], record):
+            merged[-1] = merge_chase_record(merged[-1], record)
+        elif merged and should_merge_adjacent_records(merged[-1], record):
             merged[-1] = merge_adjacent_record(merged[-1], record)
         else:
             merged.append(record)
@@ -794,21 +1281,39 @@ def apply_roshan_fight_context(records, roshan_context):
 
 
 def roshan_pit_context_for_record(record):
+    if record["start"] < PARAMS["roshan_context_min_time"]:
+        return None
     if not has_any_label(record["label"], {"团战", "小规模冲突"}):
         return None
-    center = record.get("center_raw")
-    if not center:
+    opening_points = []
+    opening_seconds = []
+    hero_names = record_heroes(record)
+    start = record["start"]
+    end = min(record["end"], start + PARAMS["roshan_pit_opening_seconds"] - 1)
+    for second in range(start, end + 1):
+        points = record_hero_positions_at(record, second, hero_names)
+        if not points:
+            continue
+        opening_seconds.append(second)
+        opening_points.extend(points)
+    opening_center = average_position(opening_points)
+    if opening_center is None:
         return None
     best = None
+    radius = PARAMS["roshan_pit_context_radius_game"]
     for pit_name, pit in ROSHAN_PITS.items():
-        dist = distance_game(tuple(center), pit["raw"])
-        if dist is None or dist > PARAMS["roshan_pit_context_radius_game"]:
+        dist = distance_game(opening_center, pit["raw"])
+        if dist is None or dist > radius:
             continue
         candidate = {
             "pit_name": pit_name,
             "distance_game": dist,
             "server": pit["server"],
             "raw": pit["raw"],
+            "opening_center": [round(opening_center[0], 3), round(opening_center[1], 3)],
+            "opening_start": opening_seconds[0],
+            "opening_end": opening_seconds[-1],
+            "opening_position_count": len(opening_points),
         }
         if best is None or candidate["distance_game"] < best["distance_game"]:
             best = candidate
@@ -827,6 +1332,9 @@ def apply_roshan_pit_fight_context(records):
             record["evidence"] = (
                 f"{record['evidence']}; roshan_pit_context={context_text} "
                 f"server={context['server']} raw=({context['raw'][0]:.3f},{context['raw'][1]:.3f}) "
+                f"opening_seconds={seconds_to_time(context['opening_start'])}-{seconds_to_time(context['opening_end'])} "
+                f"opening_center=({context['opening_center'][0]:.3f},{context['opening_center'][1]:.3f}) "
+                f"opening_position_count={context['opening_position_count']} "
                 f"distance_game={context['distance_game']:.0f} "
                 f"radius_game={PARAMS['roshan_pit_context_radius_game']}"
             )
@@ -871,8 +1379,39 @@ def tower_status_near_time(rows, time_value):
     return latest
 
 
-def tower_context_for_record(record, tower_context):
+def tower_context_center_for_record(record):
+    hero_names = (
+        set(record.get("direct_radiant") or [])
+        | set(record.get("direct_dire") or [])
+    ) - (
+        set(record.get("remote_radiant") or [])
+        | set(record.get("remote_dire") or [])
+        | set(record.get("remote_then_direct_radiant") or [])
+        | set(record.get("remote_then_direct_dire") or [])
+    )
+    if not hero_names:
+        hero_names = record_heroes(record)
+    start = record["start"]
+    end = min(record["end"], start + PARAMS["tower_context_opening_seconds"] - 1)
+    opening_points = []
+    opening_seconds = []
+    for second in range(start, end + 1):
+        points = record_hero_positions_at(record, second, hero_names)
+        if not points:
+            continue
+        opening_seconds.append(second)
+        opening_points.extend(points)
+    opening_center = average_position(opening_points)
+    if opening_center is not None:
+        return opening_center, opening_seconds, len(opening_points), "opening"
     center = record.get("center_raw")
+    if center:
+        return tuple(center), [], 0, "full"
+    return None, [], 0, "none"
+
+
+def tower_context_for_record(record, tower_context):
+    center, opening_seconds, position_count, center_method = tower_context_center_for_record(record)
     if not center:
         return None
     radius_raw = PARAMS["tower_context_radius"] / 130
@@ -892,6 +1431,11 @@ def tower_context_for_record(record, tower_context):
             "distance_raw": dist,
             "pos": status["pos"],
             "status_time": status["time"],
+            "center_method": center_method,
+            "opening_start": opening_seconds[0] if opening_seconds else None,
+            "opening_end": opening_seconds[-1] if opening_seconds else None,
+            "opening_position_count": position_count,
+            "context_center": [round(center[0], 3), round(center[1], 3)],
         }
         if best is None or candidate["distance_raw"] < best["distance_raw"]:
             best = candidate
@@ -914,7 +1458,15 @@ def apply_tower_fight_context(records, tower_context):
             record["evidence"] = (
                 f"{record['evidence']}; tower_context=ehandle={context['ehandle']} "
                 f"team={side} hp={hp_text} distance_raw={context['distance_raw']:.1f} "
-                f"status_time={seconds_to_time(context['status_time'])}"
+                f"status_time={seconds_to_time(context['status_time'])} "
+                f"center_method={context.get('center_method')} "
+                f"context_center=({context['context_center'][0]:.3f},{context['context_center'][1]:.3f})"
+                + (
+                    f" opening_seconds={seconds_to_time(context['opening_start'])}-{seconds_to_time(context['opening_end'])} "
+                    f"opening_position_count={context['opening_position_count']}"
+                    if context.get("opening_start") is not None and context.get("opening_end") is not None
+                    else ""
+                )
             )
         annotated.append(record)
     return annotated
@@ -927,25 +1479,33 @@ def build_fight_records(ctx):
     records = []
     for cluster in raw_clusters:
         stats = cluster_stats(ctx, cluster)
+        stats_for_record = death_window_core_stats(ctx, cluster, stats)
         duration = cluster["end"] - cluster["start"]
-        label = classify_fight(stats, duration)
-        if not label or not is_valid_seed(cluster, stats):
+        label = classify_fight(stats_for_record, duration)
+        if not label or not is_valid_seed(ctx, cluster, stats, label):
             continue
-        records.append({
+        record_radiant = stats_for_record["radiant"]
+        record_dire = stats_for_record["dire"]
+        if label in {"单杀", "鍗曟潃"} and stats["deaths"]:
+            record_radiant = stats_for_record["direct_radiant"] or stats_for_record["radiant"]
+            record_dire = stats_for_record["direct_dire"] or stats_for_record["dire"]
+        hero_names = record_radiant + record_dire
+        position_pad = PARAMS["merge_interaction_continuation_position_pad_seconds"]
+        record = {
             "match_id": ctx.match_id,
             "start": cluster["start"],
             "end": cluster["end"],
             "time_range": time_range(cluster["start"], cluster["end"]),
             "label": label,
             "center_raw": None if cluster["center"] is None else [round(cluster["center"][0], 3), round(cluster["center"][1], 3)],
-            "radiant": stats["radiant"],
-            "dire": stats["dire"],
+            "radiant": record_radiant,
+            "dire": record_dire,
             "remote_radiant": stats["remote_radiant"],
             "remote_dire": stats["remote_dire"],
             "remote_then_direct_radiant": stats["remote_then_direct_radiant"],
             "remote_then_direct_dire": stats["remote_then_direct_dire"],
-            "direct_radiant": stats["direct_radiant"],
-            "direct_dire": stats["direct_dire"],
+            "direct_radiant": stats_for_record["direct_radiant"],
+            "direct_dire": stats_for_record["direct_dire"],
             "damage_radiant": stats["damage_radiant"],
             "damage_dire": stats["damage_dire"],
             "damage_taken_radiant": stats["damage_taken_radiant"],
@@ -958,14 +1518,22 @@ def build_fight_records(ctx):
             "hero_second_centers": record_hero_second_centers(
                 ctx,
                 pos_index,
-                cluster["start"],
-                cluster["end"],
-                stats["radiant"] + stats["dire"],
+                cluster["start"] - position_pad,
+                cluster["end"] + position_pad,
+                hero_names,
             ),
+            "hero_second_positions": record_hero_second_positions(
+                ctx,
+                pos_index,
+                cluster["start"] - position_pad,
+                cluster["end"] + position_pad,
+                hero_names,
+            ),
+            "interaction_positions": cluster_interaction_positions(ctx, cluster),
             "evidence": evidence_text(cluster, stats),
-        })
+        }
+        records.append(prune_death_record_participants(record))
     records = merge_adjacent_fight_records(records)
-    records = apply_roshan_fight_context(records, build_roshan_context(ctx))
     records = apply_roshan_pit_fight_context(records)
     records = apply_tower_fight_context(records, build_tower_context(ctx))
     records = apply_laning_kill_context(records)

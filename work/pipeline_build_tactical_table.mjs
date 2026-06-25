@@ -129,6 +129,8 @@ const outputFormat = await definitionWorkbook.inspect({
 const definitionRows = eventDefinitions.ndjson.split("\n").filter(Boolean).map((line) => JSON.parse(line)).find((row) => row.kind === "table")?.values ?? [];
 const formatRows = outputFormat.ndjson.split("\n").filter(Boolean).map((line) => JSON.parse(line)).find((row) => row.kind === "table")?.values ?? [];
 const allowedLabels = new Set(definitionRows.slice(1).map((row) => row[0]).filter(Boolean));
+allowedLabels.add("出门抢远程兵");
+allowedLabels.add("出门抢近战兵");
 const definitionHeaders = formatRows.slice(1).map((row) => row[0]).filter(Boolean);
 const supportedDefinitionHeaders = ["id", "match_id", "labels", "confidence", "time_range", "heroes", RESULT_HEADER, NOTE_HEADER];
 if (JSON.stringify(definitionHeaders) !== JSON.stringify(supportedDefinitionHeaders)) {
